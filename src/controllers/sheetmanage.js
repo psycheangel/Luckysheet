@@ -27,7 +27,7 @@ import {
 } from "../utils/util";
 import { sheetHTML, luckysheetlodingHTML } from "./constant";
 import server from "./server";
-import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 import pivotTable from "./pivotTable";
 import luckysheetsizeauto from "./resize";
 import luckysheetPostil from "./postil";

@@ -3,7 +3,7 @@ import {
   columeHeader_word_index,
   luckysheetdefaultFont,
 } from "../controllers/constant";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 import menuButton from "../controllers/menuButton";
 import { isdatatype, isdatatypemulti } from "../global/datecontroll";
 import { hasChinaword, isRealNum } from "../global/validate";
@@ -481,10 +481,13 @@ function showrightclickmenu($menu, x, y) {
   if (top < 0) {
     top = 0;
   }
-
+  const uuidInlineThree = getComputedInlineClassStyling(`
+    &.layout{
+  top: ${top}px; left: ${left}px;
+    }
+       `);
   $menu
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ top: top, left: left })
+   .addClass(uuidInlineThree + ' layout')
     .show();
 }
 
@@ -593,24 +596,40 @@ function mouseclickposition($menu, x, y, p) {
   }
 
   if (p == "lefttop") {
+    const uuidInlineThree = getComputedInlineClassStyling(`
+      &.layout{
+    top: ${top}px; left: ${x}px;
+      }
+         `);
     $menu
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ top: y, left: x })
+      .addClass(uuidInlineThree + ' layout')
       .show();
   } else if (p == "righttop") {
+    const uuidInlineThree = getComputedInlineClassStyling(`
+      &.layout{
+    top: ${y}px; left: ${x - menuW}px;
+      }
+         `);
     $menu
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ top: y, left: x - menuW })
+    .addClass(uuidInlineThree + ' layout')
       .show();
   } else if (p == "leftbottom") {
+    const uuidInlineThree = getComputedInlineClassStyling(`
+      &.layout{
+    bottom: ${ winH - y - 12}px; left: ${x}px;
+      }
+         `);
     $menu
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ bottom: winH - y - 12, left: x })
+    .addClass(uuidInlineThree + ' layout')
       .show();
   } else if (p == "rightbottom") {
+    const uuidInlineThree = getComputedInlineClassStyling(`
+      &.layout{
+    bottom: ${ winH - y - 12}px; left: ${x - menuW}px;
+      }
+         `);
     $menu
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ bottom: winH - y - 12, left: x - menuW })
+    .addClass(uuidInlineThree + ' layout')
       .show();
   }
 }
@@ -649,7 +668,6 @@ function seriesLoadScripts(scripts, options, callback) {
   //递归
   var recursiveLoad = function (i) {
     s[i] = document.createElement("script");
-    s[i].setAttribute("nonce", luckysheetConfigsetting.cspNonce);
     s[i].setAttribute("type", "text/javascript");
     // Attach handlers for all browsers
     // 异步
@@ -703,7 +721,7 @@ function parallelLoadScripts(scripts, options, callback) {
   var loaded = 0;
   for (var i = 0; i < scripts.length; i++) {
     s[i] = document.createElement("script");
-    s[i].setAttribute("nonce", luckysheetConfigsetting.cspNonce);
+
     s[i].setAttribute("type", "text/javascript");
     // Attach handlers for all browsers
     // 异步
@@ -816,10 +834,14 @@ function transformRangeToAbsolute(txt1) {
 }
 
 function openSelfModel(id, isshowMask = true) {
+  const uuidInlineThree = getComputedInlineClassStyling(`
+    &.layout{
+  min-width:300px;
+    }
+       `);
   let $t = $("#" + id)
       .find(".luckysheet-modal-dialog-content")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("min-width", 300)
+      .addClass(uuidInlineThree  + ' layout')
       .end(),
     myh = $t.outerHeight(),
     myw = $t.outerWidth();
@@ -827,11 +849,13 @@ function openSelfModel(id, isshowMask = true) {
     winh = $(window).height();
   let scrollLeft = $(document).scrollLeft(),
     scrollTop = $(document).scrollTop();
-  $t.attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      left: (winw + scrollLeft - myw) / 2,
-      top: (winh + scrollTop - myh) / 3,
-    })
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout{
+  left: ${(winw + scrollLeft - myw) / 2}px;
+      top: ${(winh + scrollTop - myh) / 3}px;
+      }
+         `);
+  $t.addClass(uuidInline + ' layout')
     .show();
 
   if (isshowMask) {

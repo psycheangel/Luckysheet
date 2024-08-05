@@ -56,7 +56,7 @@ import {
   checkProtectionAuthorityNormal,
 } from "./protection";
 import Store from "../store";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 export function rowColumnOperationInitial() {
   //表格行标题 mouse事件

@@ -3,7 +3,7 @@ import { luckysheet_searcharray } from "../controllers/sheetSearch";
 import { luckysheetrefreshgrid } from "../global/refresh";
 import Store from "../store";
 import method from "../global/method";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting, { getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 let scrollRequestAnimationFrameIni = true,
   scrollRequestAnimationFrame = false,
@@ -89,25 +89,24 @@ export default function luckysheetscrollevent(isadjust) {
   $("#luckysheet-rows-h").scrollTop(scrollTop); //行标题
 
   $t.scrollLeft(scrollLeft).scrollTop(scrollTop);
-
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout{
+ left: ${$("#luckysheet-input-box")
+  .css("left")}px;
+      top:${parseInt(
+        $("#luckysheet-input-box")
+          .css("top")
+      ) -
+      20}px;
+      z-index: ${$("#luckysheet-input-box")
+        .css("z-index")}
+    }
+        &.layout-position { 
+        left : ${scrollLeft}
+        }
+       `);
   $("#luckysheet-input-box-index")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      left: $("#luckysheet-input-box")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("left"),
-      top:
-        parseInt(
-          $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top")
-        ) -
-        20 +
-        "px",
-      "z-index": $("#luckysheet-input-box")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("z-index"),
-    })
+    .addClass(uuidInlineOne + ' layout')
     .show();
 
   // if(scrollRequestAnimationFrameIni && Store.scrollRefreshSwitch){
@@ -118,8 +117,7 @@ export default function luckysheetscrollevent(isadjust) {
   luckysheetrefreshgrid(scrollLeft, scrollTop);
 
   $("#luckysheet-bottom-controll-row")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("left", scrollLeft);
+    .addClass(uuidInlineOne + ' layout-position');
 
   //有选区且有冻结时，滚动适应
   if (

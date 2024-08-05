@@ -49,7 +49,7 @@ import {
 // import luckysheet_function from '../function/luckysheet_function';
 // import functionlist from '../function/functionlist';
 
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 import {
   luckysheet_compareWith,
   luckysheet_getarraydata,
@@ -898,19 +898,21 @@ const luckysheetformula = {
         (cellrange.sheetIndex == -1 &&
           _this.rangetosheet == Store.currentSheetIndex)
       ) {
+        const uuidInlineTwo = getComputedInlineClassStyling(`
+          &.layout{
+        background: ${luckyColor[rangeindex]};
+          }
+             `);
         $("#" + rangeid)
           .data("range", cellrange)
           .find(".luckysheet-copy")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ background: luckyColor[rangeindex] })
+          .addClass(uuidInlineTwo + ' layout')
           .end()
           .find(".luckysheet-highlight")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ background: luckyColor[rangeindex] })
+          .addClass(uuidInlineTwo + ' layout')
           .end()
           .find(".luckysheet-selection-copy-hc")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ background: luckyColor[rangeindex] });
+          .addClass(uuidInlineTwo + ' layout');
 
         seletedHighlistByindex(
           rangeid,
@@ -1014,13 +1016,14 @@ const luckysheetformula = {
     if (left < 0) {
       left = 0;
     }
-
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout{
+    top: ${top}px;
+        left: ${left}px;
+      }
+         `);
     $menu
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        top: top,
-        left: left,
-      })
+      .addClass(uuidInline + ' layout')
       .show();
   },
   searchFunctionCell: null,
@@ -1233,17 +1236,25 @@ const luckysheetformula = {
     ); //参数
 
     if (paramIndex == null) {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout{
+    font-weight: bold;
+        }
+           `);
       $(
         "#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name"
       )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("font-weight", "bold");
+       .addClass(uuidInline + ' layout');
     } else {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout{
+    font-weight: normal;
+        }
+           `);
       $(
         "#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name"
       )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("font-weight", "normal");
+      .addClass(uuidInline + ' layout');
       let index =
         paramIndex >= $func.p.length ? $func.p.length - 1 : paramIndex;
       $(
@@ -1405,11 +1416,15 @@ const luckysheetformula = {
 
     let currSelection = _this.getrangeseleciton();
     $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout{
+  opacity: 0.03;
+      }
+         `);
     $(
       "#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc"
     )
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("opacity", "0.03");
+      .addClass(uuidInline + ' layout')
     $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
     _this.helpFunctionExe($editer, currSelection);
 
@@ -1427,13 +1442,14 @@ const luckysheetformula = {
     );
     let rangeindex = $anchorOffset.attr("rangeindex");
     let rangeid = "luckysheet-formula-functionrange-highlight-" + rangeindex;
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+  opacity: 0.13;
+      }
+         `);
     $("#" + rangeid)
       .find(".luckysheet-selection-copy-hc")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        opacity: "0.13",
-      });
+     addClass(uuidInlineOne + ' layout');
   },
   updatecell: function (r, c, value, isRefresh = true) {
     let _this = this;
@@ -2978,14 +2994,15 @@ const luckysheetformula = {
         _this.setCaretPosition($span.get(0), 0, range.length);
       }
     } else {
+      const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout{
+color:${luckyColor[_this.functionHTMLIndex]};
+        }
+           `);
       let function_str =
-        '<span class="luckysheet-formula-functionrange-cell" rangeindex="' +
+        `<span class="luckysheet-formula-functionrange-cell ${uuidInlineOne} layout" rangeindex="` +
         _this.functionHTMLIndex +
-        '" dir="auto" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="color:' +
-        luckyColor[_this.functionHTMLIndex] +
-        ';">' +
+        '" dir="auto" >' +
         range +
         "</span>";
       let $t = $(function_str).insertAfter(_this.rangeSetValueTo);
@@ -3115,15 +3132,16 @@ const luckysheetformula = {
     _this.func_selectedrange["height_move"] = height;
 
     luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+ left: ${left}px;
+        width: ${width}px;
+        top: ${top}px;
+        height: ${height}px;
+      }
+         `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: left,
-        width: width,
-        top: top,
-        height: height,
-      })
+     .addClass(uuidInlineOne + ' layout')
       .show();
 
     if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
@@ -3232,15 +3250,16 @@ const luckysheetformula = {
       row: [null, null],
       column: columnseleted,
     });
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+ left: ${left}px;
+        width: ${width}px;
+        top: ${row_pre}px;
+        height: ${row - row_pre - 1}px;
+      }
+         `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: left,
-        width: width,
-        top: row_pre,
-        height: row - row_pre - 1,
-      })
+    .addClass(uuidInlineOne +' layout')
       .show();
 
     luckysheetFreezen.scrollFreezen([0, row_index], columnseleted);
@@ -3322,15 +3341,16 @@ const luckysheetformula = {
       row: rowseleted,
       column: [null, null],
     });
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+ left: ${col_pre}px;
+        width: ${col - col_pre - 1}px;
+        top: ${top}px;
+        height: ${height}px;
+      }
+         `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: col_pre,
-        width: col - col_pre - 1,
-        top: top,
-        height: height,
-      })
+      .addClass(uuidInlineOne + ' layout')
       .show();
 
     luckysheetFreezen.scrollFreezen(rowseleted, [0, col_index]);
@@ -3514,6 +3534,14 @@ const luckysheetformula = {
       height: height,
       width: width,
     };
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+ top: ${top}px;
+      left: ${left}px;
+      height: ${height}px;
+      width: ${width}px;
+      }
+         `);
     let range = _this.getSelectedFromRange(selected);
     let rangetxt = getRangetxt(
       Store.currentSheetIndex,
@@ -3525,8 +3553,7 @@ const luckysheetformula = {
       .html(rangetxt);
     luckysheetRangeLast(_this.rangeResizeTo[0]);
     luckysheetCurrentChartResizeObj
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css(selected)
+      .addClass(uuidInlineOne + ' layout')
       .data("range", range);
   },
   getSelectedFromRange: function (obj) {
@@ -3551,12 +3578,15 @@ const luckysheetformula = {
     luckysheetCurrentChartResizeWinH
   ) {
     let _this = this;
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+opacity : 0.03;
+      }
+         `);
     _this.rangeResize = null;
     $("#luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex)
       .find(".luckysheet-selection-copy-hc")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("opacity", 0.03);
+      .addClass(uuidInlineOne + ' layout');
   },
   rangeMovexy: null,
   rangeMove: false,
@@ -3645,6 +3675,15 @@ const luckysheetformula = {
       height: row - row_pre - 2,
       display: "block",
     };
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+  left: ${col_pre}px;
+      width: ${col - col_pre - 2}px;
+      top: ${row_pre}px;
+      height: ${row - row_pre - 2}px;
+      display: block;
+      }
+         `);
     let range = _this.getSelectedFromRange(selected);
     let rangetxt = getRangetxt(
       Store.currentSheetIndex,
@@ -3656,17 +3695,20 @@ const luckysheetformula = {
       .html(rangetxt);
     luckysheetRangeLast(_this.rangeResizeTo[0]);
     _this.rangeMoveRangedata = range;
-    obj.attr("nonce", luckysheetConfigsetting.cspNonce).css(selected);
+    obj.addClass(uuidInlineOne + ' layout');
   },
   rangeMoveDragged: function (obj) {
     let _this = this;
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+  opacity : 0.03;
+      }
+         `);
     _this.rangeMove = false;
     $("#luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex)
       .data("range", _this.rangeMoveRangedata)
       .find(".luckysheet-selection-copy-hc")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("opacity", 0.03);
+      .addClass(uuidInlineOne + ' layout');
   },
   functionHTMLIndex: 0,
   functionRangeIndex: null,
@@ -4233,14 +4275,15 @@ const luckysheetformula = {
       if (i == funcstack.length - 1) {
         //function_str += str;
         if (_this.iscelldata($.trim(str))) {
+          const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout{
+        color:${luckyColor[_this.functionHTMLIndex]};
+            }
+               `);
           function_str +=
-            '<span class="luckysheet-formula-functionrange-cell" rangeindex="' +
+            `<span class="luckysheet-formula-functionrange-cell ${uuidInlineOne} layout" rangeindex="` +
             _this.functionHTMLIndex +
-            '" dir="auto" nonce="' +
-            luckysheetConfigsetting.cspNonce +
-            '" style="color:' +
-            luckyColor[_this.functionHTMLIndex] +
-            ';">' +
+            '" dir="auto">' +
             str +
             "</span>";
           _this.functionHTMLIndex++;
@@ -4260,11 +4303,13 @@ const luckysheetformula = {
                 str.substr(0, arraystart) +
                 "</span>";
             }
-
+            const uuidInlineOne = getComputedInlineClassStyling(`
+              &.layout{
+        color:#959a05;
+              }
+                 `);
             alltxt +=
-              '<span dir="auto" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="color:#959a05" class="luckysheet-formula-text-array">' +
+              `<span dir="auto" class="luckysheet-formula-text-array ${uuidInlineOne} layout">` +
               arraytxt +
               "</span>";
 
@@ -6948,16 +6993,17 @@ const luckysheetformula = {
       col = margeset.column[1];
       col_pre = margeset.column[0];
     }
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+  max-width: ${col - col_pre}px;
+        max-height: ${row - row_pre}px;
+        left:${ col - 20}px;
+        top: ${row_pre + (row - row_pre - 20) / 2}px;
+      }
+         `);
     $("#luckysheet-formula-refresh")
       .show()
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "max-width": col - col_pre,
-        "max-height": row - row_pre,
-        left: col - 20,
-        top: row_pre + (row - row_pre - 20) / 2,
-      });
+     .addClass(uuidInlineOne + ' layout');
   },
   hideButton: function () {
     $("#luckysheet-formula-refresh").hide();

@@ -3439,10 +3439,12 @@ export default function luckysheetHandler() {
             height: height,
             width: width,
           };
-
+          const print = Object.keys(resizedata).map((t)=>{
+            return `${t} : ${resizedata[t]}px`;
+          });
           const uuidInline = getComputedInlineClassStyling(`
           &.layout {
-             ${resizedata}
+             ${print.join(';')};
            
           }
           `);

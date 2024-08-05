@@ -7,7 +7,7 @@ import browser from "./browser";
 import { replaceHtml } from "../utils/util";
 import locale from "../locale/locale";
 import server from "../controllers/server";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 const tooltip = {
   info: function (title, content) {
@@ -30,10 +30,14 @@ const tooltip = {
         style: "z-index:100003",
       })
     );
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout{
+      min-width : 300px;
+          }
+         `);
     let $t = $("#luckysheet-info")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+        .addClass(uuidInlineOne + ' layout')
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -41,12 +45,14 @@ const tooltip = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout{
+left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+            }
+           `);
     $("#luckysheet-info")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInline + ' layout')
       .show();
   },
   confirm: function (title, content, func1, func2, name1, name2) {
@@ -78,10 +84,14 @@ const tooltip = {
           "&nbsp;&nbsp;</button>",
       })
     );
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout{
+min-width:300px;
+          }
+         `);
     let $t = $("#luckysheet-confirm")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+       .addClass(uuidInline + ' layout')
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -89,12 +99,14 @@ const tooltip = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+      const uuidInlineTwo = getComputedInlineClassStyling(`
+        &.layout{
+left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+            }
+           `);
     $("#luckysheet-confirm")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineTwo + ' layout')
       .show();
     $t.find(".luckysheet-model-conform-btn").click(function () {
       if (typeof func1 == "function") {
@@ -117,6 +129,12 @@ const tooltip = {
     const locale_screenshot = _locale.screenshot;
     $("#luckysheet-modal-dialog-mask").show();
     $("#luckysheet-confirm").remove();
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+      &.layout{
+text-decoration:none;color:#fff;
+          }
+         `);
     $("body").append(
       replaceHtml(modelHTML, {
         id: "luckysheet-confirm",
@@ -125,9 +143,7 @@ const tooltip = {
         title: title,
         content: content,
         botton:
-          '<a nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="text-decoration:none;color:#fff;" class="download btn btn-primary luckysheet-model-conform-btn">&nbsp;&nbsp;' +
+          `<a class="download btn btn-primary luckysheet-model-conform-btn ${uuidInlineTwo} layout">&nbsp;&nbsp;` +
           locale_screenshot.downLoadBtn +
           '&nbsp;&nbsp;</a>&nbsp;&nbsp;<button class="btn btn-primary luckysheet-model-copy-btn">&nbsp;&nbsp;' +
           locale_screenshot.downLoadCopy +
@@ -136,10 +152,15 @@ const tooltip = {
           "&nbsp;&nbsp;</button>",
       })
     );
+    const uuidInlineThree = getComputedInlineClassStyling(`
+      &.layout{
+left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+          }
+         `);
     let $t = $("#luckysheet-confirm")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+       .addClass(uuidInlineThree + ' layout')
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -148,11 +169,7 @@ const tooltip = {
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-confirm")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineThree + ' layout')
       .show();
     $t.find(".luckysheet-model-conform-btn").click(function () {
       if (browser.isIE() == "1") {
@@ -160,10 +177,13 @@ const tooltip = {
       } else {
         if (!!window.ActiveXObject || "ActiveXObject" in window) {
           if ($("#IframeReportImg").length === 0) {
+            const uuidInlineThree = getComputedInlineClassStyling(`
+              &.layout{
+                  display:none;
+                  }
+                 `);
             $(
-              '<iframe nonce="' +
-                luckysheetConfigsetting.cspNonce +
-                '" style="display:none;" id="IframeReportImg" name="IframeReportImg" onload="downloadImg();" width="0" height="0" src="about:blank"></iframe>'
+              '<iframe class="'+uuidInlineThree+' layout" id="IframeReportImg" name="IframeReportImg" onload="downloadImg();" width="0" height="0" src="about:blank"></iframe>'
             ).appendTo("body");
           }
           if ($("#IframeReportImg").attr("src") != imgurl) {
@@ -207,18 +227,22 @@ const tooltip = {
     $("#luckysheet-modal-dialog-mask").show();
     let winw = $(window).width(),
       winh = $(window).height();
+      const uuidInlineThree = getComputedInlineClassStyling(`
+        &.layout{
+            height:${winh - 160}px;
+            }
+                   &.layoutOne{
+            height: ${winh - 90}px;
+        width: ${winw - 100}px;
+        left: 7px;
+        top: 14px;
+            }
+           `);
     $("#" + id)
       .find(".luckysheet-chart-point-config")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("height", winh - 160);
+      .addClass(uuidInlineThree + ' layout')
     $("#" + id)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        height: winh - 90,
-        width: winw - 100,
-        left: 7,
-        top: 14,
-      })
+    .addClass(uuidInlineThree + ' layoutOne')
       .show()
       .find(".luckysheet-model-save-btn")
       .click(function () {
@@ -278,24 +302,31 @@ const tooltip = {
             .find("div.jfk-tooltip-contentId")
             .html(tips);
           let toolwidth = $toolup.outerWidth();
+          const uuidInlineThree = getComputedInlineClassStyling(`
+            &.layout{
+                left: ${toolwidth / 2}px;
+                }
+                &.layoutOne {
+                left: ${ $t.outerWidth() / 2}px;
+                }
+                &.layoutTwo {
+                 top: ${toffset.top + $t.outerHeight() + 1}px;
+            left: ${toolleft}px;
+                }
+               `);
           $toolup
             .find("div.jfk-tooltip-arrow")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", toolwidth / 2);
+           .addClass(uuidInlineThree+ ' layout');
 
           let toolleft = toffset.left + ($t.outerWidth() - toolwidth) / 2;
           if (toolleft < 2) {
             toolleft = 2;
             $toolup
               .find("div.jfk-tooltip-arrow")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", $t.outerWidth() / 2);
+              .addClass(uuidInlineThree+ ' layoutOne');
           }
 
-          $toolup.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-            top: toffset.top + $t.outerHeight() + 1,
-            left: toolleft,
-          });
+          $toolup.addClass(uuidInlineThree+ ' layoutTwo');
         }, 300);
       })
       .on("mouseout", to, function (e) {
@@ -374,24 +405,31 @@ const tooltip = {
     if (style == "white") {
       pcss.background = "rgba(255, 255, 255, 0.65)";
       pcss.color = "#000";
+      const uuidInlineThree = getComputedInlineClassStyling(`
+        &.layout{
+        border: 1px solid #000;
+            }
+           `);
       $("#luckysheetpopover .luckysheetpopover-btn")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          border: "1px solid #000",
-        });
+        .addClass(uuidInlineThree + ' layout');
     }
-
+    const print = Object.keys(pcss).map((t)=>{
+      return `${t} : ${String(pcss[t]).replace('"','')}`
+    })
     setTimeout(function () {
+      const uuidInlineThree = getComputedInlineClassStyling(`
+        &.layout{
+        margin-left: ${-$("#luckysheetpopover .luckysheetpopover-btn").outerWidth() / 2};
+            }
+        &.layoutOne{
+        ${print.join(';')};
+        }
+           `);
       $("#luckysheetpopover .luckysheetpopover-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          "margin-left":
-            -$("#luckysheetpopover .luckysheetpopover-btn").outerWidth() / 2,
-        });
+      .addClass(uuidInlineThree + ' layout');
     }, 1);
     $("#luckysheetpopover")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css(pcss)
+      .addClass(uuidInlineThree + ' layoutOne')
       .fadeIn();
     $("#luckysheetpopover .luckysheetpopover-btn").click(function () {
       if (typeof exitsFuc == "function") {

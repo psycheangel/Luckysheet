@@ -46,7 +46,7 @@ import Store from "../store";
 import locale from "../locale/locale";
 import numeral from "numeral";
 import { luckysheetlodingHTML } from "../controllers/constant";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 const pivotTable = {
   pivotDatas: null,

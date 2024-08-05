@@ -11,7 +11,7 @@ import {
   filtersubmenuHTML,
   sheetconfigHTML,
 } from "../controllers/constant";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 import luckysheetPostil from "../controllers/postil";
 import { datagridgrowth } from "./getdata";
 import editor from "./editor";
@@ -66,25 +66,29 @@ export default function luckysheetcreatedom(
 
   const _locale = locale();
   const locale_info = _locale.info;
-
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+font-size: 14px;
+      }
+    &.layoutOne {
+font-size: 14px;color: #9c9c9c;
+      }
+    &.layoutTwo {
+font-size: 14px;color: #f34141;
+      }
+   `);
   let addControll =
     '<button id="luckysheet-bottom-add-row" class="btn btn-default">' +
     locale_info.add +
     '</button><input id="luckysheet-bottom-add-row-input" type="text" class="luckysheet-datavisual-config-input luckysheet-mousedown-cancel" placeholder="' +
     (luckysheetConfigsetting.addRowCount || 100) +
-    '"><span nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="font-size: 14px;">' +
+    `"><span class="${uuidInlineOne} layout">` +
     locale_info.row +
-    '</span><span nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="font-size: 14px;color: #9c9c9c;">(' +
+    `</span><span class="${uuidInlineOne} layoutOne">(` +
     locale_info.addLast +
     ")</span>";
   let backControll =
-    ' <button id="luckysheet-bottom-bottom-top" class="btn btn-default" nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="">' +
+    ' <button id="luckysheet-bottom-bottom-top" class="btn btn-default">' +
     locale_info.backTop +
     "</button>";
   // let pageControll = ' <span id="luckysheet-bottom-page-info" nonce="'+luckysheetConfigsetting.cspNonce+'" style="font-size: 14px;color: #f34141;">共'+ luckysheetConfigsetting.pageInfo.totalPage +'页，当前已显示'+ (luckysheetConfigsetting.pageInfo.currentPage) +'页，每页'+ luckysheetConfigsetting.pageInfo.pageSize +'条</span> <button id="luckysheet-bottom-page-next" class="btn btn-danger" nonce="'+luckysheetConfigsetting.cspNonce+'" style="">下一页</button>';
@@ -98,17 +102,11 @@ export default function luckysheetcreatedom(
       : "",
   });
   let pageControll =
-    ' <span id="luckysheet-bottom-page-info" nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="font-size: 14px;color: #f34141;">' +
+    ` <span id="luckysheet-bottom-page-info ${uuidInlineOne} layoutTwo">` +
     pageInfo +
-    '</span> <button id="luckysheet-bottom-page-next" class="btn btn-danger" nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="">下一页</button>';
+    '</span> <button id="luckysheet-bottom-page-next" class="btn btn-danger">下一页</button>';
   let pageControll2 =
-    ' <span id="luckysheet-bottom-page-info" nonce="' +
-    luckysheetConfigsetting.cspNonce +
-    '" style="font-size: 14px;color: #f34141;">' +
+    ` <span id="luckysheet-bottom-page-info  ${uuidInlineOne} layoutTwo" >`+
     pageInfo +
     "</span>";
 
@@ -128,11 +126,14 @@ export default function luckysheetcreatedom(
   if (luckysheetConfigsetting.enableAddBackTop) {
     bottomControll += backControll;
   }
-
+  const uuidInlineTwo = getComputedInlineClassStyling(`
+&.layout{
+height:${Store.rh_height}px;
+width:${Store.ch_width - 1}px;
+}
+   `);
   let flowstr = replaceHtml(
-    '<div id="luckysheetcoltable_0" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheettable_0" class="luckysheet-cell-sheettable" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height:${height}px;width:${width}px;"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> ' +
+    '<div id="luckysheetcoltable_0" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheettable_0" class="luckysheet-cell-sheettable '+uuidInlineTwo+' layout"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> ' +
       bottomControll +
       " </div> </div>",
     { height: Store.rh_height, width: Store.ch_width - 1 }
