@@ -119,33 +119,31 @@ const luckysheetFreezen = {
           _this.verticalmovestate = true;
           _this.verticalmoveposition = $(this).position().left;
           _this.windowWidth = $("#luckysheet-grid-window-1").width();
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.cursor {
+            cursor: "-webkit-grabbing";
+          }
+        `);
           $(this).parent().addClass("luckysheet-freezebar-active");
           $("#luckysheet-freezebar-vertical")
             .find(".luckysheet-freezebar-vertical-handle")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("cursor", "-webkit-grabbing");
+            .addClass(uuidInline + ' cursor');
         });
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layoutOne {
+          height: ${gridheight - 10}px;
+          width: 4px,
+          cursor: -webkit-grab,
+          top: 0px,
+        }
+      `);
       let gridheight = $("#luckysheet-grid-window-1").height();
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          height: gridheight - 10,
-          width: "4px",
-          cursor: "-webkit-grab",
-          top: "0px",
-        })
+        .addClass(uuidInline + ' layoutOne')
         .end()
         .find(".luckysheet-freezebar-vertical-drop")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          height: gridheight - 10,
-          width: "4px",
-          top: "0px",
-          cursor: "-webkit-grab",
-        });
+        .addClass(uuidInline + ' layoutOne');
     }
 
     if (freezenverticaldata == null) {
@@ -190,30 +188,23 @@ const luckysheetFreezen = {
     _this.freezenverticaldata = freezenverticaldata;
 
     // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
-
+    const uuidInline = getComputedInlineClassStyling(`
+    &.select-none {
+      user-select: none;
+    }
+    &.layout-position {
+    left: ${left}px;
+    }
+  `);
     // 解决freeze 不垂直居中的问题
     const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            nonce="${
-              luckysheetConfigsetting.cspNonce
-            }" style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
-                nonce="${
-                  luckysheetConfigsetting.cspNonce
-                }" style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1"
-                        nonce="${
-                          luckysheetConfigsetting.cspNonce
-                        }" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block ${uuidInline} select-none">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block  ${uuidInline} select-none">
+                    <div class="luckysheet-icon luckysheet-inline-block  ${uuidInline} select-none">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1  ${uuidInline} select-none">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block  ${uuidInline} select-none">
                         ${locale().freezen.freezenCancel}
                     </div>
                 </div>
@@ -224,12 +215,10 @@ const luckysheetFreezen = {
     $("#luckysheet-freezebar-vertical")
       .show()
       .find(".luckysheet-freezebar-vertical-handle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ left: left })
+      .addClass(uuidInline + ' layout-position')
       .end()
       .find(".luckysheet-freezebar-vertical-drop")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ left: left });
+      .addClass(uuidInline + ' layout-position');
   },
   saveFreezen: function (
     freezenhorizontaldata,
@@ -416,32 +405,23 @@ const luckysheetFreezen = {
   },
   cancelFreezenHorizontal: function (sheetIndex) {
     let _this = this;
+    const uuidInline = getComputedInlineClassStyling(`
+    &.select-none {
+      user-select: none;
+    }
 
+  `);
     // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.default);
 
     // 解决freeze 不垂直居中的问题
     const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            nonce="${
-              luckysheetConfigsetting.cspNonce
-            }" style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
-                nonce="${
-                  luckysheetConfigsetting.cspNonce
-                }" style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1"
-                        nonce="${
-                          luckysheetConfigsetting.cspNonce
-                        }" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block ${uuidInline} select-none">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block  ${uuidInline} select-none">
+                    <div class="luckysheet-icon luckysheet-inline-block  ${uuidInline} select-none" >
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1  ${uuidInline} select-none">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block  ${uuidInline} select-none">
                         ${locale().freezen.default}
                     </div>
                 </div>
@@ -491,33 +471,33 @@ const luckysheetFreezen = {
           _this.horizontalmovestate = true;
           _this.horizontalmoveposition = $(this).position().top;
           _this.windowHeight = $("#luckysheet-grid-window-1").height();
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.cursor {
+            cursor : -webkit-grabbing;
+          }
+      
+        `);
           $(this).parent().addClass("luckysheet-freezebar-active");
           $("#luckysheet-freezebar-horizontal")
             .find(".luckysheet-freezebar-horizontal-handle")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("cursor", "-webkit-grabbing");
+            .addClass(uuidInline + ' cursor');
         });
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.cursorKit {
+          width: ${gridwidth - 10}px;
+          height: 4px;
+          cursor: -webkit-grab;
+          left: 0px;
+        }
+    
+      `);
       let gridwidth = $("#luckysheet-grid-window-1").width();
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          width: gridwidth - 10,
-          height: "4px",
-          cursor: "-webkit-grab",
-          left: "0px",
-        })
+       .addClass(uuidInline + ' cursorKit')
         .end()
         .find(".luckysheet-freezebar-horizontal-drop")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          width: gridwidth - 10,
-          height: "4px",
-          left: "0px",
-          cursor: "-webkit-grab",
-        });
+        .addClass(uuidInline + ' cursorKit');
     }
 
     if (freezenhorizontaldata == null) {
@@ -571,29 +551,20 @@ const luckysheetFreezen = {
     // $("#luckysheet-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale().freezen.freezenCancel);
 
     // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont-luckysheet luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
+    const uuidInline = getComputedInlineClassStyling(`
+    &.select-none {
+      user-select: none;
+    }
 
+  `);
     const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
-            nonce="${
-              luckysheetConfigsetting.cspNonce
-            }" style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
-                nonce="${
-                  luckysheetConfigsetting.cspNonce
-                }" style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1"
-                        nonce="${
-                          luckysheetConfigsetting.cspNonce
-                        }" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block ${uuidInline} select-none ">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block ${uuidInline} select-none ">
+                    <div class="luckysheet-icon luckysheet-inline-block ${uuidInline} select-none " >
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont-luckysheet luckysheet-iconfont-dongjie1 ${uuidInline} select-none ">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
-                    nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block ${uuidInline} select-none ">
                         ${locale().freezen.freezenCancel}
                     </div>
                 </div>
@@ -601,16 +572,19 @@ const luckysheetFreezen = {
         `;
 
     $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layoutPosition {
+      user-select: none;
+    }
 
+  `);
     $("#luckysheet-freezebar-horizontal")
       .show()
       .find(".luckysheet-freezebar-horizontal-handle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ top: top })
+      .addClass(uuidInlineOne + ' layoutPosition')
       .end()
       .find(".luckysheet-freezebar-horizontal-drop")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ top: top });
+      .addClass(uuidInlineOne + ' layoutPosition');
   },
   createAssistCanvas: function () {
     let _this = this;
@@ -705,6 +679,19 @@ const luckysheetFreezen = {
     }
   },
   createCanvas: function (id, width, height, left, top) {
+    const uuidInline = getComputedInlineClassStyling(`
+    &.layout {
+      user-select: none;
+      postion: absolute;
+      left: ${left}px;
+      top: ${top}px;
+      width: ${width}px;
+      height: ${height}px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+  `);
     let c = $("<canvas/>")
       .appendTo("#luckysheet-grid-window-1")
       .attr({
@@ -712,25 +699,20 @@ const luckysheetFreezen = {
         width: Math.ceil(width * Store.devicePixelRatio),
         height: Math.ceil(height * Store.devicePixelRatio),
       })
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "user-select": "none",
-        postion: "absolute",
-        left: left,
-        top: top,
-        width: width,
-        height: height,
-        "z-index": 10,
-        "pointer-events": "none",
-      });
+     .addClass(uuidInline + ' layout');
   },
   removeAssistCanvas: function () {
+    const uuidInline = getComputedInlineClassStyling(`
+    &.layout {
+
+      z-index: 15;
+    }
+  `);
     $("#luckysheet-grid-window-1 > canvas")
       .not($("#luckysheetTableContent"))
       .remove();
     $("#luckysheet-cell-selected")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("z-index", 15);
+    .addClass(uuidInline + ' layout');
   },
   scrollAdapt: function () {
     let _this = this;
@@ -833,57 +815,70 @@ const luckysheetFreezen = {
           if (top_move + height_move < freezenTop + offTop) {
             rangeshow = false;
           } else if (top_move < freezenTop + offTop) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${freezenTop + offTop}px;
+              height: ${height_move - (freezenTop + offTop - top_move)}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: freezenTop + offTop,
-                height: height_move - (freezenTop + offTop - top_move),
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move}px;
+              height: ${height_move}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move,
-                height: height_move,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else if (r2 >= freezen_rowindex) {
           //原选区有一部分在冻结区内
           if (top_move + height_move < freezenTop + offTop) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move + offTop}px;
+              height: ${freezenTop - top_move}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move + offTop,
-                height: freezenTop - top_move,
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move + offTop}px;
+              height: ${height_move - offTop}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move + offTop,
-                height: height_move - offTop,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else {
           //原选区在冻结区内
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            top: ${top_move + offTop}px;
+    
+          }
+        `);
           $("#luckysheet-cell-selected-boxs")
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", top_move + offTop);
+            .addClass(uuidInline + ' layout');
         }
 
         let c1 = obj.column[0],
@@ -900,57 +895,75 @@ const luckysheetFreezen = {
           if (left_move + width_move < freezenLeft + offLeft) {
             rangeshow = false;
           } else if (left_move < freezenLeft + offLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${freezenLeft + offLeft}px;
+              width: ${width_move - (freezenLeft + offLeft - left_move)}px;
+      
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: freezenLeft + offLeft,
-                width: width_move - (freezenLeft + offLeft - left_move),
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move}px;
+              width: ${width_move}px;
+      
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move,
-                width: width_move,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else if (c2 >= freezen_colindex) {
           //原选区有一部分在冻结区内
           if (left_move + width_move < freezenLeft + offLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move + offLeft}px;
+              width: ${freezenLeft - left_move}px;
+      
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move + offLeft,
-                width: freezenLeft - left_move,
-              });
+                .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move + offLeft}px;
+              width: ${ width_move - offLeft}px;
+      
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move + offLeft,
-                width: width_move - offLeft,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${left_move + offLeft}px;
+
+    
+          }
+        `);
           //原选区在冻结区内
           $("#luckysheet-cell-selected-boxs")
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", left_move + offLeft);
+            .addClass(uuidInline + ' layout');
         }
 
         if (!rangeshow) {
@@ -990,90 +1003,116 @@ const luckysheetFreezen = {
             if (top + height < freezenTop + offTop) {
               focuscell = false;
             } else if (top < freezenTop + offTop) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${freezenTop + offTop}px;
+                height: ${height - (freezenTop + offTop - top)}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: freezenTop + offTop,
-                  height: height - (freezenTop + offTop - top),
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top}px;;
+                height:${height}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top,
-                  height: height,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else if (top + height >= freezenTop) {
             if (top + height < freezenTop + offTop) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top + offTop}px;
+                height:${freezenTop - top}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top + offTop,
-                  height: freezenTop - top,
-                });
+              .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top + offTop}px;
+                height:${height - offTop}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top + offTop,
-                  height: height - offTop,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top + offTop}px;
+ 
+            }
+          `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", top + offTop);
+              .addClass(uuidInline + ' layout');
           }
 
           if (left >= freezenLeft) {
             if (left + width < freezenLeft + offLeft) {
               focuscell = false;
             } else if (left < freezenLeft + offLeft) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${freezenLeft + offLeft};
+                width: ${width - (freezenLeft + offLeft - left)}px
+   
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: freezenLeft + offLeft,
-                  width: width - (freezenLeft + offLeft - left),
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left}px;
+                width: ${width}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left,
-                  width: width,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else if (left + width >= freezenLeft) {
             if (left + width < freezenLeft + offLeft) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left + offLeft}px;
+                width: ${freezenLeft - left}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left + offLeft,
-                  width: freezenLeft - left,
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left + offLeft}px;
+                width: ${width - offLeft}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left + offLeft,
-                  width: width - offLeft,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left + offLeft}px;
+            }
+          `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", left + offLeft);
+              .addClass(uuidInline + ' layout');
           }
 
           if (!focuscell) {
@@ -1106,57 +1145,70 @@ const luckysheetFreezen = {
               .eq(s)
               .hide();
           } else if (top_move < freezenTop + offTop) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${freezenTop + offTop}px;
+              height: ${height_move - (freezenTop + offTop - top_move)}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: freezenTop + offTop,
-                height: height_move - (freezenTop + offTop - top_move),
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move};
+              height: ${height_move};
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move,
-                height: height_move,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else if (r2 >= freezen_rowindex) {
           //原选区有一部分在冻结区内
           if (top_move + height_move < freezenTop + offTop) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move + offTop}px;
+              height: ${freezenTop - top_move}px
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move + offTop,
-                height: freezenTop - top_move,
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top_move + offTop}px;
+              height: ${height_move - offTop}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: top_move + offTop,
-                height: height_move - offTop,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            top: ${top_move + offTop}px;
+      
+          }
+        `);
           //原选区在冻结区内
           $("#luckysheet-cell-selected-boxs")
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", top_move + offTop);
+            .addClass(uuidInline + ' layout');
         }
 
         if (s == Store.luckysheet_select_save.length - 1) {
@@ -1179,45 +1231,57 @@ const luckysheetFreezen = {
             if (top + height < freezenTop + offTop) {
               $("#luckysheet-cell-selected-focus").hide();
             } else if (top < freezenTop + offTop) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${freezenTop + offTop}px;
+                height: ${height - (freezenTop + offTop - top)}px
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: freezenTop + offTop,
-                  height: height - (freezenTop + offTop - top),
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top}px;
+                height: ${height}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top,
-                  height: height,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else if (top + height >= freezenTop) {
             if (top + height < freezenTop + offTop) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top + offTop}px;
+                height: ${freezenTop - top}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top + offTop,
-                  height: freezenTop - top,
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${top + offTop}px;
+                height: ${height - offTop}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: top + offTop,
-                  height: height - offTop,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${top + offTop}px;
+            }
+          `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", top + offTop);
+              .addClass(uuidInline + ' layout');
           }
         }
       }
@@ -1246,57 +1310,70 @@ const luckysheetFreezen = {
               .eq(s)
               .hide();
           } else if (left_move < freezenLeft + offLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${freezenLeft + offLeft}px
+              width: ${width_move - (freezenLeft + offLeft - left_move)}px
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: freezenLeft + offLeft,
-                width: width_move - (freezenLeft + offLeft - left_move),
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move}px;
+              width: ${width_move}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move,
-                width: width_move,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else if (c2 >= freezen_colindex) {
           //原选区有一部分在冻结区内
           if (left_move + width_move < freezenLeft + offLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move + offLeft}px;
+              width: ${freezenLeft - left_move}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move + offLeft,
-                width: freezenLeft - left_move,
-              });
+              .addClass(uuidInline + ' layout');
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left_move + offLeft}px;
+              width: ${width_move - offLeft}px;
+            }
+          `);
             $("#luckysheet-cell-selected-boxs")
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: left_move + offLeft,
-                width: width_move - offLeft,
-              });
+              .addClass(uuidInline + ' layout');
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${left_move + offLeft}px;
+  
+          }
+        `);
           //原选区在冻结区内
           $("#luckysheet-cell-selected-boxs")
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", left_move + offLeft);
+            .addClass(uuidInline + ' layout');
         }
 
         if (s == Store.luckysheet_select_save.length - 1) {
@@ -1319,45 +1396,58 @@ const luckysheetFreezen = {
             if (left + width < freezenLeft + offLeft) {
               $("#luckysheet-cell-selected-focus").hide();
             } else if (left < freezenLeft + offLeft) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${freezenLeft + offLeft}px;
+                width: ${width - (freezenLeft + offLeft - left)}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: freezenLeft + offLeft,
-                  width: width - (freezenLeft + offLeft - left),
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left}px;
+                width: ${width}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left,
-                  width: width,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else if (left + width >= freezenLeft) {
             if (left + width < freezenLeft + offLeft) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left}px;
+                width: ${width}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left + offLeft,
-                  width: freezenLeft - left,
-                });
+                .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${left + offLeft}px;
+                width: ${width - offLeft}px;
+              }
+            `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: left + offLeft,
-                  width: width - offLeft,
-                });
+                .addClass(uuidInline + ' layout');
             }
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${left + offLeft}px;
+     
+            }
+          `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", left + offLeft);
+              .addClass(uuidInline + ' layout');
           }
         }
       }
@@ -1400,23 +1490,35 @@ const luckysheetFreezen = {
       if (defaultTop >= freezenTop) {
         //原图片在冻结区外
         if (x.top < freezenTop) {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            visibility: hidden;
+   
+          }
+        `);
           //在界面上的位置已经进入冻结区里面了
           dialogImage
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("visibility", "hidden");
+           .addClass(uuidInline+ ' layout');
           isHidden = true;
         } else {
-          dialogImage.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-            visibility: "visible",
-          });
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            visibility: visible;
+   
+          }
+        `);
+          dialogImage .addClass(uuidInline+ ' layout');
         }
       } else {
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+          visibility: visible;
+          top: ${defaultTop + scrollTop}px;
+          height: ${height}px;
+        }
+      `);
         //原图片在冻结区内
-        dialogImage.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-          top: defaultTop + scrollTop,
-          height: height,
-          visibility: "visible",
-        });
+        dialogImage.addClass(uuidInline+ ' layout');
       }
 
       //列冻结
@@ -1424,22 +1526,34 @@ const luckysheetFreezen = {
         if (defaultLeft >= freezenLeft) {
           //原图片在冻结区外
           if (x.left < freezenLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              visibility: hidden;
+     
+            }
+          `);
             //在界面上的位置已经进入冻结区里面了
             dialogImage
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("visibility", "hidden");
+            .addClass(uuidInline+ ' layout');
           } else {
-            dialogImage.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-              visibility: "visible",
-            });
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              visibility: visible;
+     
+            }
+          `);
+            dialogImage.addClass(uuidInline+ ' layout');
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            visibility: visible;
+            left: ${defaultLeft + scrollLeft}px;
+            width: ${width}px;
+          }
+        `);
           //原图片在冻结区内
-          dialogImage.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-            left: defaultLeft + scrollLeft,
-            width: width,
-            visibility: "visible",
-          });
+          dialogImage.addClass(uuidInline+ ' layout');
         }
       }
     });
@@ -1475,68 +1589,97 @@ const luckysheetFreezen = {
             let size = freezenTop - (x.top - height_diff);
 
             if (size > $canvas_height + 40 + 2) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                visibility: hidden;
+           
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("visibility", "hidden");
+               .addClass(uuidInline + ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                top: ${freezenTop + scrollTop}px;
+                height: ${$canvas_height - size}px;
+                visibility: visible;
+              }
+              &.layout-position {
+                top: ${ -size}px;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: freezenTop + scrollTop,
-                  height: $canvas_height - size,
-                  visibility: "visible",
-                });
+              .addClass(uuidInline + ' layout');
               $(e)
                 .find("canvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top", -size);
+                .addClass(uuidInline + ' layout-position');
             }
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${x.top - height_diff + scrollTop}px;
+              height: ${$canvas_height}px;
+              visibility: visible;
+            }
+            &.layout-position {
+              top: 0px;
+            }
+          `);
             $(e)
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: x.top - height_diff + scrollTop,
-                height: $canvas_height,
-                visibility: "visible",
-              });
+           .addClass(uuidInline + ' layout');
             $(e)
               .find("canvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", 0);
+              .addClass(uuidInline + ' layout-position');
           }
 
           if (x.left - width_diff < freezenLeft) {
             let size = freezenLeft - (x.left - width_diff);
 
             if (size > $canvas_width + 20 + 2) {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+        
+                visibility: hidden;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("visibility", "hidden");
+                .addClass(uuidInline+ ' layout');
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+                left: ${freezenLeft + scrollLeft}px;
+                width: ${$canvas_width - size}px;
+                visibility:visible;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: freezenLeft + scrollLeft,
-                  width: $canvas_width - size,
-                  visibility: "visible",
-                });
+                .addClass(uuidInline + ' layout');
+                const uuidInlineOne = getComputedInlineClassStyling(`
+                &.layout {
+                  left: ${-size}px;
+                 
+                }
+              `);
               $(e)
                 .find("canvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("left", -size);
+                .addClass(uuidInlineOne + ' layout');
             }
           } else {
+            const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+              left:${ x.left - width_diff + scrollLeft}px;
+              width: ${$canvas_width};
+              visibility: visible;
+            }
+            &.layout-position {
+              left: 0px;
+            }
+          `);
             $(e)
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: x.left - width_diff + scrollLeft,
-                width: $canvas_width,
-                visibility: "visible",
-              });
+              .addClass(uuidInlineOne + ' layout');
             $(e)
               .find("canvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", 0);
+              .addClass(uuidInlineOne + ' layout-position');
           }
         }
       );
@@ -1557,34 +1700,58 @@ const luckysheetFreezen = {
             let size = freezenTop - (x.top - height_diff);
 
             if (size > $canvas_height + 40 + 2) {
+              const uuidInlineOne = getComputedInlineClassStyling(`
+              &.hidden {
+                visibility : hidden;
+              }
+              &.layout {
+                top: ${freezenTop + scrollTop}px;
+                height:${ $canvas_height - size}px;
+                visibility: visible;
+              }
+              &.layout-position {
+                left: ${-size}px;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("visibility", "hidden");
+               .addClass(uuidInlineOne + ' hidden');
             } else {
+              const uuidInlineOne = getComputedInlineClassStyling(`
+              &.hidden {
+                visibility : hidden;
+              }
+              &.layout {
+                top: ${freezenTop + scrollTop}px;
+                height:${ $canvas_height - size}px;
+                visibility: visible;
+              }
+              &.layout-position {
+                left: ${-size}px;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: freezenTop + scrollTop,
-                  height: $canvas_height - size,
-                  visibility: "visible",
-                });
+              .addClass(uuidInlineOne + ' layout');
               $(e)
                 .find("canvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top", -size);
+                .addClass(uuidInlineOne + ' layout-position');
             }
           } else {
+            const uuidInlineOne = getComputedInlineClassStyling(`
+      
+            &.layout {
+              top: ${ x.top - height_diff + scrollTop}px;
+              height:${ $canvas_height}px;
+              visibility: visible;
+            }
+            &.layout-position {
+              left: 0px;
+            }
+          `);
             $(e)
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                top: x.top - height_diff + scrollTop,
-                height: $canvas_height,
-                visibility: "visible",
-              });
+            .addClass(uuidInlineOne + ' layout');
             $(e)
               .find("canvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", 0);
+              .addClass(uuidInlineOne + ' layout-position');
           }
         }
       );
@@ -1605,34 +1772,58 @@ const luckysheetFreezen = {
             let size = freezenLeft - (x.left - width_diff);
 
             if (size > $canvas_width + 20 + 2) {
+              const uuidInlineOne = getComputedInlineClassStyling(`
+              &.hidden {
+                visibility : hidden;
+              }
+              &.layout {
+                left: ${freezenLeft + scrollLeft}px
+                width: ${$canvas_width - size}px;
+                visibility: visible;
+              }
+              &.layout-position {
+                left: ${-size}px;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("visibility", "hidden");
+               .addClass(uuidInlineOne + ' hidden');
             } else {
+              const uuidInlineOne = getComputedInlineClassStyling(`
+              &.hidden {
+                visibility : hidden;
+              }
+              &.layout {
+                left: ${freezenLeft + scrollLeft}px
+                width: ${$canvas_width - size}px;
+                visibility: visible;
+              }
+              &.layout-position {
+                left: ${-size}px;
+              }
+            `);
               $(e)
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: freezenLeft + scrollLeft,
-                  width: $canvas_width - size,
-                  visibility: "visible",
-                });
+              .addClass(uuidInlineOne + ' layout');
               $(e)
                 .find("canvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("left", -size);
+                .addClass(uuidInlineOne + ' layout-position');
             }
           } else {
+            const uuidInlineOne = getComputedInlineClassStyling(`
+
+            &.layout {
+              left: ${x.left - width_diff + scrollLeft}px
+              width: ${$canvas_width}px;
+              visibility: visible;
+            }
+            &.layout-position {
+              left: ${-size}px;
+            }
+          `);
             $(e)
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: x.left - width_diff + scrollLeft,
-                width: $canvas_width,
-                visibility: "visible",
-              });
+              .addClass(uuidInlineOne + ' layout');
             $(e)
               .find("canvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", 0);
+              .addClass(uuidInlineOne + ' layout-position');
           }
         }
       );
@@ -1648,24 +1839,26 @@ const luckysheetFreezen = {
 
           let height_diff = $canvas_height - height;
           let width_diff = $canvas_width - width;
+          const uuidInlineOne = getComputedInlineClassStyling(`
 
+          &.layout {
+            top: ${x.top - height_diff + scrollTop}px;
+            height: ${$canvas_height}px;
+            left: ${x.left - width_diff + scrollLeft}px;
+            width: ${$canvas_width}px;
+            visibility: visible;
+          }
+          &.layout-position {
+            top: 0px;
+            left: 0px;
+          }
+        `);
           $(e)
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              top: x.top - height_diff + scrollTop,
-              height: $canvas_height,
-              left: x.left - width_diff + scrollLeft,
-              width: $canvas_width,
-              visibility: "visible",
-            });
+            .addClass(uuidInlineOne + ' layout');
 
           $(e)
             .find("canvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              top: 0,
-              left: 0,
-            });
+            .addClass(uuidInlineOne + ' layout-position');
         }
       );
     }
@@ -1740,140 +1933,197 @@ const luckysheetFreezen = {
 
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
+            const uuidInlineOne = getComputedInlineClassStyling(`
+
+            &.layout-position {
+              top: ${postil_top + offTop}px;
+            }
+            &.layout-position-one {
+              top: ${size[1] + offTop}px;
+            }
+          `);
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", postil_top + offTop);
+              .addClass(uuidInlineOne + ' layout-position')
             $(e)
               .show()
               .find(".arrowCanvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", size[1] + offTop);
+              .addClass(uuidInlineOne + ' layout-position-one')
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
                 show = false;
               } else {
+                const uuidInlineOne = getComputedInlineClassStyling(`
+
+                &.layout-position {
+                  top: ${freezenTop + offTop}px;
+                  height: ${postil_height - (freezenTop + offTop - postil_top)}px
+                }
+                &.layout-position-one {
+                  margin-top: ${-(freezenTop + offTop - postil_top)}px;
+                }
+              `);
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css({
-                    top: freezenTop + offTop,
-                    height: postil_height - (freezenTop + offTop - postil_top),
-                  });
+                 .addClass(uuidInlineOne+ ' layout-position');
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("margin-top", -(freezenTop + offTop - postil_top));
+                  .addClass(uuidInlineOne+ ' layout-position-one');
                 $(e).show().find(".arrowCanvas").hide();
 
                 show2 = false;
               }
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+
+                &.layout-position {
+                  top: ${postil_top}px;
+                  height: ${postil_height}px
+                }
+                &.layout-position-one {
+                  margin-top: 0px;
+                }
+                &.layout-position-two {
+                  top : ${size[1]}px;
+                }
+              `);
               $(e)
                 .show()
                 .find(".luckysheet-postil-show-main")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: postil_top,
-                  height: postil_height,
-                });
+                .addClass(uuidInline + ' layout-position');
               $(e)
                 .show()
                 .find(".formulaInputFocus")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("margin-top", 0);
+                .addClass(uuidInline + ' layout-position-one');
               $(e)
                 .show()
                 .find(".arrowCanvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top", size[1]);
+                .addClass(uuidInline + ' layout-position-two');
               // luckysheetPostil.buildPs(r, c, postil);
             }
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+
+           
+                &.layout-position-one {
+                  top : ${postil_top + offTop}px;
+                }
+                &.layout-position-two {
+                  top : ${size[1] + offTop}px;
+                }
+              `);
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", postil_top + offTop);
+            .addClass(uuidInline + ' layout-position-one');
           $(e)
             .show()
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", size[1] + offTop);
+            .addClass(uuidInline + ' layout-position-two');
         }
 
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+
+           
+            &.layout-position-one {
+              left : ${postil_left + offLeft}px;
+            }
+            &.layout-position-two {
+              left : ${size[0] + offLeft}px;
+            }
+          `);
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", postil_left + offLeft);
+              .addClass(uuidInline + ' layout-position-one');
             $(e)
               .show()
               .find(".arrowCanvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", size[0] + offLeft);
+              .addClass(uuidInline + ' layout-position-two');
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
                 show = false;
               } else {
+                const uuidInline = getComputedInlineClassStyling(`
+
+           
+                &.layout-position-one {
+                  left : ${freezenLeft + offLeft}px;
+                  width: ${postil_width - (freezenLeft + offLeft - postil_left)}px;
+                }
+                &.layout-position-two {
+                  margin-left : ${-(freezenLeft + offLeft - postil_left)}px;
+                }
+              `);
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css({
-                    left: freezenLeft + offLeft,
-                    width: postil_width - (freezenLeft + offLeft - postil_left),
-                  });
+                  .addClass(uuidInline + ' layout-position-one');
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("margin-left", -(freezenLeft + offLeft - postil_left));
+                  .addClass(uuidInline + ' layout-position-two');
                 $(e).show().find(".arrowCanvas").hide();
 
                 show2 = false;
               }
             } else {
+              const uuidInline = getComputedInlineClassStyling(`
+
+           
+              &.layout-position-one {
+                left: ${postil_left}px;
+                width: ${postil_width}px;
+              }
+              &.layout-position-two {
+                margin-left :0px;
+              } 
+              &.layout-position-three {
+                left :${size[0]}px;
+              }
+            `);
               $(e)
                 .show()
                 .find(".luckysheet-postil-show-main")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  left: postil_left,
-                  width: postil_width,
-                });
+                .addClass(uuidInline + ' layout-position-one');
               $(e)
                 .show()
                 .find(".formulaInputFocus")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("margin-left", 0);
+                .addClass(uuidInline + ' layout-position-two');
               $(e)
                 .show()
                 .find(".arrowCanvas")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("left", size[0]);
+                .addClass(uuidInline + ' layout-position-three');
               // luckysheetPostil.buildPs(r, c, postil);
             }
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+
+           
+          &.layout-position-one {
+            left: ${postil_left + offLeft}px;
+          }
+          &.layout-position-two {
+            left :${size[0] + offLeft}px;
+          }
+        `);
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", postil_left + offLeft);
+            .addClass(uuidInline + ' layout-position-one');
           $(e)
             .show()
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", size[0] + offLeft);
+            .addClass(uuidInline + ' layout-position-two');
         }
 
         if (!show) {
@@ -1940,34 +2190,45 @@ const luckysheetFreezen = {
 
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
+
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout-position-one {
+              top: ${postil_top + offTop}px;
+            }
+            &.layout-position-two {
+              top :${size[1] + offTop}px;
+            }
+          `);
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", postil_top + offTop);
+        .addClass(uuidInline + ' layout-position-one');
             $(e)
               .show()
               .find(".arrowCanvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", size[1] + offTop);
+              .addClass(uuidInline + ' layout-position-two');
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
                 $(e).hide();
               } else {
+                const uuidInline = getComputedInlineClassStyling(`
+                &.layout-position-one {
+                  top: ${freezenTop + offTop}px;
+                  height:${postil_height - (freezenTop + offTop - postil_top)}px
+                }
+                &.layout-position-two {
+                  margin-top :${-(freezenTop + offTop - postil_top)}px;
+                }
+              `);
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css({
-                    top: freezenTop + offTop,
-                    height: postil_height - (freezenTop + offTop - postil_top),
-                  });
+                  .addClass(uuidInline + ' layout-position-one');
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("margin-top", -(freezenTop + offTop - postil_top));
+                  .addClass(uuidInline + ' layout-position-two');
                 $(e).show().find(".arrowCanvas").hide();
               }
             } else {
@@ -1975,16 +2236,23 @@ const luckysheetFreezen = {
             }
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            top: ${postil_top + offTop}px;
+    
+          }
+          &.layout-position-two {
+            margin-top :${size[1] + offTop}px;
+          }
+        `);
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", postil_top + offTop);
+            .addClass(uuidInline + ' layout-position-one');
           $(e)
             .show()
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", size[1] + offTop);
+            .addClass(uuidInline + ' layout-position-two');
         }
       });
     } else if (_this.freezenverticaldata != null) {
@@ -2043,34 +2311,46 @@ const luckysheetFreezen = {
 
         if (c >= _this.freezenverticaldata[1]) {
           if (postil_left + postil_width < freezenLeft) {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout-position-one {
+              left: ${postil_left + offLeft}px;
+      
+            }
+            &.layout-position-two {
+              left :${size[0] + offLeft}px;
+            }
+          `);
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", postil_left + offLeft);
+              .addClass(uuidInline + ' layout-position-one');
             $(e)
               .show()
               .find(".arrowCanvas")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", size[0] + offLeft);
+              .addClass(uuidInline + ' layout-position-two');
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
                 $(e).hide();
               } else {
+                const uuidInline = getComputedInlineClassStyling(`
+                &.layout-position-one {
+                  left: ${freezenLeft + offLeft}px;
+                  width: ${postil_width - (freezenLeft + offLeft - postil_left)}px;
+          
+                }
+                &.layout-position-two {
+                  margin-left :${-(freezenLeft + offLeft - postil_left)}px;
+                }
+              `);
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css({
-                    left: freezenLeft + offLeft,
-                    width: postil_width - (freezenLeft + offLeft - postil_left),
-                  });
+                  .addClass(uuidInline + ' layout-position-one');
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("margin-left", -(freezenLeft + offLeft - postil_left));
+                  .addClass(uuidInline + ' layout-position-two');
                 $(e).show().find(".arrowCanvas").hide();
               }
             } else {
@@ -2078,16 +2358,22 @@ const luckysheetFreezen = {
             }
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            left: ${postil_left + offLeft}px;
+          }
+          &.layout-position-two {
+            left :${size[0] + offLeft}px;
+          }
+        `);
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", postil_left + offLeft);
+            .addClass(uuidInline + ' layout-position-one');
           $(e)
             .show()
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", size[0] + offLeft);
+            .addClass(uuidInline + ' layout-position-two');
         }
       });
     } else {
@@ -2154,30 +2440,47 @@ const luckysheetFreezen = {
         } else {
           let col = colLocationByIndex(col_index + offsetColumn)[1];
 
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            left: ${col}px;
+          }
+      
+        `);
+
           $("#luckysheet-dropCell-icon")
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", col);
+            .addClass(uuidInline + ' layout-position-one')
         }
       } else if (col_index >= freezen_colindex) {
         if (col_index < freezen_colindex + offsetColumn - 1) {
           $("#luckysheet-dropCell-icon").hide();
         } else {
           let row = rowLocationByIndex(row_index + offsetRow)[1];
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            top: ${row}px;
+          }
+      
+        `);
           $("#luckysheet-dropCell-icon")
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", row);
+            .addClass(uuidInline + ' layout-position-one');
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1],
           col = colLocationByIndex(col_index + offsetColumn)[1];
 
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            left: ${col}px;
+            top: ${row}px;
+          }
+        `);
+
+
         $("#luckysheet-dropCell-icon")
           .show()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ left: col, top: row });
+          .addClass(uuidInline + ' layout-position-one');
       }
     } else if (_this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
@@ -2194,11 +2497,14 @@ const luckysheetFreezen = {
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1];
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layout-position-one {
+          top: ${row}px;
+          }
+        `);
         $("#luckysheet-dropCell-icon")
           .show()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("top", row);
+          .addClass(uuidInline + ' layout-position-one');
       }
     } else if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
@@ -2215,20 +2521,27 @@ const luckysheetFreezen = {
         }
       } else {
         let col = colLocationByIndex(col_index + offsetColumn)[1];
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layout-position-one {
+          left: ${col}px;
+          }
+        `);
         $("#luckysheet-dropCell-icon")
           .show()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("left", col);
+          .addClass(uuidInline + ' layout-position-one');
       }
     } else {
       let row = rowLocationByIndex(row_index)[1],
         col = colLocationByIndex(col_index)[1];
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layout-position-one {
+          left: ${col}px;
+          top : ${row}px;
+          }
+        `);
       $("#luckysheet-dropCell-icon")
         .show()
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: col, top: row });
+        .addClass(uuidInline + ' layout-position-one');
     }
   },
   scrollAdaptOffilteroptions: function () {
@@ -2272,31 +2585,43 @@ const luckysheetFreezen = {
             $(e).hide();
           } else {
             let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout-position-one {
+              left: ${left}px;
+         
+              }
+            `);
             $(e)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("left", left);
+              .addClass(uuidInline + ' layout-position-one');
           }
         } else if (col_index >= freezen_colindex) {
           if (col_index < freezen_colindex + offsetColumn) {
             $(e).hide();
           } else {
+            const uuidInline = getComputedInlineClassStyling(`
+            &.layout-position-one {
+              top: ${top + $("#luckysheet-cell-main").scrollTop()}px;
+         
+              }
+            `);
             $(e)
               .show()
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("top", top + $("#luckysheet-cell-main").scrollTop());
+              .addClass(uuidInline + ' layout-position-one');
+           
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+            left: ${left}px;
+            top: ${top + $("#luckysheet-cell-main").scrollTop()}px;
+       
+            }
+          `);
           $(e)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: left,
-              top: top + $("#luckysheet-cell-main").scrollTop(),
-            });
+            .addClass(uuidInline + ' layout-position-one');
         }
       });
     } else if (_this.freezenhorizontaldata != null) {
@@ -2319,10 +2644,16 @@ const luckysheetFreezen = {
             $(e).show();
           }
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
+
+            top: ${top + $("#luckysheet-cell-main").scrollTop()}px;
+       
+            }
+          `);
           $(e)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top", top + $("#luckysheet-cell-main").scrollTop());
+            .addClass(uuidInline + ' layout-position-one');
         }
       });
     } else if (_this.freezenverticaldata != null) {
@@ -2347,11 +2678,16 @@ const luckysheetFreezen = {
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout-position-one {
 
+            left: ${left}px;
+       
+            }
+          `);
           $(e)
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", left);
+            .addClass(uuidInline + ' layout-position-one');
         }
       });
     } else {
