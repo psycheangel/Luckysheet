@@ -59,28 +59,32 @@ function chart(options, config, isDemo) {
     Vue.use(chartmix.default, { store });
     let outDom = document.getElementsByTagName("body")[0];
     chartmix.default.initChart(outDom, chartInfo.lang);
+    const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+     top: 1px;
+      bottom: 1px;
+      position: absolute;
+      right: 0px;
+      width: 350px;
+      background: #fff;
 
-    $(".chartSetting").attr("nonce", luckysheetConfigsetting.cspNonce).css({
-      top: "1px",
-      bottom: "1px",
-      position: "absolute",
-      right: "0px",
-      width: "350px",
-      background: "#fff",
-
-      border: "1px solid #E5E5E5",
-      "z-index": 1004,
-      "box-shadow": "0px 2px 4px rgba(0,0,0,0.2)",
-      "-webkit-box-shadow": "0px 2px 4px rgba(0,0,0,0.2)",
-      "-moz-box-shadow": "0px 2px 4px rgba(0,0,0,0.2)",
-      "-moz-user-select": "none",
-      "-khtml-user-select": "none",
-      "-webkit-user-select": "none",
-      "-ms-user-select": "none",
-      "user-select": "none",
-      "padding-left": "30px",
-      display: "none",
-    });
+      border: 1px solid #E5E5E5;
+      z-index: 1004
+      box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+      -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding-left: 30px;
+      display: none;
+      }
+          
+            `);
+    $(".chartSetting").addClass(uuidInline + " layout");
 
     chartInfo.createChart = chartmix.default.createChart;
     chartInfo.highlightChart = chartmix.default.highlightChart;
@@ -182,18 +186,10 @@ function renderCharts(chartLists, isDemo) {
 
     // 把图表坐标信息更新到sheetFile中
     $(`#${chart_id}_c`).mouseup(function (e) {
-      const w = $(this)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("width");
-      const h = $(this)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("height");
-      const t = $(this)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("top");
-      const l = $(this)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("left");
+      const w = $(this).css("width");
+      const h = $(this).css("height");
+      const t = $(this).css("top");
+      const l = $(this).css("left");
 
       // insert chartinfo
       let sheetFile =
@@ -481,66 +477,79 @@ function chart_selection() {
         if (type == "content") {
           var color = "#4970D1";
         }
+        const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+   left: ${col_pre}px;
+   width: ${col - col_pre - 1}px;
+   top: ${row_pre}px;
+   height: ${row - row_pre - 1}px;
+   border: none;margin: 0;position: absolute;z-index: 14;
+      }
 
+      &.layoutOne {
+      height: 2px;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      background: ${color};position: absolute;left: 0;right: 0;top: -2px;z-index: 18;opacity: 0.9;cursor: move;
+      }
+
+      &.layoutTwo {
+      width: 2px;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #fff;
+      background: ${color};
+      position: absolute;top: 0;bottom: 0;right: -2px;z-index: 18;opacity: 0.9;cursor: move;
+      }
+
+      &.layoutThree{
+      height: 2px;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      background: ${color};
+      position: absolute;left: 0;right: 0;bottom: -2px;z-index: 18;opacity: 0.9;cursor: move;
+      }
+
+      &.layoutFour {
+      width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background:${color};position: absolute;top: 0;bottom: 0;left: -2px;z-index: 18;opacity: 0.9;cursor: move;
+      }
+
+      &.layoutFive {
+      border: 2px solid #85c0fc;background: ${color};position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 15;opacity: 0.1;
+      }
+
+      &.layoutSix {
+      width: 6px;height: 6px;
+      border: 1px solid #fff;
+      background: ${color};position: absolute;left: -3px;top: -3px;z-index: 19;cursor: se-resize;
+      }
+
+      &.layoutSeven {
+      width: 6px;height: 6px;border: 1px solid #fff;background: ${color};position: absolute;right: -3px;top: -3px;z-index: 19;cursor: ne-resize;
+      }
+
+      &.layoutEight {
+      width: 6px;height: 6px;border: 1px solid #fff;background:${color};position: absolute;left: -3px;bottom: -3px;z-index: 19;cursor: ne-resize;
+      }
+
+      &.layoutNine {
+    width: 6px;height: 6px;border: 1px solid #fff;background:${color};position: absolute;right: -3px;bottom: -3px;z-index: 19;cursor: se-resize;
+      }
+          
+            `);
         var html =
           '<div id="luckysheet-chart-rangeShow-' +
           type +
-          '" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="left: ' +
-          col_pre +
-          "px;width: " +
-          (col - col_pre - 1) +
-          "px;top: " +
-          row_pre +
-          "px;height: " +
-          (row - row_pre - 1) +
-          'px;border: none;margin: 0;position: absolute;z-index: 14;">' +
-          '<div class="luckysheet-chart-rangeShow-move" data-type="top" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
-          color +
-          ';position: absolute;left: 0;right: 0;top: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-move" data-type="right" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
-          color +
-          ';position: absolute;top: 0;bottom: 0;right: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-move" data-type="bottom" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
-          color +
-          ';position: absolute;left: 0;right: 0;bottom: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-move" data-type="left" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
-          color +
-          ';position: absolute;top: 0;bottom: 0;left: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-          '<div nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="border: 2px solid #85c0fc;background: ' +
-          color +
-          ';position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 15;opacity: 0.1;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-resize" data-type="lt" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
-          color +
-          ';position: absolute;left: -3px;top: -3px;z-index: 19;cursor: se-resize;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-resize" data-type="rt" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
-          color +
-          ';position: absolute;right: -3px;top: -3px;z-index: 19;cursor: ne-resize;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-resize" data-type="lb" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
-          color +
-          ';position: absolute;left: -3px;bottom: -3px;z-index: 19;cursor: ne-resize;"></div>' +
-          '<div class="luckysheet-chart-rangeShow-resize" data-type="rb" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
-          color +
-          ';position: absolute;right: -3px;bottom: -3px;z-index: 19;cursor: se-resize;"></div>' +
+          `" class="${uuidInline} layout">` +
+          `<div class="luckysheet-chart-rangeShow-move ${uuidInline} layoutOne" data-type="top"></div>` +
+          `<div class="luckysheet-chart-rangeShow-move ${uuidInline} layoutTwo" data-type="right"></div>` +
+          `<div class="luckysheet-chart-rangeShow-move ${uuidInline} layoutThree" data-type="bottom"></div>` +
+          `<div class="luckysheet-chart-rangeShow-move ${uuidInline} layoutFour" data-type="left"></div>` +
+          `<div class="${uuidInline} layoutFive"></div>` +
+          `<div class="luckysheet-chart-rangeShow-resize ${uuidInline} layoutSix" data-type="lt"></div>` +
+          `<div class="luckysheet-chart-rangeShow-resize ${uuidInline} layoutSeven" data-type="rt"></div>` +
+          `<div class="luckysheet-chart-rangeShow-resize ${uuidInline} layoutEight" data-type="lb"></div>` +
+          `<div class="luckysheet-chart-rangeShow-resize ${uuidInline} layoutNine" data-type="rb" ></div>` +
           "</div>";
 
         return html;
@@ -1463,18 +1472,10 @@ function createLuckyChart(width, height, left, top) {
 
   // 将图表的坐标信息更新到sheetFile中
   $(`#${chart_id}_c`).mouseup(function (e) {
-    const w = $(this)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("width");
-    const h = $(this)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("height");
-    const t = $(this)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("top");
-    const l = $(this)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("left");
+    const w = $(this).css("width");
+    const h = $(this).css("height");
+    const t = $(this).css("top");
+    const l = $(this).css("left");
 
     // insert chartinfo
     let sheetFile =
@@ -1589,11 +1590,15 @@ function selectRangeBorderShow(chart_id) {
   $("#luckysheet-cell-main")
     .find(".luckysheet-modal-dialog-chart .luckysheet-modal-dialog-controll")
     .hide();
+  const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+   z-index: ${chartInfo.chartparam.luckysheetCurrentChartZIndexRank++};
+  
+      }
 
-  $t.attr("nonce", luckysheetConfigsetting.cspNonce).css(
-    "z-index",
-    chartInfo.chartparam.luckysheetCurrentChartZIndexRank++
-  );
+            `);
+  $t.addClass(uuidInline + " layout");
   $t.find(".luckysheet-modal-dialog-resize").show();
   $t.find(".luckysheet-modal-dialog-controll").show();
 

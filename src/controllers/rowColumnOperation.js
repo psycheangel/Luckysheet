@@ -122,11 +122,7 @@ export function rowColumnOperationInitial() {
 
       //公式相关
       let $input = $("#luckysheet-input-box");
-      if (
-        parseInt(
-          $input.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      if (parseInt($input.css("top")) > 0) {
         if (
           formula.rangestart ||
           formula.rangedrag_column_start ||
@@ -299,15 +295,17 @@ export function rowColumnOperationInitial() {
           formula.rangedrag_row_start = true;
           formula.rangestart = false;
           formula.rangedrag_column_start = false;
-
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+             left: ${col_pre}px;
+              width: ${col - col_pre - 1}px;
+              top: ${top}px;
+              height: ${height}px;
+            }
+     
+      `);
           $("#luckysheet-formula-functionrange-select")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: col_pre,
-              width: col - col_pre - 1,
-              top: top,
-              height: height,
-            })
+            .addClass(uuidInline + " layout")
             .show();
           $("#luckysheet-formula-help-c").hide();
 
@@ -469,26 +467,39 @@ export function rowColumnOperationInitial() {
         row = row_location[1],
         row_pre = row_location[0],
         row_index = row_location[2];
-
-      $("#luckysheet-rows-h-hover")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ top: row_pre, height: row - row_pre - 1, display: "block" });
+      const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+              top: ${row_pre}px;
+              height: ${row - row_pre - 1}px; 
+              display: block;
+            }
+            &.layoutOne {
+            top: ${row - 3}px;
+             opacity: 0;
+            }
+             &.layoutTwo {
+             opacity:0;
+             }
+     
+      `);
+      $("#luckysheet-rows-h-hover").addClass(uuidInline + " layout");
 
       if (y < row - 1 && y >= row - 5) {
-        $("#luckysheet-rows-change-size")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ top: row - 3, opacity: 0 });
+        $("#luckysheet-rows-change-size").addClass(uuidInline + " layoutOne");
       } else {
-        $("#luckysheet-rows-change-size")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("opacity", 0);
+        $("#luckysheet-rows-change-size").addClass(uuidInline + " layoutTwo");
       }
     })
     .mouseleave(function (event) {
+      const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout {
+             opacity:0;
+             }
+     
+      `);
       $("#luckysheet-rows-h-hover").hide();
-      $("#luckysheet-rows-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0);
+      $("#luckysheet-rows-change-size").addClass(uuidInline + " layout");
     })
     .mouseup(function (event) {
       if (event.which == 3) {
@@ -730,11 +741,7 @@ export function rowColumnOperationInitial() {
 
       //公式相关
       let $input = $("#luckysheet-input-box");
-      if (
-        parseInt(
-          $input.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      if (parseInt($input.css("top")) > 0) {
         if (
           formula.rangestart ||
           formula.rangedrag_column_start ||
@@ -907,15 +914,18 @@ export function rowColumnOperationInitial() {
           formula.rangedrag_column_start = true;
           formula.rangestart = false;
           formula.rangedrag_row_start = false;
-
+          const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout {
+              left: ${left}px;
+              width: ${width}px;
+              top: ${row_pre}px;
+              height: ${row - row_pre - 1}px;
+             }
+     
+      `);
           $("#luckysheet-formula-functionrange-select")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: left,
-              width: width,
-              top: row_pre,
-              height: row - row_pre - 1,
-            })
+            .addClass(uuidInline + " layout")
             .show();
           $("#luckysheet-formula-help-c").hide();
 
@@ -1072,26 +1082,36 @@ export function rowColumnOperationInitial() {
         col_pre = col_location[0],
         col_index = col_location[2];
 
-      $("#luckysheet-cols-h-hover")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: col_pre, width: col - col_pre - 1, display: "block" });
-      $("#luckysheet-cols-menu-btn")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: col - 19, display: "block" });
+      const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout {
+       left: ${col_pre}px; 
+       width: ${col - col_pre - 1}px;
+        display: block;
+             }
 
-      $("#luckysheet-cols-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: col - 5 });
+             &.layoutOne {
+             left: ${col - 19}px; 
+             display: block;
+             }
+
+             &.layoutTwo {
+             left: ${col - 5}px;
+             }
+             &.layoutThree{
+             opacity: 0
+             }
+     
+      `);
+      $("#luckysheet-cols-h-hover").addClass(uuidInline + " layout");
+      $("#luckysheet-cols-menu-btn").addClass(uuidInline + " layoutOne");
+      $("#luckysheet-cols-change-size").addClass(uuidInline + " layoutTwo");
       if (x < col && x >= col - 5) {
-        $("#luckysheet-cols-change-size")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ opacity: 0 });
+        $("#luckysheet-cols-change-size").addClass(uuidInline + " layoutThree");
         $("#luckysheet-cols-menu-btn").hide();
       } else {
         $("#luckysheet-change-size-line").hide();
-        $("#luckysheet-cols-change-size")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("opacity", 0);
+        $("#luckysheet-cols-change-size").addClass(uuidInline + " layoutThree");
       }
     })
     .mouseleave(function (event) {
@@ -1101,12 +1121,16 @@ export function rowColumnOperationInitial() {
       ) {
         return;
       }
-
+      const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+             opacity: 0
+             }
+     
+      `);
       $("#luckysheet-cols-h-hover").hide();
       $("#luckysheet-cols-menu-btn").hide();
-      $("#luckysheet-cols-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0);
+      $("#luckysheet-cols-change-size").addClass(uuidInline + " layout");
     })
     .mouseup(function (event) {
       if (event.which == 3) {
@@ -1299,11 +1323,15 @@ export function rowColumnOperationInitial() {
     ) {
       imageCtrl.cancelActiveImgItem();
     }
-
+    const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+             opacity: 1
+             }
+     
+      `);
     $("#luckysheet-input-box").hide();
-    $("#luckysheet-rows-change-size")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ opacity: 1 });
+    $("#luckysheet-rows-change-size").addClass(uuidInline + " layout");
 
     let mouse = mouseposition(event.pageX, event.pageY);
     let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
@@ -1318,20 +1346,28 @@ export function rowColumnOperationInitial() {
 
     Store.luckysheet_rows_change_size = true;
     Store.luckysheet_scroll_status = true;
-    $("#luckysheet-change-size-line")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        height: "1px",
-        "border-width": "0 0px 1px 0",
-        top: row - 3,
-        left: 0,
-        width: scrollLeft + winW,
-        display: "block",
-        cursor: "ns-resize",
-      });
-    $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "ns-resize");
+
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+            height: 1px;
+        border-width: 0 0px 1px 0;
+        top: ${row - 3}px;
+        left: 0px;
+        width: ${scrollLeft + winW}px;
+        display: block;
+        cursor: ns-resize;
+             }
+
+             &.layoutOne {
+             cursor : ns-resize;
+             }
+     
+      `);
+    $("#luckysheet-change-size-line").addClass(uuidInlineOne + " layout");
+    $(
+      "#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas"
+    ).addClass(uuidInlineOne + " layoutOne");
     Store.luckysheet_rows_change_size_start = [row_pre, row_index];
     $("#luckysheet-rightclick-menu").hide();
     $("#luckysheet-rows-h-hover").hide();
@@ -1356,11 +1392,17 @@ export function rowColumnOperationInitial() {
       ) {
         imageCtrl.cancelActiveImgItem();
       }
+      const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+         opacity: 1
+             }
 
+          
+     
+      `);
       $("#luckysheet-input-box").hide();
-      $("#luckysheet-cols-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ opacity: 1 });
+      $("#luckysheet-cols-change-size").addClass(uuidInline + " layout");
 
       let mouse = mouseposition(event.pageX, event.pageY);
       let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
@@ -1378,22 +1420,29 @@ export function rowColumnOperationInitial() {
 
       Store.luckysheet_cols_change_size = true;
       Store.luckysheet_scroll_status = true;
-      $("#luckysheet-change-size-line")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          height: winH + scrollTop,
-          "border-width": "0 1px 0 0",
-          top: 0,
-          left: col - 3,
-          width: "1px",
-          display: "block",
-          cursor: "ew-resize",
-        });
+
+      const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+         height: ${winH + scrollTop}px;
+          border-width: 0 1px 0 0;
+          top: 0px;
+          left: ${col - 3}px;
+          width: 1px;
+          display: block;
+          cursor: ew-resize;
+             }
+
+          &.layoutOne {
+          cursor : ew-resize;
+
+          }
+     
+      `);
+      $("#luckysheet-change-size-line").addClass(uuidInlineOne + " layout");
       $(
         "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas"
-      )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "ew-resize");
+      ).addClass(uuidInlineOne + " layoutOne");
       Store.luckysheet_cols_change_size_start = [col_pre, col_index];
       $("#luckysheet-rightclick-menu").hide();
       $("#luckysheet-cols-h-hover").hide();
@@ -2743,16 +2792,26 @@ export function rowColumnOperationInitial() {
 
 function luckysheetcolsdbclick() {
   Store.luckysheet_cols_change_size = false;
+  const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+         opacity:0;
 
+             }
+
+          &.layoutOne {
+          cursor : default;
+
+          }
+     
+      `);
   $("#luckysheet-change-size-line").hide();
-  $("#luckysheet-cols-change-size")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("opacity", 0);
+  $("#luckysheet-cols-change-size");
+  addClass(uuidInline + " layout");
   $(
     "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas"
-  )
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("cursor", "default");
+  );
+  addClass(uuidInline + " layoutOne");
 
   let mouse = mouseposition(event.pageX, event.pageY);
   let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
