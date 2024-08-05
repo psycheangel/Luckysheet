@@ -14,7 +14,7 @@ import { getObjType, replaceHtml } from "../utils/util";
 import Store from "../store";
 import locale from "../locale/locale";
 import dayjs from "dayjs";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 const uuidInline = getComputedInlineClassStyling(`
       &.inlineOne {

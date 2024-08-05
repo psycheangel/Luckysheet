@@ -27,7 +27,7 @@ import {
 } from "../utils/util";
 import { sheetHTML, luckysheetlodingHTML } from "./constant";
 import server from "./server";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 import pivotTable from "./pivotTable";
 import luckysheetsizeauto from "./resize";
 import luckysheetPostil from "./postil";
@@ -472,12 +472,18 @@ const sheetmanage = {
 
       let colorset = "";
       if (Store.luckysheetfile[i].color != null) {
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+       position: absolute; 
+       width: 100%; 
+       height: 3px; 
+       bottom: 0px; 
+       left: 0px; 
+       background-color:${Store.luckysheetfile[i].color};
+            }
+         `);
         colorset =
-          '<div class="luckysheet-sheets-item-color" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-          Store.luckysheetfile[i].color +
-          ';"></div>';
+          `<div class="luckysheet-sheets-item-color ${uuidInline} layout" ></div>`;
       }
 
       if (Store.currentSheetIndex == sheetIndex) {
@@ -558,14 +564,22 @@ const sheetmanage = {
 
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
         if (c_width >= winW * 0.7) {
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+       display: inline-block;
+              }
+           `);
           $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("display", "inline-block");
+           .addClass(uuidInline + ' layout');
           $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
         } else {
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+       display: none;
+              }
+           `);
           $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("display", "none");
+          .addClass(uuidInline + ' layout');
           $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
         }
       }
@@ -603,12 +617,18 @@ const sheetmanage = {
 
     let colorset = "";
     if (copyjson.color != null) {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+position: absolute; 
+width: 100%;
+ height: 3px;
+  bottom: 0px;
+   left: 0px; 
+   background-color: ${copyjson.color};
+          }
+       `);
       colorset =
-        '<div class="luckysheet-sheets-item-color" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-        copyjson.color +
-        ';"></div>';
+        `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
     }
 
     let copyobject = $("#luckysheet-sheets-item" + copyindex);
@@ -680,12 +700,18 @@ const sheetmanage = {
 
     let colorset = "";
     if (data.color != null) {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+position: absolute; 
+width: 100%;
+ height: 3px;
+  bottom: 0px;
+   left: 0px; 
+   background-color: ${ data.color};
+          }
+       `);
       colorset =
-        '<div class="luckysheet-sheets-item-color" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-        data.color +
-        ';"></div>';
+        `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
     }
 
     $("#luckysheet-sheet-container-c").append(
@@ -1012,6 +1038,12 @@ const sheetmanage = {
           Store.columnHeaderHeight -
           Store.cellMainSrollBarSize,
       ];
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+ width: ${Store.luckysheetTableContentHW[0]}px;
+          height: ${Store.luckysheetTableContentHW[1]}px;
+          }
+       `);
       $("#luckysheetTableContent, #luckysheetTableContentF")
         .attr({
           width: Math.ceil(
@@ -1021,11 +1053,7 @@ const sheetmanage = {
             Store.luckysheetTableContentHW[1] * Store.devicePixelRatio
           ),
         })
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          width: Store.luckysheetTableContentHW[0],
-          height: Store.luckysheetTableContentHW[1],
-        })
+     .addClass(uuidInline + ' layout')
         .get(0)
         .getContext("2d");
       let locale_info = locale().info;
@@ -1788,22 +1816,31 @@ const sheetmanage = {
     return ret;
   },
   showSheet: function () {
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+width: ${Store.ch_width}px;
+ top: -1px;
+        }
+ &.layoutOne {
+  width: ${Store.ch_width - 1}px;
+        height: ${Store.rh_height}px;
+ }
+        &.layoutTwo {
+        height:${Store.rh_height}px;
+        }
+        &.layoutThree{
+        width : ${Store.ch_width}px;
+        }
+     `);
     // changeSheetContainerSize();
     $("#luckysheet-cell-flow_0")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ width: Store.ch_width, top: "-1px" }); //width更新
+      .addClass(uuidInline + ' layout');
     $("#luckysheet-sheettable_0")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: Store.ch_width - 1,
-        height: Store.rh_height,
-      });
+    .addClass(uuidInline + ' layoutOne');
     $("#luckysheetrowHeader_0")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("height", Store.rh_height);
+    .addClass(uuidInline + ' layoutTwo');
     $("#luckysheet-cols-h-cells_0")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("width", Store.ch_width); //width更新
+    .addClass(uuidInline + ' layoutThree');
 
     $("#luckysheet-scrollbar-x div").width(Store.ch_width);
     $("#luckysheet-scrollbar-y div").height(
@@ -1889,15 +1926,21 @@ const sheetmanage = {
 
     if (sw > w) {
       if (luckysheetConfigsetting.showsheetbarConfig.sheet) {
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+    display:inline-block;
+            }
+    &.layoutOne {
+    display:none;
+    }
+         `);
         $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("display", "inline-block");
+          .addClass(uuidInline + ' layout');
         $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
       }
     } else {
       $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("display", "none");
+      .addClass(uuidInline + ' layout')
       $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
     }
   },

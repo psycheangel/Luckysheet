@@ -23,7 +23,7 @@ import {
 import { createFilterOptions } from "../controllers/filter";
 import { getSheetIndex } from "../methods/get";
 import Store from "../store";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 let refreshCanvasTimeOut = null;
 
@@ -1366,10 +1366,14 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas = true) {
 
         let left = Store.visibledatacolumn[cindex] - 20;
         let top = str - 1 == -1 ? 0 : Store.visibledatarow[str - 1];
-
+        const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+  left: ${left}px; 
+  top: ${top}px;
+            }
+         `);
         $(e)
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ left: left, top: top });
+          .addClass(uuidInlineOne + ' layout'); 
       });
     }
   }
@@ -1390,15 +1394,16 @@ function jfrefreshgrid_rhcw(rowheight, colwidth, isRefreshCanvas = true) {
       row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
     let col = Store.visibledatacolumn[c2],
       col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
-
+      const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+   left: ${col_pre}px;
+        width: ${col - col_pre - 1}px;
+        top: ${row_pre}px;
+        height: ${row - row_pre - 1}px;
+          }
+       `);
     $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex)
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: col_pre,
-        width: col - col_pre - 1,
-        top: row_pre,
-        height: row - row_pre - 1,
-      });
+     .addClass(uuidInlineOne + ' layout');
   }
 
   sheetmanage.showSheet();

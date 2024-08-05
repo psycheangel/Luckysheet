@@ -28,7 +28,7 @@ function print(options, config, isDemo) {
     arrayRemoveItem(Store.asyncLoad, "print");
     Store.luckysheetPrint = luckysheetPrint;
     const link = document.createElement("link");
-    link.setAttribute("nonce", luckysheetConfigsetting.cspNonce);
+  
     link.setAttribute("rel", "stylesheet");
     link.setAttribute("type", "text/css");
     link.setAttribute("href", "./expendPlugins/print/print.css");

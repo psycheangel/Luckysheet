@@ -48,7 +48,7 @@ import pivotTable from "../controllers/pivotTable";
 import server from "../controllers/server";
 import menuButton from "../controllers/menuButton";
 import selection from "../controllers/selection";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 import luckysheetFreezen from "../controllers/freezen";
 import luckysheetsizeauto from "../controllers/resize";
 import sheetmanage from "../controllers/sheetmanage";
@@ -620,7 +620,7 @@ export function exitEditMode(options = {}) {
   if (
     parseInt(
       $("#luckysheet-input-box")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
+  
         .css("top")
     ) > 0
   ) {
@@ -2076,9 +2076,7 @@ export function getRangeHtml(options = {}) {
       }
 
       let column =
-        '<td ${span} nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="${style}">';
+        '<td ${span} style="${style}">';
 
       if (d[r] != null && d[r][c] != null) {
         let style = "",
@@ -5274,12 +5272,18 @@ export function setSheetCopy(options = {}) {
 
   let colorset = "";
   if (copyjson.color != null) {
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout {
+ position: absolute; 
+ width: 100%; 
+ height: 3px; 
+ bottom: 0px; 
+ left: 0px; 
+ background-color: ${copyjson.color};
+        }
+     `);
     colorset =
-      '<div class="luckysheet-sheets-item-color" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-      copyjson.color +
-      ';"></div>';
+      `<div class="luckysheet-sheets-item-color ${uuidInlineOne} layout"></div>`;
   }
 
   let afterObj = $("#luckysheet-sheets-item" + copyindex);
@@ -5514,12 +5518,18 @@ export function setSheetColor(color, options = {}) {
   $("#luckysheet-sheets-item" + file.index)
     .find(".luckysheet-sheets-item-color")
     .remove();
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout {
+ position: absolute; 
+ width: 100%; 
+ height: 3px; 
+ bottom: 0px; 
+ left: 0px; 
+ background-color: ${color};
+        }
+     `);
   $("#luckysheet-sheets-item" + file.index).append(
-    '<div class="luckysheet-sheets-item-color" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-      color +
-      ';"></div>'
+    `<div class="luckysheet-sheets-item-color ${uuidInlineOne} layout"></div>`
   );
 
   server.saveParam("all", file.index, color, { k: "color" });
@@ -5955,14 +5965,18 @@ export function getScreenshot(options = {}) {
     scrollWidth = visibledatacolumn[stc - 1];
     ch_width = visibledatacolumn[edc] - visibledatacolumn[stc - 1];
   }
-
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+width: ${ch_width}px;
+ height: ${rh_height}px;
+      }
+   `);
   let newCanvas = $("<canvas>")
     .attr({
       width: Math.ceil(ch_width * Store.devicePixelRatio),
       height: Math.ceil(rh_height * Store.devicePixelRatio),
     })
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ width: ch_width, height: rh_height });
+   .addClass(uuidInlineOne + ' layout');
 
   luckysheetDrawMain(
     scrollWidth,
@@ -7051,11 +7065,14 @@ export function getTxtByRange(range = Store.luckysheet_select_save) {
  */
 export function pagerInit(config) {
   const { prevPage, nextPage, total } = locale().button;
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+font-size: 14px; margin-left: 10px; display: inline-block;
+      }
+   `);
   $("#luckysheet-bottom-pager").remove();
   $("#luckysheet-sheet-content").after(
-    '<div id="luckysheet-bottom-pager" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>'
+    `<div id="luckysheet-bottom-pager" class="${uuidInlineOne} layout"></div>`
   );
   $("#luckysheet-bottom-pager").sPage({
     page: config.pageIndex, //当前页码，必填

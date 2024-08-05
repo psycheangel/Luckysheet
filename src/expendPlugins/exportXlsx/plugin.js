@@ -6,6 +6,7 @@ import { getSheetIndex } from "../../methods/get";
 import Store from "../../store";
 import luckysheetConfigsetting, {
   getComputedInlineStyling,
+  getComputedInlineClassStyling
 } from "../../controllers/luckysheetConfigsetting";
 
 // Initialize the export xlsx api
@@ -19,7 +20,6 @@ function downloadXlsx(data, filename) {
   });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.setAttribute("nonce", luckysheetConfigsetting.cspNonce);
   link.href = url;
   link.download = filename;
   link.click();
@@ -133,10 +133,19 @@ function createExportDialog(url) {
     );
   }
 
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+min-width :350px;
+}
+&.layoutOne {
+
+ left: (winw + scrollLeft - myw) / 2;
+      top: (winh + scrollTop - myh) / 3;
+      }
+   `);
   let $t = $("#luckysheet-export-xlsx")
       .find(".luckysheet-modal-dialog-content")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("min-width", 350)
+     .addClass(uuidInlineOne + ' layout')
       .end(),
     myh = $t.outerHeight(),
     myw = $t.outerWidth();
@@ -145,11 +154,7 @@ function createExportDialog(url) {
   let scrollLeft = $(document).scrollLeft(),
     scrollTop = $(document).scrollTop();
   $("#luckysheet-export-xlsx")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      left: (winw + scrollLeft - myw) / 2,
-      top: (winh + scrollTop - myh) / 3,
-    })
+    .addClass(uuidInlineOne + ' layoutOne')
     .show();
 }
 

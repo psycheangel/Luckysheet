@@ -15,7 +15,7 @@ selectTextDom;
 import { selectTextDom } from "../global/cursorPos";
 import locale from "../locale/locale";
 import Store from "../store";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 import { pagerInit } from "../global/api";
 import method from "../global/method";
 import luckysheetsizeauto from "./resize";
@@ -175,19 +175,25 @@ function showsheetconfigmenu() {
         ) {
           oldcolor = luckysheetcurrentSheetitem
             .find(".luckysheet-sheets-item-color")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
+            
             .css("background-color");
         }
 
         luckysheetcurrentSheetitem
           .find(".luckysheet-sheets-item-color")
           .remove();
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+  position: absolute; 
+  width: 100%; 
+  height: 3px; 
+  bottom: 0px; 
+  left: 0px; 
+  background-color: ${color};
+           }
+           `);
         luckysheetcurrentSheetitem.append(
-          '<div class="luckysheet-sheets-item-color" nonce="' +
-            luckysheetConfigsetting.cspNonce +
-            '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-            color +
-            ';"></div>'
+          `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`
         );
         let index = getSheetIndex(Store.currentSheetIndex);
         Store.luckysheetfile[index].color = color;
@@ -215,7 +221,7 @@ function showsheetconfigmenu() {
       ) {
         oldcolor = luckysheetcurrentSheetitem
           .find(".luckysheet-sheets-item-color")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
+       
           .css("background-color");
       }
 
@@ -310,31 +316,29 @@ let luckysheetsheetrightclick = function ($t, $cur, e) {
             "!</span>"
         )
         .show();
-      $("#luckysheet-input-box-index")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          left: $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left"),
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          left: ${$("#luckysheet-input-box")
+            .css("left")}px;
           top:
-            parseInt(
-              $("#luckysheet-input-box")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) -
-            20 +
-            "px",
-          "z-index": $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("z-index"),
-        });
+          ${  parseInt(
+            $("#luckysheet-input-box")
+              .css("top")
+          ) -
+          20 
+          }px;
+          z-index: ${$("#luckysheet-input-box")
+            .css("z-index")}
+         }
+         `);
+      $("#luckysheet-input-box-index")
+       .addClass(uuidInline + ' layout');
     }, 1);
   } else {
     //保存正在编辑的单元格内容
     if (
       parseInt(
         $("#luckysheet-input-box")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
           .css("top")
       ) > 0
     ) {
@@ -446,19 +450,24 @@ export function initialSheetBar() {
           Store.luckysheet_sheet_move_data.pageX = x;
           Store.luckysheet_sheet_move_data.activeobject = $item;
           Store.luckysheet_sheet_move_data.cursorobject = $cur;
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+  visibility: hidden;
+           }
+  &.layoutOne {
+   position: absolute;
+            opacity: 0.8;
+            cursor: move;
+            transition: initial;
+            z-index:10;
+  }
+           `);
           let $itemclone = $item
             .clone()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("visibility", "hidden")
+           .addClass(uuidInline + ' layout')
             .attr("id", "luckysheet-sheets-item-clone");
           $item.after($itemclone);
-          $item.attr("nonce", luckysheetConfigsetting.cspNonce).css({
-            position: "absolute",
-            opacity: 0.8,
-            cursor: "move",
-            transition: "initial",
-            "z-index": 10,
-          });
+          $item   .addClass(uuidInline + ' layoutOne');
         }, 200);
       }
     })
@@ -742,7 +751,7 @@ export function initialSheetBar() {
     if (
       parseInt(
         $("#luckysheet-input-box")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
+  
           .css("top")
       ) > 0
     ) {
@@ -807,7 +816,6 @@ export function initialSheetBar() {
     if (
       parseInt(
         $("#luckysheet-input-box")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
           .css("top")
       ) > 0
     ) {
@@ -879,8 +887,13 @@ export function initialSheetBar() {
 
     let left = $(this).offset().left - $("#" + Store.container).offset().left;
     let bottom = $(this).height() + $("#luckysheet-sta-content").height() + 12;
-    $t.attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ left: left + "px", bottom: bottom + "px" })
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+        left: ${left}px;
+        bottom: ${bottom}px;
+        }
+     `);
+    $t.addClass(uuidInline + ' layout')
       .show();
     $("#luckysheet-input-box").removeAttr("style");
   });

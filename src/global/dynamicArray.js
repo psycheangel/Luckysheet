@@ -1,7 +1,7 @@
 import { getObjType } from "../utils/util";
 import { getSheetIndex } from "../methods/get";
 import Store from "../store";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 //动态数组计算
 function dynamicArrayCompute(dynamicArray) {
@@ -158,16 +158,17 @@ function dynamicArrayHightShow(r, c) {
       row_pre = d_row - 1 == -1 ? 0 : Store.visibledatarow[d_row - 1];
     let col = Store.visibledatacolumn[d_col_end],
       col_pre = d_col - 1 == -1 ? 0 : Store.visibledatacolumn[d_col - 1];
-
+      const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+  left: ${col_pre}px;
+        width: ${col - col_pre - 1}px;
+        top: ${row_pre}px;
+        height: ${row - row_pre - 1}px;
+        display: block;
+          }
+       `);
     $("#luckysheet-dynamicArray-hightShow")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: col_pre,
-        width: col - col_pre - 1,
-        top: row_pre,
-        height: row - row_pre - 1,
-        display: "block",
-      });
+      .addClass(uuidInlineOne + ' layout');
   } else {
     $("#luckysheet-dynamicArray-hightShow").hide();
   }

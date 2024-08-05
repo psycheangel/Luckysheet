@@ -7,7 +7,7 @@ import { selectHightlightShow } from "./select";
 import pivotTable from "./pivotTable";
 import Store from "../store";
 import server from "./server";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
   if (isScroll == null) {
@@ -553,14 +553,16 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
       moveXY: { x: moveX, y: moveY },
     };
 
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+  left: ${col_pre}px;
+        width: ${col - col_pre - 1}px;
+        top: ${row_pre}px;
+        height: ${row - row_pre - 1}px;
+}
+     `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: col_pre,
-        width: col - col_pre - 1,
-        top: row_pre,
-        height: row - row_pre - 1,
-      })
+    .addClass(uuidInline + ' layout')
       .show();
 
     formula.rangeSetValue({
@@ -826,15 +828,16 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
       row_focus: rf,
       column_focus: cf,
     };
-
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+ left: ${left}px;
+        width: ${width}px;
+        top: ${top}px;
+        height: ${height}px;
+}
+     `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: left,
-        width: width,
-        top: top,
-        height: height,
-      })
+      .addClass(uuidInline + ' layout')
       .show();
 
     formula.rangeSetValue({
@@ -1251,15 +1254,16 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
       row_focus: rf,
       column_focus: cf,
     };
-
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+ left: ${left}px;
+        width: ${width}px;
+        top: ${top}px;
+        height: ${height}px;
+}
+     `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: left,
-        width: width,
-        top: top,
-        height: height,
-      })
+      .addClass(uuidInline + ' layout')
       .show();
 
     formula.rangeSetValue({
@@ -1596,15 +1600,16 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
       row_focus: rf,
       column_focus: cf,
     };
-
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+ left: ${left}px;
+        width: ${width}px;
+        top: ${top}px;
+        height: ${height}px;
+}
+     `);
     $("#luckysheet-formula-functionrange-select")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: left,
-        width: width,
-        top: top,
-        height: height,
-      })
+      .addClass(uuidInline + ' layout')
       .show();
 
     formula.rangeSetValue({

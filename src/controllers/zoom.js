@@ -7,7 +7,7 @@ import { jfrefreshgrid_rhcw } from "../global/refresh";
 import server from "./server";
 import luckysheetPostil from "./postil";
 import imageCtrl from "./imageCtrl";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 let luckysheetZoomTimeout = null;
 
@@ -153,12 +153,16 @@ export function zoomInitial() {
       let curentX = e.pageX,
         cursorLeft = parseFloat(
           $("#luckysheet-zoom-cursor")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
+          
             .css("left")
         );
+        const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+      transition :none;
+      }
+         `);
       $("#luckysheet-zoom-cursor")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("transition", "none");
+        .addClass(uuidInlineOne + ' layout');
       $(document)
         .off("mousemove.zoomCursor")
         .on("mousemove.zoomCursor", function (event) {
@@ -184,18 +188,26 @@ export function zoomInitial() {
           zoomChange(currentRatio);
           let r = Math.round(currentRatio * 100) + "%";
           $("#luckysheet-zoom-ratioText").html(r);
+          const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+        left :${pos - 4}px;
+        }
+           `);
           $("#luckysheet-zoom-cursor")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("left", pos - 4);
+            .addClass(uuidInlineOne + ' layout');
         });
 
       $(document)
         .off("mouseup.zoomCursor")
         .on("mouseup.zoomCursor", function (event) {
+          const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+        transition :all 0.3s;
+        }
+           `);
           $(document).off(".zoomCursor");
           $("#luckysheet-zoom-cursor")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("transition", "all 0.3s");
+            .addClass(uuidInlineOne + ' layout');
         });
 
       e.stopPropagation();
@@ -290,9 +302,13 @@ function zoomSlierDomBind(ratio) {
   } else if (ratio > 1) {
     domPos = Math.round(((ratio - 1) * 100) / 0.6) / 10 + 50;
   }
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+left :${domPos - 4}px;
+}
+   `);
   $("#luckysheet-zoom-cursor")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("left", domPos - 4);
+    .addClass(uuidInlineOne + ' layout');
 }
 
 export function zoomNumberDomBind(ratio) {

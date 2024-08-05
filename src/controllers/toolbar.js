@@ -745,12 +745,15 @@ export function createToolbarHtml() {
       if (key === "|") {
         const nameKeys = showtoolbarConfig[i - 1];
         if (nameKeys !== "|") {
+            const uuidInline = getComputedInlineClassStyling(`
+                &.select-none {
+                user-select: none;
+            }
+               `);
           buttonHTML.push(
             `<div id="toolbar-separator-${camel2split(
               nameKeys
-            )}" class="luckysheet-toolbar-separator luckysheet-inline-block" nonce="${
-              luckysheetConfigsetting.cspNonce
-            }" style="user-select: none;"></div>`
+            )}" class="luckysheet-toolbar-separator luckysheet-inline-block ${uuidInline} select-none"></div>`
           );
         }
       } else {
@@ -792,12 +795,15 @@ export function createToolbarHtml() {
     if (key === "|") {
       const nameKeys = defaultToolbar[i - 1];
       if (nameKeys !== "|") {
+        const uuidInline = getComputedInlineClassStyling(`
+            &.select-none {
+            user-select: none;
+        }
+           `);
         buttonHTML.push(
           `<div id="toolbar-separator-${camel2split(
             nameKeys
-          )}" class="luckysheet-toolbar-separator luckysheet-inline-block" nonce="${
-            luckysheetConfigsetting.cspNonce
-          }" style="user-select: none;"></div>`
+          )}" class="luckysheet-toolbar-separator luckysheet-inline-block  ${uuidInline} select-none"></div>`
         );
       }
     } else {

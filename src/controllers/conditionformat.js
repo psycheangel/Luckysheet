@@ -14,7 +14,7 @@ import locale from "../locale/locale";
 import { checkProtectionFormatCells } from "./protection";
 import Store from "../store";
 import dayjs from "dayjs";
-import { getComputedInlineClassStyling } from "./luckysheetConfigsetting";
+import { getComputedInlineClassStyling, getComputedInlineStyling } from "./luckysheetConfigsetting";
 
 //条件格式
 const conditionformat = {

@@ -8,7 +8,7 @@ import { getcellvalue } from "../global/getdata";
 import { jfrefreshgrid } from "../global/refresh";
 import Store from "../store";
 import locale from "../locale/locale";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 //分列
 const luckysheetSplitColumn = {
@@ -22,48 +22,45 @@ const luckysheetSplitColumn = {
 
     $("#luckysheet-modal-dialog-mask").show();
     $("#luckysheet-splitColumn-dialog").remove();
-
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+ height: 22px;line-height: 22px;
+}
+ &.layoutOne {
+ margin-top: 10px;
+ }
+     `);
     let content =
       '<div class="box">' +
       '<div class="boxTitle">' +
       locale_splitText.splitDelimiters +
       "</div>" +
       '<div class="boxMain">' +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_01" type="checkbox"/>' +
       '<label for="splitColumn_type_01">' +
       locale_punctuation.tab +
       "</label>" +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_02" type="checkbox"/>' +
       '<label for="splitColumn_type_02">' +
       locale_punctuation.semicolon +
       "</label>" +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_03" type="checkbox"/>' +
       '<label for="splitColumn_type_03">' +
       locale_punctuation.comma +
       "</label>" +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_04" type="checkbox"/>' +
       '<label for="splitColumn_type_04">' +
       locale_punctuation.space +
       "</label>" +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_05" type="checkbox"/>' +
       '<label for="splitColumn_type_05">' +
       locale_splitText.splitOther +
@@ -71,17 +68,13 @@ const luckysheetSplitColumn = {
       '<input type="text" class="formulaInputFocus" maxlength="1"/>' +
       "</div>" +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="height: 22px;line-height: 22px;">' +
+      `<div class="${uuidInline} layout">` +
       '<input id="splitColumn_type_06" type="checkbox"/>' +
       '<label for="splitColumn_type_06">' +
       locale_splitText.splitContinueSymbol +
       "</label>" +
       "</div>" +
-      '<div class="boxTitle" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="margin-top: 10px;">' +
+      `<div class="boxTitle ${uuidInline} layoutOne">` +
       locale_splitText.splitDataPreview +
       "</div>" +
       '<div class="boxMain" id="splitColumnData">' +
@@ -103,10 +96,18 @@ const luckysheetSplitColumn = {
         style: "z-index:100003",
       })
     );
+    const uuidInlineOne = getComputedInlineClassStyling(`
+      &.layout {
+ minWidth: 400px;
+}
+ &.layoutOne {
+   left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+ }
+     `);
     let $t = $("#luckysheet-splitColumn-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 400)
+       .addClass(uuidInlineOne + ' layout')
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -115,11 +116,7 @@ const luckysheetSplitColumn = {
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-splitColumn-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+    .addClass(uuidInlineOne + ' layoutOne')
       .show();
 
     let dataArr = _this.getDataArr();

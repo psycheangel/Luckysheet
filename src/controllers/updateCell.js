@@ -17,7 +17,7 @@ import { isInlineStringCell } from "./inlineString";
 import Store from "../store";
 import server from "./server";
 import method from "../global/method";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 export function luckysheetupdateCell(
   row_index1,
@@ -149,26 +149,32 @@ export function luckysheetupdateCell(
     $("#luckysheet-rich-text-editor").focus().select();
   }
 
+  const uuidInline = getComputedInlineClassStyling(`
+    &.layout {
+background-color: rgb(255, 255, 255);
+      padding: 0px 2px;
+      font-size: ${Store.defaultFontSize}pt;
+      right: auto;
+      "overflow-y": auto;
+      "box-sizing": initial;
+      display: flex;
+}
+   `);
   $("#luckysheet-input-box")
     .removeAttr("style")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      "background-color": "rgb(255, 255, 255)",
-      padding: "0px 2px",
-      "font-size": `${Store.defaultFontSize}pt`,
-      right: "auto",
-      "overflow-y": "auto",
-      "box-sizing": "initial",
-      display: "flex",
-    });
+    .addClass(uuidInline + ' layout');
 
   if (
     luckysheetFreezen.freezenverticaldata != null ||
     luckysheetFreezen.freezenhorizontaldata != null
   ) {
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+ z-index : 10002;
+  }
+     `);
     $("#luckysheet-input-box")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("z-index", 10002);
+     .addClass(uuidInline + ' layout');
   }
 
   $("#luckysheet-input-box-index")
@@ -357,13 +363,18 @@ export function luckysheetupdateCell(
 
     input_postition["left"] = newLeft - 2;
   }
-
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+left : ${ newLeft - 2};
+}
+&.layoutOne {
+transform-origin : ${leftOrigin} ${topOrigin};
+}
+   `);
   $("#luckysheet-input-box")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css(input_postition);
+    .addClass(uuidInlineOne + ' layout');
   $("#luckysheet-rich-text-editor")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css(inputContentScale);
+  .addClass(uuidInlineOne + ' layoutOne');
 
   //日期
   if (
@@ -431,11 +442,14 @@ export function setCenterInputPosition(row_index, col_index, d) {
     newLeft = 2;
   }
 
-  input_postition["left"] = newLeft - 2;
 
+  const uuidInlineOne = getComputedInlineClassStyling(`
+    &.layout {
+left : ${ newLeft - 2};
+}
+   `);
   $("#luckysheet-input-box")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css(input_postition);
+   .addClass(uuidInlineOne + ' layout');
 }
 
 export function getColumnAndRowSize(row_index, col_index, d) {

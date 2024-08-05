@@ -9,7 +9,7 @@ import Store from "../store";
 import method from "../global/method";
 import locale from "../locale/locale";
 import { refreshMenuButtonFocus } from "../global/api";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 //公式函数 选区实体框
 function seletedHighlistByindex(id, r1, r2, c1, c2) {

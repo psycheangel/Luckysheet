@@ -20,7 +20,7 @@ import { replaceHtml, getObjType, luckysheetfontformat } from "../utils/util";
 import Store from "../store";
 import locale from "../locale/locale";
 import imageCtrl from "./imageCtrl";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting,{getComputedInlineClassStyling} from "./luckysheetConfigsetting";
 
 const selection = {
   clearcopy: function (e) {
@@ -38,9 +38,16 @@ const selection = {
     // Store.luckysheet_copy_save = {};
 
     if (!clipboardData) {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        visibility : hidden;
+        }
+        &.layoutOne {
+        visibility: visible;
+        }
+        `)
       let textarea = $("#luckysheet-copy-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("visibility", "hidden");
+        .addClass(uuidInline + ' layout');
       textarea.val(cpdata);
       textarea.focus();
       textarea.select();
@@ -48,8 +55,7 @@ const selection = {
       setTimeout(function () {
         textarea
           .blur()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("visibility", "visible");
+          .addClass(uuidInline + ' layout');
       }, 10);
     } else {
       clipboardData.setData("Text", cpdata);
@@ -244,9 +250,7 @@ const selection = {
         }
 
         let column =
-          '<td ${span} nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style="${style}">';
+          '<td ${span} style="${style}">';
 
         if (d[r] != null && d[r][c] != null) {
           let style = "",
@@ -525,10 +529,14 @@ const selection = {
           ) {
             c_value = d[r][c].ct.s
               .map(val => {
+                const uuidInline = getComputedInlineClassStyling(`
+                  &.layout {
+                mso-data-placement:same-cell;
+                  }
+                 
+                  `);
                 const brDom = $(
-                  '<br nonce="' +
-                    luckysheetConfigsetting.cspNonce +
-                    '" style="mso-data-placement:same-cell;">'
+                  `<br class="${uuidInline} layout">`
                 );
                 const splitValue = val.v.split("\r\n");
                 return splitValue
@@ -536,27 +544,41 @@ const selection = {
                     if (!item) {
                       return "";
                     }
+                    const uuidInline = getComputedInlineClassStyling(`
+                      &.layout {
+                   font-size : ${val.fs}pt;
+                      }
+                     &.layoutOne {
+                     font-weight : bold;
+                     }
+                     &.layoutTwo {
+                     font-style: italic;
+                     }
+                     &.layoutThree {
+                     text-decoration : underline;
+
+                     } 
+
+                     &.layoutFour {
+                     color : ${val.fc};
+                     }
+                     `);
                     const font = $("<font></font>");
                     val.fs &&
                       font
-                        .attr("nonce", luckysheetConfigsetting.cspNonce)
-                        .css("font-size", `${val.fs}pt`); //  字号
+                      .addClass(uuidInline + ' layout'); //  字号
                     val.bl &&
                       font
-                        .attr("nonce", luckysheetConfigsetting.cspNonce)
-                        .css("font-weight", "bold"); //  加粗
+                      .addClass(uuidInline + ' layoutOne'); //  加粗
                     val.it &&
                       font
-                        .attr("nonce", luckysheetConfigsetting.cspNonce)
-                        .css("font-style", "italic"); //  斜体
+                      .addClass(uuidInline + ' layoutTwo'); //  斜体
                     val.un &&
                       font
-                        .attr("nonce", luckysheetConfigsetting.cspNonce)
-                        .css("text-decoration", "underline"); // 下划线
+                      .addClass(uuidInline + ' layoutThree'); // 下划线
                     val.fc &&
                       font
-                        .attr("nonce", luckysheetConfigsetting.cspNonce)
-                        .css("color", val.fc); //  字体颜色
+                      .addClass(uuidInline + ' layoutFour'); //  字体颜色
                     if (val.cl) {
                       // 判断删除线
                       font.append(`<s>${item}</s>`);

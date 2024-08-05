@@ -381,13 +381,16 @@ const server = {
           });
 
           if ($("#luckysheet-multipleRange-show-" + id)[0]) {
+         
             let change_bottom =
               $("#luckysheet-multipleRange-show-" + id)[0].offsetHeight - 1;
-            $("#luckysheet-multipleRange-show-" + id + ">.username")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                bottom: change_bottom + "px",
-              });
+              const uuidInline = getComputedInlineClassStyling(`
+                &.layout {
+                bottom : ${change_bottom}px;
+               }
+               `);
+              $("#luckysheet-multipleRange-show-" + id + ">.username")
+            .addClass(uuidInline + ' layout');
           }
         } else if (type == 4) {
           //批量指令更新
@@ -587,12 +590,18 @@ const server = {
         currentSheetItem.find(".luckysheet-sheets-item-color").remove();
 
         if (value != null || value != "") {
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+           position: absolute; 
+           width: 100%; 
+           height: 3px; 
+           bottom: 0px; 
+           left: 0px; 
+           background-color: ${value};
+           }
+           `);
           currentSheetItem.append(
-            '<div class="luckysheet-sheets-item-color" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-              value +
-              ';"></div>'
+            `<div class="luckysheet-sheets-item-color ${uuidInline} layout" ></div>`
           );
         }
       } else if (k == "pivotTable") {
@@ -937,12 +946,18 @@ const server = {
 
       let colorset = "";
       if (value.color != null) {
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+         position: absolute; 
+         width: 100%; 
+         height: 3px; 
+         bottom: 0px; 
+         left: 0px; 
+         background-color: ${value.color};
+         }
+         `);
         colorset =
-          '<div class="luckysheet-sheets-item-color" nonce="' +
-          luckysheetConfigsetting.cspNonce +
-          '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-          value.color +
-          ';"></div>';
+          `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
       }
 
       $("#luckysheet-sheet-container-c").append(
@@ -1052,12 +1067,18 @@ const server = {
 
           let colorset = "";
           if (value.color != null) {
+            const uuidInline = getComputedInlineClassStyling(`
+              &.layout {
+             position: absolute; 
+             width: 100%; 
+             height: 3px; 
+             bottom: 0px; 
+             left: 0px; 
+             background-color: ${datav.color};
+             }
+             `);
             colorset =
-              '<div class="luckysheet-sheets-item-color" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' +
-              datav.color +
-              ';"></div>';
+              `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
           }
 
           $("#luckysheet-sheet-container-c").append(
@@ -1175,10 +1196,14 @@ const server = {
       }
     } else if (type == "na") {
       //表格名称
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+      width: ${getByteLen(value) * 10}px;
+       }
+       `);
       $("#luckysheet_info_detail_input")
         .val(value)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("width", getByteLen(value) * 10);
+        .addClass(uuidInline + ' layout');
     }
   },
   multipleIndex: 0,
@@ -1220,15 +1245,17 @@ const server = {
     }
 
     if ($("#luckysheet-multipleRange-show-" + id).length > 0) {
+      const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+     position: absolute;
+          left: ${col_pre - 1}px;
+          width: ${col - col_pre - 1}px;
+          top: ${row_pre - 1}px;
+          height: ${row - row_pre - 1}px;
+       }
+       `);
       $("#luckysheet-multipleRange-show-" + id)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          position: "absolute",
-          left: col_pre - 1,
-          width: col - col_pre - 1,
-          top: row_pre - 1,
-          height: row - row_pre - 1,
-        });
+        .addClass(uuidInline + ' layout');
 
       $("#luckysheet-multipleRange-show-" + id + " .username").text(name);
       $("#luckysheet-multipleRange-show-" + id + " .username").show();

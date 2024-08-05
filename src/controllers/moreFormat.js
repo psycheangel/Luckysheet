@@ -6,7 +6,7 @@ import tooltip from "../global/tooltip";
 import { isEditMode } from "../global/validate";
 import Store from "../store";
 import locale from "../locale/locale";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 //更多格式
 const luckysheetMoreFormat = {

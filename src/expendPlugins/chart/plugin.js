@@ -27,7 +27,7 @@ import {
 import { isEditMode } from "../../global/validate";
 import luckysheetsizeauto from "../../controllers/resize";
 import Store from "../../store";
-import luckysheetConfigsetting from "../../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../../controllers/luckysheetConfigsetting";
 
 let _rowLocation = rowLocation;
 let _colLocation = colLocation;

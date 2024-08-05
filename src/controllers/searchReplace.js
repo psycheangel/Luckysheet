@@ -14,7 +14,7 @@ import Store from "../store";
 import locale from "../locale/locale";
 import { checkProtectionLocked } from "./protection";
 import escapeHtml from "escape-html";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 //查找替换
 const luckysheetSearchReplace = {

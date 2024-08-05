@@ -5,7 +5,7 @@ import { modelHTML } from "./constant";
 import { replaceHtml } from "../utils/util";
 import Store from "../store";
 import locale from "../locale/locale";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
 
 //if公式生成器
 const ifFormulaGenerator = {
