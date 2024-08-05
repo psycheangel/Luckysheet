@@ -14,7 +14,9 @@ import menuButton from "./menuButton";
 import { getSheetIndex } from "../methods/get";
 import locale from "../locale/locale";
 import Store from "../store";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 
 const hyperlinkCtrl = {
   item: {
@@ -86,10 +88,16 @@ const hyperlinkCtrl = {
         style: "z-index:100003",
       })
     );
+    const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          min-width:350px;
+       
+          }
+
+          `);
     let $t = $("#luckysheet-insertLink-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 350)
+        .addclass(uuidInlineOne + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -97,12 +105,16 @@ const hyperlinkCtrl = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+    const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+         left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+       
+          }
+
+          `);
     $("#luckysheet-insertLink-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addclass(uuidInline + " layout")
       .show();
 
     _this.dataAllocation();
@@ -381,12 +393,20 @@ const hyperlinkCtrl = {
       col = margeset.column[1];
       col_pre = margeset.column[0];
     }
+    const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            background:#fff;
+            padding:5px 10px;
+            border:1px solid #000;
+            box-shadow:2px 2px #999;
+            position:absolute;
+            left:${col_pre}px;
+            top:${row + 5}px;
+            z-index:100;
+          }
 
-    let html = `<div id="luckysheet-hyperlink-overshow" nonce="${
-      luckysheetConfigsetting.cspNonce
-    }" style="background:#fff;padding:5px 10px;border:1px solid #000;box-shadow:2px 2px #999;position:absolute;left:${col_pre}px;top:${
-      row + 5
-    }px;z-index:100;">
+          `);
+    let html = `<div id="luckysheet-hyperlink-overshow" class="${uuidInline} layout">
                         <div>${linkTooltip}</div>
                         <div>单击鼠标可以追踪</div>
                     </div>`;

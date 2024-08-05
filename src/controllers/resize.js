@@ -77,14 +77,18 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
     formulaEle.style.display = "block";
     Store.calculatebarHeight = formulaEle.offsetHeight;
   }
-
+  const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+            top: ${
+              Store.toolbarHeight +
+              Store.infobarHeight +
+              Store.calculatebarHeight
+            }px;
+            }
+          `);
   $("#" + Store.container)
     .find(".luckysheet-grid-container")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css(
-      "top",
-      Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight
-    );
+    .addClass(uuidInlineOne + " layout");
 
   gridW = $("#" + Store.container).width();
 
@@ -114,7 +118,21 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
         user-select: none;
         font-size:12px;
         }
-     
+        &.layout {
+        position:absolute;
+        top:${
+          Store.infobarHeight +
+          Store.toolbarHeight +
+          $("#" + Store.container).offset().top +
+          $("body").scrollTop()
+        }px;
+        right:0px;
+        z-index:1003;
+        padding:5.5px;
+        visibility:hidden;
+        height:auto;
+        white-space:initial;
+        }
       `);
   const _locale = locale();
   const locale_toolbar = _locale.toolbar;
@@ -134,15 +152,7 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
             </div>
          </div>`,
     // Add style left:$$('.luckysheet') left, when the worksheet does not fill the full screen
-    morediv =
-      '<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="position:absolute;top:' +
-      (Store.infobarHeight +
-        Store.toolbarHeight +
-        $("#" + Store.container).offset().top +
-        $("body").scrollTop()) +
-      'px;right:0px;z-index:1003;padding:5.5px;visibility:hidden;height:auto;white-space:initial;"></div>';
+    morediv = `<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor ${uuidInline} layout"></div>`;
 
   if ($("#luckysheet-icon-morebtn-div").length == 0) {
     $("body").append(morediv);
@@ -402,10 +412,30 @@ export function changeSheetContainerSize(gridW, gridH) {
   $("#luckysheet-scrollbar-x").height(Store.cellMainSrollBarSize);
   $("#luckysheet-scrollbar-y").width(Store.cellMainSrollBarSize);
 
+  const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        left: ${Store.rowHeaderWidth - 2}px;
+        }
+    &.layoutOne { 
+     width: ${Store.luckysheetTableContentHW[0]}px;
+      height: ${Store.luckysheetTableContentHW[1]}px;
+    }
+ &.layoutTwo {
+ bottom : ${Store.sheetBarHeight}px;
+ }
+  &.layoutThree {
+ bottom : ${Store.statisticBarHeight}px;
+ }
+ &.layoutFour {
+ width: ${gridwidth - 10}px;
+ }
+ &.layoutFive {
+ height:${gridheight - 10}px;
+ }
+      `);
   $("#luckysheet-scrollbar-x")
     .width(Store.cellmainWidth)
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("left", Store.rowHeaderWidth - 2);
+    .addClass(uuidInline + " layout");
 
   Store.luckysheetTableContentHW = [
     Store.cellmainWidth + Store.rowHeaderWidth - Store.cellMainSrollBarSize,
@@ -423,40 +453,30 @@ export function changeSheetContainerSize(gridW, gridH) {
         Store.luckysheetTableContentHW[1] * Store.devicePixelRatio
       ),
     })
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      width: Store.luckysheetTableContentHW[0],
-      height: Store.luckysheetTableContentHW[1],
-    });
+    .addClass(uuidInline + " layoutOne");
 
   $("#" + Store.container)
     .find("#luckysheet-grid-window-1")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("bottom", Store.sheetBarHeight);
+    .addClass(uuidInline + " layoutTwo");
   $("#" + Store.container)
     .find(".luckysheet-grid-window")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("bottom", Store.statisticBarHeight);
+    .addClass(uuidInline + " layoutThree");
 
   let gridwidth = $("#luckysheet-grid-window-1").width();
   $("#luckysheet-freezebar-horizontal")
     .find(".luckysheet-freezebar-horizontal-handle")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ width: gridwidth - 10 })
+    .addClass(uuidInline + " layoutFour")
     .end()
     .find(".luckysheet-freezebar-horizontal-drop")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ width: gridwidth - 10 });
+    .addClass(uuidInline + " layoutFour");
 
   let gridheight = $("#luckysheet-grid-window-1").height();
   $("#luckysheet-freezebar-vertical")
     .find(".luckysheet-freezebar-vertical-handle")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ height: gridheight - 10 })
+    .addClass(uuidInline + " layoutFive")
     .end()
     .find(".luckysheet-freezebar-vertical-drop")
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({ height: gridheight - 10 });
+    .addClass(uuidInline + " layoutFive");
 
   luckysheetFreezen.createAssistCanvas();
 }

@@ -1349,10 +1349,20 @@ const luckysheetMoreFormat = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+            min-width: 400px;
+            }
+
+            &.layout-two {
+        left:${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+            }        
+          `);
     let $t = $("#luckysheet-moreFormat-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 400)
+        .addClass(uuidInline + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -1361,11 +1371,7 @@ const luckysheetMoreFormat = {
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-moreFormat-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInline + " layout-two")
       .show();
 
     $("#luckysheet-moreFormat-dialog .listbox .listItem").eq(0).addClass("on");

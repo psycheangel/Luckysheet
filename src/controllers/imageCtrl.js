@@ -150,27 +150,46 @@ const imageCtrl = {
 
     let borderWidth = imgItem.border.width;
 
-    return `<div id="${id}" class="luckysheet-modal-dialog luckysheet-modal-dialog-image" nonce="${
-      luckysheetConfigsetting.cspNonce
-    }" style="width:${width}px;height:${height}px;padding:0;position:${position};left:${left}px;top:${top}px;z-index:200;">
-                    <div class="luckysheet-modal-dialog-content" nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="width:100%;height:100%;overflow:hidden;position:relative;">
-                        <img src="${src}" nonce="${
-      luckysheetConfigsetting.cspNonce
-    }" style="position:absolute;width:${
-      imgItem.default.width * Store.zoomRatio
-    }px;height:${imgItem.default.height * Store.zoomRatio}px;left:${
-      -imgItem.crop.offsetLeft * Store.zoomRatio
-    }px;top:${-imgItem.crop.offsetTop * Store.zoomRatio}px;" />
-                    </div>
-                    <div class="luckysheet-modal-dialog-border" nonce="${
-                      luckysheetConfigsetting.cspNonce
-                    }" style="border:${borderWidth}px ${imgItem.border.style} ${
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        width:${width}px;
+        height:${height}px;
+        padding:0;
+        position:${position};
+        left:${left}px;
+        top:${top}px;
+        z-index:200;
+        }
+        &.layoutOne {
+          width:100%;
+          height:100%;
+          overflow:hidden;
+          position:relative;
+        }
+          &.layoutTwo {
+          position:absolute;width:${imgItem.default.width * Store.zoomRatio}px;
+          height:${imgItem.default.height * Store.zoomRatio}px;
+          left:${-imgItem.crop.offsetLeft * Store.zoomRatio}px;
+          top:${-imgItem.crop.offsetTop * Store.zoomRatio}px;
+          }
+
+          &.layoutThree{
+          border:${borderWidth}px ${imgItem.border.style} ${
       imgItem.border.color
-    };border-radius:${
-      imgItem.border.radius * Store.zoomRatio
-    }px;position:absolute;left:${-borderWidth}px;right:${-borderWidth}px;top:${-borderWidth}px;bottom:${-borderWidth}px;"></div>
+    };
+          border-radius:${imgItem.border.radius * Store.zoomRatio}px;
+          position:absolute;
+          left:${-borderWidth}px;
+          right:${-borderWidth}px;
+          top:${-borderWidth}px;
+          bottom:${-borderWidth}px;
+          }
+        `);
+    return `<div id="${id}" class="luckysheet-modal-dialog luckysheet-modal-dialog-image ${uuidInline} layout">
+                    <div class="luckysheet-modal-dialog-content ${uuidInline} layoutOne">
+                        <img src="${src}" class="${uuidInline} layoutTwo" />
+                    </div>
+                    <div class="luckysheet-modal-dialog-border" class="${uuidInline} layoutThree"></div>
                 </div>`;
   },
   getSliderHtml: function () {
@@ -276,9 +295,15 @@ const imageCtrl = {
     $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderStyle").val(
       border.style
     );
+
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        background-color: ${border.color};
+        }
+        
+        `);
     $("#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderColor span")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("background-color", border.color)
+      .addClass(uuidInline + " layout")
       .attr("title", border.color);
 
     _this.init();
@@ -310,10 +335,17 @@ const imageCtrl = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+       min-width : 300px;
+        }
+        
+        `);
+
     let $t = $("#luckysheet-imageCtrl-colorSelect-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+        .addClass(uuidInlineOne + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -321,12 +353,17 @@ const imageCtrl = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+        &.layout {
+        left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+        }
+        
+        `);
+
     $("#luckysheet-imageCtrl-colorSelect-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineTwo + " layout")
       .show();
 
     //初始化选择颜色插件
@@ -424,10 +461,14 @@ const imageCtrl = {
           } else {
             color = "#000";
           }
-
+          const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+      background-color : ${color};
+        }
+        
+        `);
           $("#luckysheet-imageCtrl-colorSelect-dialog .currenColor span")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("background-color", color)
+            .addClass(uuidInline + " layout")
             .attr("title", color);
         },
       });
@@ -506,13 +547,17 @@ const imageCtrl = {
           );
           $("#luckysheet-modal-dialog-mask").hide();
           $parent.hide();
-
+          const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+      background-color : ${currenColor};
+        }
+        
+        `);
           let currenColor = $parent.find(".currenColor span").attr("title");
           $(
             "#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderColor span"
           )
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("background-color", currenColor)
+            .addClass(uuidInline + " layout")
             .attr("title", currenColor);
 
           _this.configChange("border-color", currenColor);
@@ -550,55 +595,54 @@ const imageCtrl = {
         let left = imgItemParam.left;
         let top = imgItemParam.top;
         let position = imgItemParam.position;
-
+        const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+          width: ${width}px;
+            height: ${height}px;
+            left: ${left}px;
+            top: ${top}px;
+            position: ${position}px;
+        }
+        
+        `);
         $("#luckysheet-modal-dialog-activeImage")
           .show()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            width: width,
-            height: height,
-            left: left,
-            top: top,
-            position: position,
-          });
+          .addClass(uuidInline + " layout");
         let imageUrlHandle =
           Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
         let imgUrl =
           typeof imageUrlHandle === "function"
             ? imageUrlHandle(item.src)
             : item.src;
+        const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+           background-image: url(" ${imgUrl}");
+            background-size: ${item.default.width * Store.zoomRatio}px ${
+          item.default.height * Store.zoomRatio
+        }px;
+            background-position: ${-item.crop.offsetLeft * Store.zoomRatio}px ${
+          -item.crop.offsetTop * Store.zoomRatio
+        }px;
+        }
+        
+        &.layoutOne {
+          border-width: ${item.border.width * Store.zoomRatio}px;
+            border-style: ${item.border.style}px;
+            "border-color": ${item.border.color}px;
+            "border-radius": ${item.border.radius * Store.zoomRatio}px;
+            left: ${-item.border.width * Store.zoomRatio}px;
+            right: ${-item.border.width * Store.zoomRatio}px;
+            top: ${-item.border.width * Store.zoomRatio}px;
+            bottom: ${-item.border.width * Store.zoomRatio}px;
+        }
+        `);
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            "background-image": "url(" + imgUrl + ")",
-            "background-size":
-              item.default.width * Store.zoomRatio +
-              "px " +
-              item.default.height * Store.zoomRatio +
-              "px",
-            "background-position":
-              -item.crop.offsetLeft * Store.zoomRatio +
-              "px " +
-              -item.crop.offsetTop * Store.zoomRatio +
-              "px",
-          });
+        ).addClass(uuidInlineOne + " layout");
 
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            "border-width": item.border.width * Store.zoomRatio,
-            "border-style": item.border.style,
-            "border-color": item.border.color,
-            "border-radius": item.border.radius * Store.zoomRatio,
-            left: -item.border.width * Store.zoomRatio,
-            right: -item.border.width * Store.zoomRatio,
-            top: -item.border.width * Store.zoomRatio,
-            bottom: -item.border.width * Store.zoomRatio,
-          });
+        ).addClass(uuidInlineOne + " layoutOne");
 
         _this.sliderHtmlShow();
 
@@ -768,54 +812,74 @@ const imageCtrl = {
         let top = imgItemParam.top;
         let position = imgItemParam.position;
 
+        const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+             width: ${width}px;
+            height: ${height}px;
+            left: ${left}px;
+            top: ${top}px;
+            position: ${position}px;
+        }
+      
+        `);
         $("#luckysheet-modal-dialog-activeImage")
           .show()
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            width: width,
-            height: height,
-            left: left,
-            top: top,
-            position: position,
-          });
+          .addClass(uuidInline + " layout");
         break;
       case "border-width":
+        const uuidInlineTwo = getComputedInlineClassStyling(`
+        &.layout {
+            border-width: ${value}px;
+            left: ${-value}px;
+            right: ${-value}px;
+            top: ${-value}px;
+            bottom: ${-value}px;
+        }
+      
+        `);
         imgItem.border.width = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            "border-width": value,
-            left: -value,
-            right: -value,
-            top: -value,
-            bottom: -value,
-          });
+        ).addClass(uuidInline + " layout");
         break;
       case "border-radius":
+        const uuidInlineThree = getComputedInlineClassStyling(`
+        &.layout {
+            border-radius: ${value};
+           
+        }
+      
+        `);
         imgItem.border.radius = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("border-radius", value);
+        ).addClass(uuidInlineThree + " layout");
         break;
       case "border-style":
+        const uuidInlineFour = getComputedInlineClassStyling(`
+        &.layout {
+            border-style: ${value};
+           
+        }
+      
+        `);
         imgItem.border.style = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("border-style", value);
+        ).addClass(uuidInlineThree + " layout");
         break;
       case "border-color":
+        const uuidInlineFive = getComputedInlineClassStyling(`
+        &.layout {
+            border-color: ${value};
+           
+        }
+      
+        `);
         imgItem.border.color = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        )
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("border-color", value);
+        ).addClass(uuidInlineFive + " layout");
         break;
     }
 
@@ -878,37 +942,41 @@ const imageCtrl = {
     let left = imgItemParam.left;
     let top = imgItemParam.top;
     let position = imgItemParam.position;
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+           width: ${width}px;
+        height: ${height}px;
+        left: ${left}px;
+        top: ${top}px;
+        position: ${position}px;
+        }
 
-    $("#" + _this.currentImgId)
-      .show()
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: width,
-        height: height,
-        left: left,
-        top: top,
-        position: position,
-      });
-    $("#" + _this.currentImgId + " img")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: imgItem.default.width * Store.zoomRatio,
-        height: imgItem.default.height * Store.zoomRatio,
-        left: -imgItem.crop.offsetLeft * Store.zoomRatio,
-        top: -imgItem.crop.offsetTop * Store.zoomRatio,
-      });
-    $("#" + _this.currentImgId + " .luckysheet-modal-dialog-border")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "border-width": imgItem.border.width * Store.zoomRatio,
-        "border-style": imgItem.border.style,
-        "border-color": imgItem.border.color,
-        "border-radius": imgItem.border.radius * Store.zoomRatio,
-        left: -imgItem.border.width * Store.zoomRatio,
-        right: -imgItem.border.width * Store.zoomRatio,
-        top: -imgItem.border.width * Store.zoomRatio,
-        bottom: -imgItem.border.width * Store.zoomRatio,
-      });
+        &.layoutOne {
+           width: ${imgItem.default.width * Store.zoomRatio}px;
+        height: ${imgItem.default.height * Store.zoomRatio}px;
+        left: ${-imgItem.crop.offsetLeft * Store.zoomRatio}px;
+        top: ${-imgItem.crop.offsetTop * Store.zoomRatio}px;
+        }
+
+            &.layoutTwo {
+        border-width: ${imgItem.border.width * Store.zoomRatio}px;
+        border-style:${imgItem.border.style};
+        border-color: ${imgItem.border.color};
+        border-radius: ${imgItem.border.radius * Store.zoomRatio}px;
+        left: ${-imgItem.border.width * Store.zoomRatio}px;
+        right: ${-imgItem.border.width * Store.zoomRatio}px;
+        top: ${-imgItem.border.width * Store.zoomRatio}px;
+        bottom: ${-imgItem.border.width * Store.zoomRatio}px;
+        }
+      
+        `);
+    $("#" + _this.currentImgId).show();
+    addClass(uuidInline + " layout");
+    $("#" + _this.currentImgId + " img");
+    addClass(uuidInline + " layoutOne");
+    $("#" + _this.currentImgId + " .luckysheet-modal-dialog-border").addClass(
+      uuidInline + " layoutTwo"
+    );
 
     _this.currentImgId = null;
   },
@@ -1046,16 +1114,18 @@ const imageCtrl = {
     let top = imgItemParam.top;
     let position = imgItemParam.position;
 
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        width: ${width}px;
+        height: ${height}px;
+        left: ${left}px;
+        top: ${top}px;
+        position: ${position}px;
+        }`);
+
     $("#luckysheet-modal-dialog-cropping")
       .show()
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: width,
-        height: height,
-        left: left,
-        top: top,
-        position: position,
-      });
+      .addClass(uuidInline + " layout");
 
     let imageUrlHandle =
       Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
@@ -1063,39 +1133,45 @@ const imageCtrl = {
       typeof imageUrlHandle === "function"
         ? imageUrlHandle(item.src)
         : item.src;
+    const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+        width: ${item.default.width}px;
+        height: ${item.default.height}px;
+        background-image: url("${imgSrc}");
+        left: ${-item.crop.offsetLeft}px;
+        top: ${-item.crop.offsetTop}px,
+        }
+        &.layoutOne {
+        background-image: url("${imgSrc}"),
+        background-size:
+    ${item.default.width}px ${item.default.height}px;
+        background-position:${-item.crop.offsetLeft}px ${-item.crop
+      .offsetTop}px,
+        }
 
-    $("#luckysheet-modal-dialog-cropping .cropping-mask")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: item.default.width,
-        height: item.default.height,
-        "background-image": "url(" + imgSrc + ")",
-        left: -item.crop.offsetLeft,
-        top: -item.crop.offsetTop,
-      });
+        &.layoutTwo {
+        border-width: ${item.border.width}px;
+        border-style: ${item.border.style};
+        border-color: ${item.border.color};
+        border-radius: ${item.border.radius}px;
+        left: ${-item.border.width}px;
+        right: ${-item.border.width}px;
+        top: ${-item.border.width}px;
+        bottom: ${-item.border.width}px;
+        }
+        `);
 
-    $("#luckysheet-modal-dialog-cropping .cropping-content")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "background-image": "url(" + imgSrc + ")",
-        "background-size":
-          item.default.width + "px " + item.default.height + "px",
-        "background-position":
-          -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px",
-      });
+    $("#luckysheet-modal-dialog-cropping .cropping-mask").addClass(
+      uuidInlineOne + " layout"
+    );
 
-    $("#luckysheet-modal-dialog-cropping .luckysheet-modal-dialog-border")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "border-width": item.border.width,
-        "border-style": item.border.style,
-        "border-color": item.border.color,
-        "border-radius": item.border.radius,
-        left: -item.border.width,
-        right: -item.border.width,
-        top: -item.border.width,
-        bottom: -item.border.width,
-      });
+    $("#luckysheet-modal-dialog-cropping .cropping-content").addClass(
+      uuidInlineOne + " layoutOne"
+    );
+
+    $(
+      "#luckysheet-modal-dialog-cropping .luckysheet-modal-dialog-border"
+    ).addClass(uuidInlineOne + " layoutTwo");
   },
   croppingExit: function () {
     let _this = this;
@@ -1111,17 +1187,26 @@ const imageCtrl = {
     let left = imgItemParam.left;
     let top = imgItemParam.top;
     let position = imgItemParam.position;
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        width: ${width}px;
+        height: ${height}px;
+        left: ${left}px;
+        top: ${top}px;
+        position: ${position}px;
+        }
+        &.layoutOne {
+          background-image: url("${imgSrc}"),
+        background-size:
+    ${item.default.width}px ${item.default.height}px,
+        background-position:
+    ${-item.crop.offsetLeft}px ${-item.crop.offsetTop}px;
+        }
+        `);
 
     $("#luckysheet-modal-dialog-activeImage")
       .show()
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: width,
-        height: height,
-        left: left,
-        top: top,
-        position: position,
-      });
+      .addClass(uuidInline + " layout");
     let imageUrlHandle =
       Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
     let imgSrc =
@@ -1129,15 +1214,9 @@ const imageCtrl = {
         ? imageUrlHandle(item.src)
         : item.src;
 
-    $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "background-image": "url(" + imgSrc + ")",
-        "background-size":
-          item.default.width + "px " + item.default.height + "px",
-        "background-position":
-          -item.crop.offsetLeft + "px " + -item.crop.offsetTop + "px",
-      });
+    $(
+      "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content"
+    ).addClass(uuidInline + " layoutOne");
   },
   cropChangeImgItem: function () {
     let _this = this;
@@ -1171,18 +1250,25 @@ const imageCtrl = {
     let left = imgItemParam.left;
     let top = imgItemParam.top;
     let position = imgItemParam.position;
-
+    const uuidInline = getComputedInlineClassStyling(`
+        &.layout {
+        width: ${width}px;
+        height: ${height}px;
+        left: ${left}px;
+        top: ${top}px;
+        position: ${position}px;
+        }
+        &.layoutOne {
+          background-image: url("${imgSrc}"),
+        background-size:
+    ${item.default.width}px ${item.default.height}px,
+        background-position:
+    ${-item.crop.offsetLeft}px ${-item.crop.offsetTop}px;
+        }
+        `);
     $("#luckysheet-modal-dialog-activeImage")
       .show()
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        width: width,
-        height: height,
-        left: left,
-        top: top,
-        position: position,
-      });
-
+      .addClass(uuidInline + " layout");
     let imageUrlHandle =
       Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
     let imgSrc =
@@ -1190,15 +1276,9 @@ const imageCtrl = {
         ? imageUrlHandle(imgItem.src)
         : imgItem.src;
 
-    $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        "background-image": "url(" + imgSrc + ")",
-        "background-size":
-          imgItem.default.width + "px " + imgItem.default.height + "px",
-        "background-position":
-          -imgItem.crop.offsetLeft + "px " + -imgItem.crop.offsetTop + "px",
-      });
+    $(
+      "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content"
+    ).addClass(uuidInline + " layoutOne");
 
     _this.ref();
   },

@@ -17,15 +17,17 @@ function seletedHighlistByindex(id, r1, r2, c1, c2) {
     row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
   let col = Store.visibledatacolumn[c2],
     col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
-
-  $("#" + id)
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css({
-      left: col_pre,
-      width: col - col_pre - 1,
-      top: row_pre,
-      height: row - row_pre - 1,
-    });
+  const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+         left: ${col_pre}px;
+      width: ${col - col_pre - 1}px;
+      top: ${row_pre}px;
+      height: ${row - row_pre - 1}px;
+          }
+     
+      `);
+  $("#" + id).addClass(uuidInline + " layout");
 }
 
 //Set selection highlight
@@ -90,100 +92,122 @@ function selectHightlightShow(isRestore = false) {
       Store.luckysheet_select_save[i]["top_move"] = row_pre;
       Store.luckysheet_select_save[i]["height_move"] = row - row_pre - 1;
 
+      const uuidInline = getComputedInlineClassStyling(`
+    
+            
+                &.display-none {
+                display:none;
+                }
+                &.display-block {
+                display:block;
+                      }     
+            `);
       if (i == 0) {
         if (Store.luckysheet_select_save.length == 1) {
           if (browser.mobilecheck()) {
             //移动端
+
+            const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+                left: ${Store.luckysheet_select_save[i]["left_move"]}px;
+                width: ${Store.luckysheet_select_save[i]["width_move"]}px;
+                top: ${Store.luckysheet_select_save[i]["top_move"]}px;
+                height: ${Store.luckysheet_select_save[i]["height_move"]}px;
+                display: block;
+                border: 1px solid #0188fb;
+              }
+             
+            `);
             $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: Store.luckysheet_select_save[i]["left_move"],
-                width: Store.luckysheet_select_save[i]["width_move"],
-                top: Store.luckysheet_select_save[i]["top_move"],
-                height: Store.luckysheet_select_save[i]["height_move"],
-                display: "block",
-                border: "1px solid #0188fb",
-              })
+              .addClass(uuidInlineOne + " layout")
               .find(".luckysheet-cs-draghandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "block")
+              .addClass(uuidInline + " display-block")
               .end()
               .find(".luckysheet-cs-fillhandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "none")
+              .addClass(uuidInline + " display-none")
               .end()
               .find(".luckysheet-cs-touchhandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "block");
+              .addClass(uuidInline + " display-block");
           } else {
+            const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+      left: ${Store.luckysheet_select_save[i]["left_move"]}px;
+                width: ${Store.luckysheet_select_save[i]["width_move"]}px;
+                top: ${Store.luckysheet_select_save[i]["top_move"]}px;
+                height: ${Store.luckysheet_select_save[i]["height_move"]}px;
+                display: block;
+                border: 1px solid #0188fb,
+              }
+             
+            `);
             $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                left: Store.luckysheet_select_save[i]["left_move"],
-                width: Store.luckysheet_select_save[i]["width_move"],
-                top: Store.luckysheet_select_save[i]["top_move"],
-                height: Store.luckysheet_select_save[i]["height_move"],
-                display: "block",
-                border: "1px solid #0188fb",
-              })
+              .addClass(uuidInlineOne + " layout")
               .find(".luckysheet-cs-draghandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "block")
+              .addClass(uuidInline + " display-block")
               .end()
               .find(".luckysheet-cs-fillhandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "block")
+              .addClass(uuidInline + " display-block")
               .end()
               .find(".luckysheet-cs-touchhandle")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("display", "none");
+              .addClass(uuidInline + " display-none");
           }
         } else {
+          const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+             left: ${Store.luckysheet_select_save[i]["left_move"]}px;
+              width: ${Store.luckysheet_select_save[i]["width_move"]}px;
+              top: ${Store.luckysheet_select_save[i]["top_move"]}px;
+              height:${Store.luckysheet_select_save[i]["height_move"]}px;
+              display: block;
+              border: 1px solid rgba(1, 136, 251, 0.15);
+              }
+             
+            `);
           $("#luckysheet-cell-selected-boxs #luckysheet-cell-selected")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: Store.luckysheet_select_save[i]["left_move"],
-              width: Store.luckysheet_select_save[i]["width_move"],
-              top: Store.luckysheet_select_save[i]["top_move"],
-              height: Store.luckysheet_select_save[i]["height_move"],
-              display: "block",
-              border: "1px solid rgba(1, 136, 251, 0.15)",
-            })
+            .addClass(uuidInlineOne + " layout")
             .find(".luckysheet-cs-draghandle")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("display", "none")
+            .addClass(uuidInline + " display-none")
             .end()
             .find(".luckysheet-cs-fillhandle")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("display", "none");
+            .addClass(uuidInline + " display-none");
         }
       } else {
+        const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+           left: ${Store.luckysheet_select_save[i]["left_move"]}px; 
+           width: ${Store.luckysheet_select_save[i]["width_move"]}px; 
+           top: ${Store.luckysheet_select_save[i]["top_move"]}px; 
+           height: ${Store.luckysheet_select_save[i]["height_move"]}px; 
+           border: 1px solid rgba(1, 136, 251, 0.15); 
+           display: block;
+              }
+             
+            `);
         $("#luckysheet-cell-selected-boxs").append(
-          '<div class="luckysheet-cell-selected" nonce="' +
-            luckysheetConfigsetting.cspNonce +
-            '" style="left: ' +
-            Store.luckysheet_select_save[i]["left_move"] +
-            "px; width: " +
-            Store.luckysheet_select_save[i]["width_move"] +
-            "px; top: " +
-            Store.luckysheet_select_save[i]["top_move"] +
-            "px; height: " +
-            Store.luckysheet_select_save[i]["height_move"] +
-            'px; border: 1px solid rgba(1, 136, 251, 0.15); display: block;"></div>'
+          `<div class="luckysheet-cell-selected ${uuidInlineOne} layout"></div>`
         );
       }
 
       if (i == Store.luckysheet_select_save.length - 1) {
+        const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+            left: ${Store.luckysheet_select_save[i]["left"]}px;
+            width: ${Store.luckysheet_select_save[i]["width"]}px;
+            top: ${Store.luckysheet_select_save[i]["top"]}px;
+            height: ${Store.luckysheet_select_save[i]["height"]}px;
+            display: block;
+              }
+             
+            `);
         //focus 取选区数组最后一个
-        $("#luckysheet-cell-selected-focus")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: Store.luckysheet_select_save[i]["left"],
-            width: Store.luckysheet_select_save[i]["width"],
-            top: Store.luckysheet_select_save[i]["top"],
-            height: Store.luckysheet_select_save[i]["height"],
-            display: "block",
-          });
+        $("#luckysheet-cell-selected-focus").addClass(
+          uuidInlineOne + " layout"
+        );
         //行列数
         luckysheet_count_show(
           Store.luckysheet_select_save[i]["left_move"],
@@ -283,15 +307,18 @@ function selectTitlesShow(rangeArr, isRestore = false) {
       r2 = rowTitleRange[i][rowTitleRange[i].length - 1];
     let row = rowLocationByIndex(r2)[1],
       row_pre = rowLocationByIndex(r1)[0];
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+        top: ${row_pre}px; 
+        height: ${row - row_pre - 1}px; 
+        display: block; 
+        background-color: rgba(76, 76, 76, 0.1);
+              }
+             
+            `);
     $("#luckysheet-rows-h-selected").append(
-      '<div class="luckysheet-rows-h-selected" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="top: ' +
-        row_pre +
-        "px; height: " +
-        (row - row_pre - 1) +
-        'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>'
+      `<div class="luckysheet-rows-h-selected ${uuidInlineOne} layout"></div>`
     );
   }
 
@@ -304,15 +331,18 @@ function selectTitlesShow(rangeArr, isRestore = false) {
       c2 = columnTitleRange[j][columnTitleRange[j].length - 1];
     let col = colLocationByIndex(c2)[1],
       col_pre = colLocationByIndex(c1)[0];
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+     left: ${col_pre}px; 
+     width: ${col - col_pre - 1}px; 
+     display: block; 
+     background-color: rgba(76, 76, 76, 0.1);
+              }
+             
+            `);
     $("#luckysheet-cols-h-selected").append(
-      '<div class="luckysheet-cols-h-selected" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="left: ' +
-        col_pre +
-        "px; width: " +
-        (col - col_pre - 1) +
-        'px; display: block; background-color: rgba(76, 76, 76, 0.1);"></div>'
+      `<div class="luckysheet-cols-h-selected ${uuidInlineOne} layout"></div>`
     );
   }
 }
@@ -543,21 +573,26 @@ function collaborativeEditBox() {
           }
         }
       }
-      $("#luckysheet-multipleRange-show-" + value.id)
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          height: change_height,
-          width: change_width,
-          top: change_top + "px",
-          left: change_left + "px",
-        });
+      const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+     height: ${change_height}px;
+          width: ${change_width}px;
+          top: ${change_top}px;
+          left:  ${change_left}px;
+              }
+        &.layout-bottom{
+         bottom: ${change_bottom}px;
+        }       
+            `);
+      $("#luckysheet-multipleRange-show-" + value.id).addClass(
+        uuidInlineOne + " layout"
+      );
       let change_bottom =
         $("#luckysheet-multipleRange-show-" + value.id)[0].offsetHeight - 1;
-      $("#luckysheet-multipleRange-show-" + value.id + ">.username")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          bottom: change_bottom + "px",
-        });
+      $("#luckysheet-multipleRange-show-" + value.id + ">.username").addClass(
+        uuidInlineOne + " layout-bottom"
+      );
     }
   });
 }
@@ -581,19 +616,19 @@ function selectionCopyShow(range) {
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
       let col = Store.visibledatacolumn[c2],
         col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
-
+      const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+    display: block; 
+    left: ${col_pre}px; 
+    width: ${col - col_pre - 1}px; 
+    top: ${row_pre}px; 
+    height:${row - row_pre - 1}px;
+      }
+          
+            `);
       let copyDomHtml =
-        '<div class="luckysheet-selection-copy" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="display: block; left: ' +
-        col_pre +
-        "px; width: " +
-        (col - col_pre - 1) +
-        "px; top: " +
-        row_pre +
-        "px; height: " +
-        (row - row_pre - 1) +
-        'px;">' +
+        `<div class="luckysheet-selection-copy ${uuidInlineOne} layout">` +
         '<div class="luckysheet-selection-copy-top luckysheet-copy"></div>' +
         '<div class="luckysheet-selection-copy-right luckysheet-copy"></div>' +
         '<div class="luckysheet-selection-copy-bottom luckysheet-copy"></div>' +
@@ -638,10 +673,18 @@ function luckysheet_count_show(
     if (height > drawHeight) {
       topv = scrollHeight + drawHeight / 2;
     }
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+    left: ${leftv}px;
+     top: ${topv}px;
+      display: block;
+       width: 11px;
+      }
+          
+            `);
     $("#luckysheet-row-count-show")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ left: leftv, top: topv, display: "block", width: "11px" })
+      .addClass(uuidInlineOne + " layout")
       .html(
         "<div>" +
           rowl.toString().split("").join("</div><div>") +
@@ -667,10 +710,17 @@ function luckysheet_count_show(
     if (width > drawWidth) {
       leftv = scrollWidth + drawWidth / 2;
     }
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+             &.layout{
+   left: ${leftv}px;
+    top: ${topv}px;
+     display: block;
+      }
+          
+            `);
     $("#luckysheet-column-count-show")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ left: leftv, top: topv, display: "block" })
+      .addClass(uuidInlineOne + " layout")
       .text(coll + locale_info.column);
   } else {
     $("#luckysheet-column-count-show").hide();

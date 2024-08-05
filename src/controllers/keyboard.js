@@ -1,4 +1,6 @@
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 import menuButton from "./menuButton";
 import conditionformat from "./conditionformat";
 import server from "./server";
@@ -357,11 +359,7 @@ export function keyboardInitial() {
         $("#luckysheet-modal-dialog-mask").is(":visible") ||
         $(event.target).hasClass("luckysheet-mousedown-cancel") ||
         $(event.target).hasClass("sp-input") ||
-        (parseInt(
-          $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top")
-        ) > 0 &&
+        (parseInt($("#luckysheet-input-box").css("top")) > 0 &&
           $(event.target).closest(".luckysheet-input-box").length > 0 &&
           kcode != keycode.ENTER &&
           kcode != keycode.TAB &&
@@ -441,9 +439,7 @@ export function keyboardInitial() {
       if (
         (altKey || event.metaKey) &&
         kcode == keycode.ENTER &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
+        parseInt($inputbox.css("top")) > 0
       ) {
         let last =
           Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
@@ -451,12 +447,7 @@ export function keyboardInitial() {
           col_index = last["column_focus"];
         enterKeyControll(Store.flowdata[row_index][col_index]);
         event.preventDefault();
-      } else if (
-        kcode == keycode.ENTER &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
         if (
           $("#luckysheet-formula-search-c").is(":visible") &&
           formula.searchFunctionCell != null
@@ -498,22 +489,14 @@ export function keyboardInitial() {
         }
         event.preventDefault();
       } else if (kcode == keycode.TAB) {
-        if (
-          parseInt(
-            $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-          ) > 0
-        ) {
+        if (parseInt($inputbox.css("top")) > 0) {
           return;
         }
 
         luckysheetMoveHighlightCell("right", 1, "rangeOfSelect");
         event.preventDefault();
       } else if (kcode == keycode.F2) {
-        if (
-          parseInt(
-            $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-          ) > 0
-        ) {
+        if (parseInt($inputbox.css("top")) > 0) {
           return;
         }
 
@@ -525,20 +508,10 @@ export function keyboardInitial() {
 
         luckysheetupdateCell(row_index, col_index, Store.flowdata);
         event.preventDefault();
-      } else if (
-        kcode == keycode.F4 &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
         formula.setfreezonFuc(event);
         event.preventDefault();
-      } else if (
-        kcode == keycode.ESC &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.ESC && parseInt($inputbox.css("top")) > 0) {
         formula.dontupdate();
         luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
         event.preventDefault();
@@ -580,11 +553,7 @@ export function keyboardInitial() {
             //Ctrl + shift + 方向键  调整选区
             if (kcode == keycode.UP) {
               if (
-                parseInt(
-                  $inputbox
-                    .attr("nonce", luckysheetConfigsetting.cspNonce)
-                    .css("top")
-                ) > 0 ||
+                parseInt($inputbox.css("top")) > 0 ||
                 $("#luckysheet-singleRange-dialog").is(":visible") ||
                 $("#luckysheet-multiRange-dialog").is(":visible")
               ) {
@@ -594,11 +563,7 @@ export function keyboardInitial() {
               luckysheetMoveHighlightRange2("up", "rangeOfSelect");
             } else if (kcode == keycode.DOWN) {
               if (
-                parseInt(
-                  $inputbox
-                    .attr("nonce", luckysheetConfigsetting.cspNonce)
-                    .css("top")
-                ) > 0 ||
+                parseInt($inputbox.css("top")) > 0 ||
                 $("#luckysheet-singleRange-dialog").is(":visible") ||
                 $("#luckysheet-multiRange-dialog").is(":visible")
               ) {
@@ -608,11 +573,7 @@ export function keyboardInitial() {
               luckysheetMoveHighlightRange2("down", "rangeOfSelect");
             } else if (kcode == keycode.LEFT) {
               if (
-                parseInt(
-                  $inputbox
-                    .attr("nonce", luckysheetConfigsetting.cspNonce)
-                    .css("top")
-                ) > 0 ||
+                parseInt($inputbox.css("top")) > 0 ||
                 $("#luckysheet-singleRange-dialog").is(":visible") ||
                 $("#luckysheet-multiRange-dialog").is(":visible")
               ) {
@@ -622,11 +583,7 @@ export function keyboardInitial() {
               luckysheetMoveHighlightRange2("left", "rangeOfSelect");
             } else if (kcode == keycode.RIGHT) {
               if (
-                parseInt(
-                  $inputbox
-                    .attr("nonce", luckysheetConfigsetting.cspNonce)
-                    .css("top")
-                ) > 0 ||
+                parseInt($inputbox.css("top")) > 0 ||
                 $("#luckysheet-singleRange-dialog").is(":visible") ||
                 $("#luckysheet-multiRange-dialog").is(":visible")
               ) {
@@ -897,11 +854,7 @@ export function keyboardInitial() {
           } else if (kcode == keycode.UP) {
             //Ctrl + up  调整单元格
             if (
-              parseInt(
-                $inputbox
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("top")
-              ) > 0 ||
+              parseInt($inputbox.css("top")) > 0 ||
               $("#luckysheet-singleRange-dialog").is(":visible") ||
               $("#luckysheet-multiRange-dialog").is(":visible")
             ) {
@@ -912,11 +865,7 @@ export function keyboardInitial() {
           } else if (kcode == keycode.DOWN) {
             //Ctrl + down  调整单元格
             if (
-              parseInt(
-                $inputbox
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("top")
-              ) > 0 ||
+              parseInt($inputbox.css("top")) > 0 ||
               $("#luckysheet-singleRange-dialog").is(":visible") ||
               $("#luckysheet-multiRange-dialog").is(":visible")
             ) {
@@ -927,11 +876,7 @@ export function keyboardInitial() {
           } else if (kcode == keycode.LEFT) {
             //Ctrl + top  调整单元格
             if (
-              parseInt(
-                $inputbox
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("top")
-              ) > 0 ||
+              parseInt($inputbox.css("top")) > 0 ||
               $("#luckysheet-singleRange-dialog").is(":visible") ||
               $("#luckysheet-multiRange-dialog").is(":visible")
             ) {
@@ -942,11 +887,7 @@ export function keyboardInitial() {
           } else if (kcode == keycode.RIGHT) {
             //Ctrl + right  调整单元格
             if (
-              parseInt(
-                $inputbox
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("top")
-              ) > 0 ||
+              parseInt($inputbox.css("top")) > 0 ||
               $("#luckysheet-singleRange-dialog").is(":visible") ||
               $("#luckysheet-multiRange-dialog").is(":visible")
             ) {
@@ -1008,11 +949,7 @@ export function keyboardInitial() {
             (altKey && (kcode == 53 || kcode == 101)))
         ) {
           if (
-            parseInt(
-              $inputbox
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) > 0 ||
+            parseInt($inputbox.css("top")) > 0 ||
             $(event.target).hasClass("formulaInputFocus")
           ) {
             return;
@@ -1098,11 +1035,7 @@ export function keyboardInitial() {
           event.preventDefault();
         } else if (kcode == keycode.UP) {
           if (
-            parseInt(
-              $inputbox
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) > 0 ||
+            parseInt($inputbox.css("top")) > 0 ||
             Store.luckysheet_cell_selected_move ||
             Store.luckysheet_cell_selected_extend ||
             $(event.target).hasClass("formulaInputFocus") ||
@@ -1116,11 +1049,7 @@ export function keyboardInitial() {
           event.preventDefault();
         } else if (kcode == keycode.DOWN) {
           if (
-            parseInt(
-              $inputbox
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) > 0 ||
+            parseInt($inputbox.css("top")) > 0 ||
             Store.luckysheet_cell_selected_move ||
             Store.luckysheet_cell_selected_extend ||
             $(event.target).hasClass("formulaInputFocus") ||
@@ -1134,11 +1063,7 @@ export function keyboardInitial() {
           event.preventDefault();
         } else if (kcode == keycode.LEFT) {
           if (
-            parseInt(
-              $inputbox
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) > 0 ||
+            parseInt($inputbox.css("top")) > 0 ||
             Store.luckysheet_cell_selected_move ||
             Store.luckysheet_cell_selected_extend ||
             $(event.target).hasClass("formulaInputFocus") ||
@@ -1152,11 +1077,7 @@ export function keyboardInitial() {
           event.preventDefault();
         } else if (kcode == keycode.RIGHT) {
           if (
-            parseInt(
-              $inputbox
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css("top")
-            ) > 0 ||
+            parseInt($inputbox.css("top")) > 0 ||
             Store.luckysheet_cell_selected_move ||
             Store.luckysheet_cell_selected_extend ||
             $(event.target).hasClass("formulaInputFocus") ||
@@ -1238,21 +1159,12 @@ export function keyboardInitial() {
       let $inputbox = $("#luckysheet-input-box");
       if (
         kcode == keycode.ESC &&
-        parseInt(
-          $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top")
-        ) > 0
+        parseInt($("#luckysheet-input-box").css("top")) > 0
       ) {
         formula.dontupdate();
         luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
         event.preventDefault();
-      } else if (
-        kcode == keycode.ENTER &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
         if (
           $("#luckysheet-formula-search-c").is(":visible") &&
           formula.searchFunctionCell != null
@@ -1264,12 +1176,7 @@ export function keyboardInitial() {
           );
           event.preventDefault();
         }
-      } else if (
-        kcode == keycode.TAB &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.TAB && parseInt($inputbox.css("top")) > 0) {
         if (
           $("#luckysheet-formula-search-c").is(":visible") &&
           formula.searchFunctionCell != null
@@ -1288,41 +1195,16 @@ export function keyboardInitial() {
         }
 
         event.preventDefault();
-      } else if (
-        kcode == keycode.F4 &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
         formula.setfreezonFuc(event);
         event.preventDefault();
-      } else if (
-        kcode == keycode.UP &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.UP && parseInt($inputbox.css("top")) > 0) {
         formulaMoveEvent("up", ctrlKey, shiftKey, event);
-      } else if (
-        kcode == keycode.DOWN &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.DOWN && parseInt($inputbox.css("top")) > 0) {
         formulaMoveEvent("down", ctrlKey, shiftKey, event);
-      } else if (
-        kcode == keycode.LEFT &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.LEFT && parseInt($inputbox.css("top")) > 0) {
         formulaMoveEvent("left", ctrlKey, shiftKey, event);
-      } else if (
-        kcode == keycode.RIGHT &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.RIGHT && parseInt($inputbox.css("top")) > 0) {
         formulaMoveEvent("right", ctrlKey, shiftKey, event);
       } else if (
         !(
@@ -1370,11 +1252,7 @@ export function keyboardInitial() {
 
       //输入框中文输入后 shift 和 空格 处理
       if (
-        parseInt(
-          $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top")
-        ) > 0 &&
+        parseInt($("#luckysheet-input-box").css("top")) > 0 &&
         (kcode == 13 || kcode == 16 || kcode == 32)
       ) {
         // if(event.target.id=="luckysheet-input-box" || event.target.id=="luckysheet-rich-text-editor"){
@@ -1384,12 +1262,15 @@ export function keyboardInitial() {
 
       e.preventDefault();
     });
-
+  const uuidInlineTwo = getComputedInlineClassStyling(`
+            &.layout {
+           width:${getByteLen(server.title) * 10}px;
+            }
+          `);
   //top workBook rename
   $("#luckysheet_info_detail_input")
     .val(server.title)
-    .attr("nonce", luckysheetConfigsetting.cspNonce)
-    .css("width", getByteLen(server.title) * 10)
+    .addClass(uuidInlineTwo + " layout")
     .keydown(function () {
       let ctrlKey = event.ctrlKey;
       let altKey = event.altKey;
@@ -1411,14 +1292,22 @@ export function keyboardInitial() {
       let otherlen = 100;
 
       let minuslen = containerlen - savelen - updatelen - userlen - otherlen;
+
+      const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+           width:${minuslen}px;
+            }
+
+            &.layoutInput {
+           width:${inputlen}px; 
+            }
+          `);
       if (inputlen > minuslen) {
-        $("#luckysheet_info_detail_input")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("width", minuslen);
+        $("#luckysheet_info_detail_input").addClass(uuidInline + " layout");
       } else {
-        $("#luckysheet_info_detail_input")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("width", inputlen);
+        $("#luckysheet_info_detail_input").addClass(
+          uuidInline + " layoutInput"
+        );
       }
     })
     .change(function () {

@@ -318,16 +318,19 @@ export function orderByInitial() {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+    const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+            max-height: ${(winh - myh) / 2}px;
+            }
 
-    $("#luckysheet-sort-dialog-tablec")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("max-height", (winh - myh) / 2);
+            &.layout-two {
+    left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 2}px;
+            }        
+          `);
+    $("#luckysheet-sort-dialog-tablec").addClass(uuidInline + " layout");
     $("#luckysheet-sort-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 2,
-      })
+      .addClass(uuidInline + " layout-two")
       .show();
     $("#luckysheet-modal-dialog-mask").show();
 

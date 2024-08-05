@@ -91,10 +91,23 @@ const luckysheetSearchReplace = {
         close: locale_button.close,
       })
     );
+    const uuidInline = getComputedInlineClassStyling(`
+    
+             &.layout{
+         min-width:500px;
+
+             }
+
+          &.layoutOne {
+            left: ${(winw + scrollLeft - myw) / 2}px;
+        top:${(winh + scrollTop - myh) / 3}px;
+
+          }
+     
+      `);
     let $t = $("#luckysheet-search-replace")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 500)
+        .addClass(uuidInline + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -103,11 +116,7 @@ const luckysheetSearchReplace = {
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-search-replace")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInline + " layoutOne")
       .show();
 
     if (source == "0" || source == "1") {

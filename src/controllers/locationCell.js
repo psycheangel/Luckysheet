@@ -8,7 +8,9 @@ import { selectHightlightShow } from "./select";
 import conditionformat from "./conditionformat";
 import Store from "../store";
 import locale from "../locale/locale";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 
 //定位
 const luckysheetLocationCell = {
@@ -19,7 +21,20 @@ const luckysheetLocationCell = {
     const _locale = locale();
     const locale_location = _locale.findAndReplace;
     const locale_button = _locale.button;
+    const uuidInline = getComputedInlineClassStyling(`
+            &.layout-color {
+            color: #666
+            }
 
+            &.layout-width {
+            min-width: 400px;
+            }
+
+            &.layout-position {
+              left: ${(winw + scrollLeft - myw) / 2}px;
+              top: ${(winh + scrollTop - myh) / 3}px;
+            }
+          `);
     let content =
       '<div class="listbox">' +
       '<div class="listItem">' +
@@ -68,41 +83,31 @@ const luckysheetLocationCell = {
       '<div class="subbox">' +
       '<div class="subItem">' +
       '<input type="checkbox" checked="checked" class="date" id="locationFormulaDate" disabled="true">' +
-      '<label for="locationFormulaDate" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="color: #666">' +
+      `<label for="locationFormulaDate" class="${uuidInline} layout-color">` +
       locale_location.locationDate +
       "</label>" +
       "</div>" +
       '<div class="subItem">' +
       '<input type="checkbox" checked="checked" class="number" id="locationFormulaNumber" disabled="true">' +
-      '<label for="locationFormulaNumber" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="color: #666">' +
+      `<label for="locationFormulaNumber" class="${uuidInline} layout-color">` +
       locale_location.locationDigital +
       "</label>" +
       "</div>" +
       '<div class="subItem">' +
       '<input type="checkbox" checked="checked" class="string" id="locationFormulaString" disabled="true">' +
-      '<label for="locationFormulaString" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="color: #666">' +
+      `<label for="locationFormulaString" class="${uuidInline} layout-color">` +
       locale_location.locationString +
       "</label>" +
       "</div>" +
       '<div class="subItem">' +
       '<input type="checkbox" checked="checked" class="boolean" id="locationFormulaBoolean" disabled="true">' +
-      '<label for="locationFormulaBoolean" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="color: #666">' +
+      `<label for="locationFormulaBoolean" class="${uuidInline} layout-color">` +
       locale_location.locationBool +
       "</label>" +
       "</div>" +
       '<div class="subItem">' +
       '<input type="checkbox" checked="checked" class="error" id="locationFormulaError" disabled="true">' +
-      '<label for="locationFormulaError" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="color: #666">' +
+      `<label for="locationFormulaError"class="${uuidInline} layout-color">` +
       locale_location.locationError +
       "</label>" +
       "</div>" +
@@ -151,8 +156,7 @@ const luckysheetLocationCell = {
     );
     let $t = $("#luckysheet-locationCell-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 400)
+        .addClass(uuidInline + " layout-width")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -161,11 +165,7 @@ const luckysheetLocationCell = {
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-locationCell-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInline + " layout-position")
       .show();
   },
   init: function () {
@@ -177,13 +177,22 @@ const luckysheetLocationCell = {
       "click",
       "#luckysheet-locationCell-dialog .listItem input:radio",
       function (e) {
+        const uuidInline = getComputedInlineClassStyling(`
+            &.layout-color {
+            color: #666;
+            }
+
+            &.layout-color-two {
+            color:#000;
+            }        
+          `);
         $("#luckysheet-locationCell-dialog .listItem input:checkbox").prop(
           "disabled",
           true
         );
-        $("#luckysheet-locationCell-dialog .listItem .subbox label")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("color", "#666");
+        $("#luckysheet-locationCell-dialog .listItem .subbox label").addClass(
+          uuidInline + " layout-color"
+        );
 
         $(this)
           .siblings(".subbox")
@@ -192,8 +201,7 @@ const luckysheetLocationCell = {
         $(this)
           .siblings(".subbox")
           .find("label")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("color", "#000");
+          .addClass(uuidInline + " layout-color-two");
       }
     );
 
