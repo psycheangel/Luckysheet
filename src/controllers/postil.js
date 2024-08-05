@@ -12,7 +12,9 @@ import { checkProtectionAuthorityNormal } from "./protection";
 import server from "./server";
 import Store from "../store";
 import method from "../global/method";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 
 //批注
 const luckysheetPostil = {
@@ -50,17 +52,20 @@ const luckysheetPostil = {
         }
 
         _this.removeActivePs();
+        const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+               z-index : 200;
 
+                        }        
+                      `);
         $(this).addClass("luckysheet-postil-show-active");
         $(this).find(".luckysheet-postil-dialog-resize").show();
         $(this)
           .find(".arrowCanvas")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("z-index", 200);
+          .addClass(uuidInline + " layout");
         $(this)
           .find(".luckysheet-postil-show-main")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css("z-index", 200);
+          .addClass(uuidInline + " layout");
 
         event.stopPropagation();
       });
@@ -128,7 +133,12 @@ const luckysheetPostil = {
           }
 
           _this.removeActivePs();
+          const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+               z-index : 200;
 
+                        }        
+                      `);
           $(this)
             .closest(".luckysheet-postil-show")
             .addClass("luckysheet-postil-show-active");
@@ -139,13 +149,11 @@ const luckysheetPostil = {
           $(this)
             .closest(".luckysheet-postil-show")
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("z-index", 200);
+            .addClass(uuidInline + " layout");
           $(this)
             .closest(".luckysheet-postil-show")
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("z-index", 200);
+            .addClass(uuidInline + " layout");
 
           event.stopPropagation();
         }
@@ -201,7 +209,12 @@ const luckysheetPostil = {
           }
 
           _this.removeActivePs();
+          const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+               z-index : 200;
 
+                        }        
+                      `);
           $(this)
             .closest(".luckysheet-postil-show")
             .addClass("luckysheet-postil-show-active");
@@ -212,13 +225,11 @@ const luckysheetPostil = {
           $(this)
             .closest(".luckysheet-postil-show")
             .find(".arrowCanvas")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("z-index", 200);
+            .addClass(uuidInline + " layout");
           $(this)
             .closest(".luckysheet-postil-show")
             .find(".luckysheet-postil-show-main")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("z-index", 200);
+            .addClass(uuidInline + " layout");
 
           event.stopPropagation();
         }
@@ -331,31 +342,36 @@ const luckysheetPostil = {
     for (let line of valueLines) {
       commentDivs += "<div>" + _this.htmlEscape(line) + "</div>";
     }
+    const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                          position:absolute;
+                          left:${size[0]}px;
+                          top:${size[1]}px;
+                          z-index:100;
+                          pointer-events:none;
+                        }       
+                          &.layoutOne {
+                          width:${width - 12}px;
+                          min-height:${height - 12}px;
+                          color:#000;
+                          padding:5px;
+                          border:1px solid #000;
+                          background-color:rgb(255,255,225);
+                          position:absolute;
+                          left:${fromX}px;
+                          top:${fromY}px;
+                          z-index:100;
+                          } 
+                      `);
 
     let html =
       '<div id="luckysheet-postil-overshow">' +
-      '<canvas class="arrowCanvas" width="' +
+      `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
       size[2] +
       '" height="' +
       size[3] +
-      '" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="position:absolute;left:' +
-      size[0] +
-      "px;top:" +
-      size[1] +
-      'px;z-index:100;pointer-events:none;"></canvas>' +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="width:' +
-      (width - 12) +
-      "px;min-height:" +
-      (height - 12) +
-      "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-      fromX +
-      "px;top:" +
-      fromY +
-      'px;z-index:100;">' +
+      '"></canvas>' +
+      `<div class="${uuidInline} layoutOne">` +
       commentDivs +
       "</div>" +
       "</div>";
@@ -528,6 +544,46 @@ const luckysheetPostil = {
       for (let line of valueLines) {
         commentDivs += "<div>" + _this.htmlEscape(line) + "</div>";
       }
+      const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                         position:absolute;
+                         left:${size[0]};top:${size[1]};
+                          z-index:100;
+                          pointer-events:none;
+                        }       
+                        &.layoutOne {
+                         width:${width}px;
+                         height:${height}px;
+                         color:#000;
+                         padding:5px;
+                         border:1px solid #000;
+                         background-color:rgb(255,255,225);
+                         position:absolute;
+                         left:${left}px;
+                         top:${top}px;
+                         box-sizing:
+                         border-box;z-index:100;
+                          } 
+
+                          &.display-none {
+                          display:none;
+                          }
+
+                          &.layoutTwo {
+                          width:100%;
+                          height:100%;
+                          overflow:hidden;
+                          }
+
+                          &.layoutThree {
+                           width:${width - 12}px;
+                           height:${height - 12}px;
+                           line-height:20px;
+                           box-sizing:border-box;
+                           text-align: center;
+                           word-break:break-all;
+                          }
+                      `);
 
       let html =
         '<div id="luckysheet-postil-show_' +
@@ -535,37 +591,19 @@ const luckysheetPostil = {
         "_" +
         c +
         '" class="luckysheet-postil-show">' +
-        '<canvas class="arrowCanvas" width="' +
+        `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
         size[2] +
         '" height="' +
         size[3] +
-        '" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="position:absolute;left:' +
-        size[0] +
-        "px;top:" +
-        size[1] +
-        'px;z-index:100;pointer-events:none;"></canvas>' +
-        '<div class="luckysheet-postil-show-main" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        width +
-        "px;height:" +
-        height +
-        "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-        left +
-        "px;top:" +
-        top +
-        'px;box-sizing:border-box;z-index:100;">' +
+        '"></canvas>' +
+        `<div class="luckysheet-postil-show-main ${uuidInline} layoutOne">` +
         '<div class="luckysheet-postil-dialog-move">' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
         "</div>" +
-        '<div class="luckysheet-postil-dialog-resize" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="display:none;">' +
+        `<div class="luckysheet-postil-dialog-resize ${uuidInline} display-none">` +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
@@ -575,16 +613,8 @@ const luckysheetPostil = {
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
         "</div>" +
-        '<div nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:100%;height:100%;overflow:hidden;">' +
-        '<div class="formulaInputFocus" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        (width - 12) +
-        "px;height:" +
-        (height - 12) +
-        'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
+        `<div class="${uuidInline} + layoutTwo">` +
+        `<div class="formulaInputFocus"class="${uuidInline} layoutThree" spellcheck="false" contenteditable="true">` +
         commentDivs +
         "</div>" +
         "</div>" +
@@ -642,35 +672,55 @@ const luckysheetPostil = {
     let height = _this.defaultHeight * Store.zoomRatio;
 
     let size = _this.getArrowCanvasSize(fromX, fromY, toX, toY);
+    const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+      position:absolute;
+      left:${size[0]}px;
+      top:${size[1]}px;
+      z-index:100;
+      pointer-events:none;
+      }
 
+      &.layoutOne {
+      width:${width}px;
+      height:${height}px;
+      color:#000;
+      padding:5px;
+      border:1px solid #000;
+      background-color:rgb(255,255,225);
+      position:absolute;
+      left:${fromX}px;
+      top:${fromY}px;
+      box-sizing:border-box;
+      z-index:100;
+      }
+      &.layoutTwo {
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      }
+
+      &.layoutThree{
+      width:132px;
+      height:72px;
+      line-height:20px;
+      box-sizing:border-box;
+      text-align: center;
+      word-break:break-all;
+      }
+      `);
     let html =
       '<div id="luckysheet-postil-show_' +
       r +
       "_" +
       c +
       '" class="luckysheet-postil-show luckysheet-postil-show-active">' +
-      '<canvas class="arrowCanvas" width="' +
+      `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
       size[2] +
       '" height="' +
       size[3] +
-      '" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="position:absolute;left:' +
-      size[0] +
-      "px;top:" +
-      size[1] +
-      'px;z-index:100;pointer-events:none;"></canvas>' +
-      '<div class="luckysheet-postil-show-main" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="width:' +
-      width +
-      "px;height:" +
-      height +
-      "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-      fromX +
-      "px;top:" +
-      fromY +
-      'px;box-sizing:border-box;z-index:100;">' +
+      '"></canvas>' +
+      `<div class="luckysheet-postil-show-main ${uuidInline} layoutOne">` +
       '<div class="luckysheet-postil-dialog-move">' +
       '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
       '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
@@ -687,12 +737,8 @@ const luckysheetPostil = {
       '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
       '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
       "</div>" +
-      '<div nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="width:100%;height:100%;overflow:hidden;">' +
-      '<div class="formulaInputFocus" nonce="' +
-      luckysheetConfigsetting.cspNonce +
-      '" style="width:132px;height:72px;line-height:20px;box-sizing:border-box;text-align: center;word-break:break-all;" spellcheck="false" contenteditable="true">' +
+      `<div class="${uuidInline} layoutTwo">` +
+      `<div class="formulaInputFocus ${uuidInline} layoutThree" spellcheck="false" contenteditable="true">` +
       "</div>" +
       "</div>" +
       "</div>" +
@@ -800,35 +846,55 @@ const luckysheetPostil = {
       for (let line of valueLines) {
         commentDivs += "<div>" + _this.htmlEscape(line) + "</div>";
       }
+      const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+      position:absolute;
+      left:${size[0]}px;
+      top:${size[1]}px;
+      z-index:100;
+      pointer-events:none;
+      }
 
+      &.layoutOne {
+      width:${width}px;
+      height:${height}px;
+      color:#000;
+      padding:5px;
+      border:1px solid #000;
+      background-color:rgb(255,255,225);
+      position:absolute;
+      left:${left}px;
+      top:${top}px;
+      box-sizing:border-box;
+      z-index:100;
+      }
+      &.layoutTwo {
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      }
+
+      &.layoutThree{
+     width:${width - 12}px;
+     height:${height - 12}px;
+      line-height:20px;
+      box-sizing:border-box;
+      text-align: center;
+      word-break:break-all;
+      }
+      `);
       let html =
         '<div id="luckysheet-postil-show_' +
         r +
         "_" +
         c +
         '" class="luckysheet-postil-show luckysheet-postil-show-active">' +
-        '<canvas class="arrowCanvas" width="' +
+        `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
         size[2] +
         '" height="' +
         size[3] +
-        '" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="position:absolute;left:' +
-        size[0] +
-        "px;top:" +
-        size[1] +
-        'px;z-index:100;pointer-events:none;"></canvas>' +
-        '<div class="luckysheet-postil-show-main" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        width +
-        "px;height:" +
-        height +
-        "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-        left +
-        "px;top:" +
-        top +
-        'px;box-sizing:border-box;z-index:100;">' +
+        '"></canvas>' +
+        `<div class="luckysheet-postil-show-main ${uuidInline} layoutOne">` +
         '<div class="luckysheet-postil-dialog-move">' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
@@ -845,16 +911,8 @@ const luckysheetPostil = {
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
         "</div>" +
-        '<div nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:100%;height:100%;overflow:hidden;">' +
-        '<div class="formulaInputFocus" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        (width - 12) +
-        "px;height:" +
-        (height - 12) +
-        'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
+        `<div class="${uuidInline} layoutTwo">` +
+        `<div class="formulaInputFocus ${uuidInline} layoutThree" spellcheck="false" contenteditable="true">` +
         commentDivs +
         "</div>" +
         "</div>" +
@@ -999,43 +1057,64 @@ const luckysheetPostil = {
       for (let line of valueLines) {
         commentDivs += "<div>" + _this.htmlEscape(line) + "</div>";
       }
+      const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+      position:absolute;
+      left:${size[0]}px;
+      top:${size[1]}px;
+      z-index:100;
+      pointer-events:none;
+      }
+
+      &.layoutOne {
+      width:${width}px;
+      height:${height}px;
+      color:#000;
+      padding:5px;
+      border:1px solid #000;
+      background-color:rgb(255,255,225);
+      position:absolute;
+      left:${left}px;
+      top:${top}px;
+      box-sizing:border-box;
+      z-index:100;
+      }
+      &.layoutTwo {
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      }
+
+      &.display-none {
+      display:none;}
+      &.layoutThree{
+     width:${width - 12}px;
+     height:${height - 12}px;
+      line-height:20px;
+      box-sizing:border-box;
+      text-align: center;
+      word-break:break-all;
+      }
+      `);
       let html =
         '<div id="luckysheet-postil-show_' +
         r +
         "_" +
         c +
         '" class="luckysheet-postil-show">' +
-        '<canvas class="arrowCanvas" width="' +
+        `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
         size[2] +
         '" height="' +
         size[3] +
-        '" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="position:absolute;left:' +
-        size[0] +
-        "px;top:" +
-        size[1] +
-        'px;z-index:100;pointer-events:none;"></canvas>' +
-        '<div class="luckysheet-postil-show-main" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        width +
-        "px;height:" +
-        height +
-        "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-        left +
-        "px;top:" +
-        top +
-        'px;box-sizing:border-box;z-index:100;">' +
+        '"></canvas>' +
+        `<div class="luckysheet-postil-show-main ${uuidInline} layoutOne">` +
         '<div class="luckysheet-postil-dialog-move">' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
         '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
         "</div>" +
-        '<div class="luckysheet-postil-dialog-resize" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="display:none;">' +
+        `<div class="luckysheet-postil-dialog-resize ${uuidInline} display-none">` +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
@@ -1045,16 +1124,8 @@ const luckysheetPostil = {
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
         '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
         "</div>" +
-        '<div nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:100%;height:100%;overflow:hidden;">' +
-        '<div class="formulaInputFocus" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="width:' +
-        (width - 12) +
-        "px;height:" +
-        (height - 12) +
-        'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
+        `<div class="${uuidInline} layoutTwo">` +
+        `<div class="formulaInputFocus ${uuidInline} layoutThree" spellcheck="false" contenteditable="true">` +
         commentDivs +
         "</div>" +
         "</div>" +
@@ -1194,44 +1265,64 @@ const luckysheetPostil = {
             for (let line of valueLines) {
               commentDivs += "<div>" + _this.htmlEscape(line) + "</div>";
             }
+            const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+      position:absolute;
+      left:${size[0]}px;
+      top:${size[1]}px;
+      z-index:100;
+      pointer-events:none;
+      }
 
+      &.layoutOne {
+      width:${width}px;
+      height:${height}px;
+      color:#000;
+      padding:5px;
+      border:1px solid #000;
+      background-color:rgb(255,255,225);
+      position:absolute;
+      left:${left}px;
+      top:${top}px;
+      box-sizing:border-box;
+      z-index:100;
+      }
+      &.layoutTwo {
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      }
+
+      &.display-none {
+      display:none;}
+      &.layoutThree{
+     width:${width - 12}px;
+     height:${height - 12}px;
+      line-height:20px;
+      box-sizing:border-box;
+      text-align: center;
+      word-break:break-all;
+      }
+      `);
             let html =
               '<div id="luckysheet-postil-show_' +
               rowIndex +
               "_" +
               colIndex +
               '" class="luckysheet-postil-show">' +
-              '<canvas class="arrowCanvas" width="' +
+              `<canvas class="arrowCanvas ${uuidInline} layout" width="` +
               size[2] +
               '" height="' +
               size[3] +
-              '" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="position:absolute;left:' +
-              size[0] +
-              "px;top:" +
-              size[1] +
-              'px;z-index:100;pointer-events:none;"></canvas>' +
-              '<div class="luckysheet-postil-show-main" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="width:' +
-              width +
-              "px;height:" +
-              height +
-              "px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:" +
-              left +
-              "px;top:" +
-              top +
-              'px;box-sizing:border-box;z-index:100;">' +
+              '"></canvas>' +
+              `<div class="luckysheet-postil-show-main ${uuidInline} layoutOne">` +
               '<div class="luckysheet-postil-dialog-move">' +
               '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
               '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
               '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
               '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
               "</div>" +
-              '<div class="luckysheet-postil-dialog-resize" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="display:none;">' +
+              `<div class="luckysheet-postil-dialog-resize ${uuidInline} display-none">` +
               '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
               '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
               '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
@@ -1241,16 +1332,8 @@ const luckysheetPostil = {
               '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
               '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
               "</div>" +
-              '<div nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="width:100%;height:100%;overflow:hidden;">' +
-              '<div class="formulaInputFocus" nonce="' +
-              luckysheetConfigsetting.cspNonce +
-              '" style="width:' +
-              (width - 12) +
-              "px;height:" +
-              (height - 12) +
-              'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
+              `<div class="${uuidInline} layoutTwo">` +
+              `<div class="formulaInputFocus ${uuidInline} layoutThree" spellcheck="false" contenteditable="true">` +
               commentDivs +
               "</div>" +
               "</div>" +
@@ -1309,19 +1392,24 @@ const luckysheetPostil = {
       }
 
       const previousCell = $.extend(true, {}, Store.flowdata[r][c]);
+      const uuidInline = getComputedInlineClassStyling(`
+      &.layout {
+      z-index:100;
+  
+      }
 
+     
+      `);
       $("#" + id).removeClass("luckysheet-postil-show-active");
       $("#" + id)
         .find(".luckysheet-postil-dialog-resize")
         .hide();
       $("#" + id)
         .find(".arrowCanvas")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("z-index", 100);
+        .addClass(uuidInline + " layout");
       $("#" + id)
         .find(".luckysheet-postil-show-main")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("z-index", 100);
+        .addClass(uuidInline + " layout");
 
       let d = editor.deepCopyFlowData(Store.flowdata);
       let rc = [];

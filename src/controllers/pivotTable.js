@@ -956,17 +956,26 @@ const pivotTable = {
         // Store.luckysheet_select_status = false;
         return;
       }
+      const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+           padding-right:260px;
+            }
+
+           
+          `);
       slider.show();
       luckysheetsizeauto();
-      $("#luckysheet-sta-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("padding-right", 260);
+      $("#luckysheet-sta-content").addClass(uuidInline + " layout");
     } else if (!isRangeClick && slider.is(":visible")) {
+      const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout-two {
+            padding-right : 10px;
+            }        
+          `);
       slider.hide();
       luckysheetsizeauto();
-      $("#luckysheet-sta-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("padding-right", 10);
+      $("#luckysheet-sta-content").addClass(uuidInline + " layout-two");
     }
   },
   isPivotRange: function (row_index, col_index) {
@@ -1125,16 +1134,21 @@ const pivotTable = {
         $("#luckysheet-modal-dialog-slider-pivot").hide();
         luckysheetsizeauto();
       });
-
+      const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout {
+          font-size: 14px;
+          padding:5px;
+          max-width:none;
+            }        
+          `);
       $("body").append(
         replaceHtml(modelHTML, {
           id: "luckysheet-data-pivotTable-selection",
           addclass: "luckysheet-data-pivotTable-selection",
           title: locale_pivotTable.titleSelectionDataRange,
           content:
-            '<input id="luckysheet-pivotTable-range-selection-input" class="luckysheet-datavisual-range-container" nonce="' +
-            luckysheetConfigsetting.cspNonce +
-            '" style="font-size: 14px;padding:5px;max-width:none;" spellcheck="false" aria-label="' +
+            `<input id="luckysheet-pivotTable-range-selection-input" class="luckysheet-datavisual-range-container ${uuidInline} layout" spellcheck="false" aria-label="` +
             locale_pivotTable.titleDataRange +
             '" placeholder="' +
             locale_pivotTable.titleDataRange +
@@ -1590,10 +1604,15 @@ const pivotTable = {
           mheight = toffset.top - 20;
         }
 
-        $menu
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({ top: top, left: left, height: mheight })
-          .show();
+        const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout {
+       top: ${top}px;
+       left: ${left}px; 
+       height: ${mheight}px;
+            }        
+          `);
+        $menu.addClass(uuidInline + " layout").show();
         clearTimeout(hidefilersubmenu);
       });
 
@@ -1673,13 +1692,15 @@ const pivotTable = {
           winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(),
           scrollTop = $(document).scrollTop();
-
+        const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout {
+        left: ${(winw + scrollLeft - myw) / 2}px;
+            top: ${(winh + scrollTop - myh) / 4}px;
+            }        
+          `);
         $("#luckysheet-data-pivotTable-selection")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: (winw + scrollLeft - myw) / 2,
-            top: (winh + scrollTop - myh) / 4,
-          })
+          .addClass(uuidInline + " layout")
           .show();
 
         _this.jgridCurrentPivotInput = $(
@@ -1831,7 +1852,12 @@ const pivotTable = {
               sumtype = "COUNTA";
             }
           }
-
+          const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout {
+        display: inline;
+            }        
+          `);
           let $menu = $("#luckysheet-pivotTable-config-option-sumtype");
           $menu.find(".luckysheet-submenu-arrow").hide();
           $menu
@@ -1840,8 +1866,8 @@ const pivotTable = {
                 sumtype +
                 "'] .luckysheet-submenu-arrow"
             )
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("display", "inline");
+
+            .addClass(uuidInline + " layout");
           $menu.data("item", $item);
 
           mouseclickposition(
@@ -2504,12 +2530,15 @@ const pivotTable = {
           _this.movesave.height = $(
             "#luckysheet-modal-dialog-slider-pivot-move"
           ).outerHeight();
-
+          const uuidInline = getComputedInlineClassStyling(`
+        
+            &.layout {
+        cursor: default;
+            }        
+          `);
           $(
             "#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value"
-          )
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("cursor", "default");
+          ).addClass(uuidInline + " layout");
         }
       );
 
@@ -2530,20 +2559,31 @@ const pivotTable = {
                     _this.moveitemposition[i] + h + 2
                   );
                 });
+              const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                   position:absolute;
+                   height:3px;
+                   width:100%;
+                   background:#007ACC;
+                   z-index:1;
+                   pointer-events: none;
+                   user-select:none;
+                        }        
+                      `);
               $(this).append(
-                '<div id="luckysheet-modal-dialog-config-order-help" nonce="' +
-                  luckysheetConfigsetting.cspNonce +
-                  '" style="position:absolute;height:3px;width:100%;background:#007ACC;z-index:1;pointer-events: none;user-select:none;"></div>'
+                `<div id="luckysheet-modal-dialog-config-order-help" class="${uuidInline} layout"></div>`
               );
             }
-
-            $("#luckysheet-modal-dialog-slider-pivot-move")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                background: "#FD8585",
-                color: "#fff",
-                border: "1px solid #FD7070",
-              });
+            const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                 background: #FD8585;
+                color: #fff;
+                border: 1px solid #FD7070;
+                        }        
+                      `);
+            $("#luckysheet-modal-dialog-slider-pivot-move").addClass(
+              uuidInline + " layout"
+            );
             let x = event.pageX,
               y = event.pageY,
               $container = $(this);
@@ -2552,38 +2592,50 @@ const pivotTable = {
             let row_index = luckysheet_searcharray(position, curtop);
 
             if (row_index == -1) {
-              $("#luckysheet-modal-dialog-config-order-help")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: position[position.length - 1],
-                });
+              const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                    top: ${position[position.length - 1]}px;
+                        }        
+                      `);
+              $("#luckysheet-modal-dialog-config-order-help").addClass(
+                uuidInline + " layout"
+              );
             } else if (
               curtop - position[row_index - 1] >
               (position[row_index] - position[row_index - 1]) / 2
             ) {
-              $("#luckysheet-modal-dialog-config-order-help")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: position[row_index],
-                });
+              const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                    top: ${position[row_index]}px;
+                        }        
+                      `);
+              $("#luckysheet-modal-dialog-config-order-help").addClass(
+                uuidInline + " layout"
+              );
             } else {
-              $("#luckysheet-modal-dialog-config-order-help")
-                .attr("nonce", luckysheetConfigsetting.cspNonce)
-                .css({
-                  top: position[row_index - 1],
-                });
+              const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                    top: ${position[row_index - 1]}px;
+                        }        
+                      `);
+              $("#luckysheet-modal-dialog-config-order-help").addClass(
+                uuidInline + " layout"
+              );
             }
           }
         })
         .mouseleave(function () {
           if (_this.movestate) {
-            $("#luckysheet-modal-dialog-slider-pivot-move")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({
-                background: "#fff",
-                color: "#000",
-                border: "1px dotted #000",
-              });
+            const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                    background: #fff;
+                color: #000;
+                border: 1px dotted #000;
+                        }        
+                      `);
+            $("#luckysheet-modal-dialog-slider-pivot-move").addClass(
+              uuidInline + " layout"
+            );
             _this.moveitemposition = [];
             $("#luckysheet-modal-dialog-config-order-help").remove();
           }
@@ -2735,12 +2787,15 @@ const pivotTable = {
             _this.refreshPivotTable();
 
             $("#luckysheet-modal-dialog-slider-pivot-move").remove();
+            const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                   cursor:default;
+                        }        
+                      `);
             _this.movestate = false;
             $(
               "#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value"
-            )
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("cursor", "default");
+            ).addClass(uuidInline + " layout");
             _this.moveitemposition = [];
             $("#luckysheet-modal-dialog-config-order-help").remove();
             _this.showvaluecolrow();
@@ -2950,7 +3005,11 @@ const pivotTable = {
       if (dataother.length > 0) {
         style = "display:block;";
       }
-
+      const uuidInline = getComputedInlineClassStyling(`
+                        &.layout {
+                 ${style}
+                        }        
+                      `);
       selecteditem +=
         '<div class="luckysheet-modal-dialog-slider-list-item" ' +
         dataother +
@@ -2972,11 +3031,9 @@ const pivotTable = {
         name +
         '</div><div title="' +
         locale_pivotTable.titleClearColumnFilter +
-        '" class="luckysheet-slider-list-item-filtered" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="' +
-        style +
-        '"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true"></i></div><div title="' +
+        '" class="luckysheet-slider-list-item-filtered ' +
+        uuidInline +
+        ' layout"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true"></i></div><div title="' +
         locale_pivotTable.titleFilterColumn +
         '" class="luckysheet-slider-list-item-filter"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
     }

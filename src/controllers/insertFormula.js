@@ -259,11 +259,15 @@ const insertFormula = {
               })
             );
           }
+          const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+            min-width: 300px;
+            }
+          `);
 
           let $t = $("#luckysheet-search-formula-parm-select")
               .find(".luckysheet-modal-dialog-content")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css("min-width", 300)
+              .addClass(uuidInline + " layout")
               .end(),
             myh = $t.outerHeight(),
             myw = $t.outerWidth();
@@ -271,12 +275,15 @@ const insertFormula = {
             winh = $(window).height();
           let scrollLeft = $(document).scrollLeft(),
             scrollTop = $(document).scrollTop();
+
+          const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+              left: ${(winw + scrollLeft - myw) / 2}px;
+              top: ${(winh + scrollTop - myh) / 3}px;
+            }
+          `);
           $("#luckysheet-search-formula-parm-select")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: (winw + scrollLeft - myw) / 2,
-              top: (winh + scrollTop - myh) / 3,
-            })
+            .addClass(uuidInlineOne + " layout")
             .show();
 
           //参数选区虚线框
@@ -383,10 +390,15 @@ const insertFormula = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInlineOne = getComputedInlineClassStyling(`
+            &.layout {
+              min-width:300px;
+            }
+          `);
     let $t = $("#luckysheet-search-formula")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+        .addClass(uuidInlineOne + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -394,13 +406,16 @@ const insertFormula = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+            &.layout {
+            left: ${(winw + scrollLeft - myw) / 2}px;
+            top: ${(winh + scrollTop - myh) / 3}px;
+            user-select: none;
+            }
+          `);
     $("#luckysheet-search-formula")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-        "user-select": "none",
-      })
+      .addClass(uuidInlineTwo + " layout")
       .show();
 
     _this.formulaListByType("0"); //默认公式列表为类型0
@@ -519,10 +534,15 @@ const insertFormula = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInline = getComputedInlineClassStyling(`
+            &.layout {
+            min-width: 300px;
+            }
+          `);
     let $t = $("#luckysheet-search-formula-parm")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+        .addClass(uuidInline + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -530,12 +550,15 @@ const insertFormula = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+            &.layout {
+        left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+            }
+          `);
     $("#luckysheet-search-formula-parm")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineTwo + " layout")
       .show();
 
     //参数栏第一个参数聚焦，显示选取虚线框
@@ -620,15 +643,16 @@ const insertFormula = {
           row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
         let col = Store.visibledatacolumn[c2],
           col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
-
+        const uuidInlineTwo = getComputedInlineClassStyling(`
+            &.layout {
+            left: ${col_pre}px;
+            width: ${col - col_pre - 1}px;
+            top: ${row_pre}px;
+            height: ${row - row_pre - 1}px;
+            }
+          `);
         $("#luckysheet-formula-functionrange-select")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: col_pre,
-            width: col - col_pre - 1,
-            top: row_pre,
-            height: row - row_pre - 1,
-          })
+          .addClass(uuidInlineTwo + " layout")
           .show();
         $("#luckysheet-formula-help-c").hide();
 
@@ -697,15 +721,16 @@ const insertFormula = {
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
       let col = Store.visibledatacolumn[c2],
         col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
-
+      const uuidInlineTwo = getComputedInlineClassStyling(`
+            &.layout {
+            left: ${col_pre}px;
+            width: ${col - col_pre - 1}px;
+            top: ${row_pre}px;
+            height: ${row - row_pre - 1}px;
+            }
+          `);
       $("#luckysheet-formula-functionrange-select")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          left: col_pre,
-          width: col - col_pre - 1,
-          top: row_pre,
-          height: row - row_pre - 1,
-        })
+        .addClass(uuidInlineTwo + " layout")
         .show();
       $("#luckysheet-formula-help-c").hide();
 

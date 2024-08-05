@@ -1,5 +1,7 @@
 import mobileinit from "./mobile";
-import luckysheetConfigsetting from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 import luckysheetFreezen from "./freezen";
 import pivotTable from "./pivotTable";
 import luckysheetDropCell from "./dropCell";
@@ -306,20 +308,21 @@ export default function luckysheetHandler() {
 
       // 协同编辑其他用户不在操作的时候，用户名框隐藏
       hideUsername();
-
+      const uuidInline = getComputedInlineClassStyling(`
+    &.layout {
+    cursor : default;
+    }
+    
+    `);
       $("#luckysheet-cell-selected")
         .find(".luckysheet-cs-fillhandle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default")
+        .addClass(uuidInline + " layout")
         .end()
         .find(".luckysheet-cs-draghandle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+        .addClass(uuidInline + " layout");
       $(
         "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
-      )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+      ).addClass(uuidInline + " layout");
 
       //有批注在编辑时
       luckysheetPostil.removeActivePs();
@@ -484,11 +487,7 @@ export default function luckysheetHandler() {
 
       //公式相关
       let $input = $("#luckysheet-input-box");
-      if (
-        parseInt(
-          $input.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      if (parseInt($input.css("top")) > 0) {
         if (
           formula.rangestart ||
           formula.rangedrag_column_start ||
@@ -683,15 +682,17 @@ export default function luckysheetHandler() {
           formula.rangestart = true;
           formula.rangedrag_column_start = false;
           formula.rangedrag_row_start = false;
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+                  left: ${left}px;
+                    width: ${width}px;
+                    top: ${top}px;
+                    height: ${height}px;
+          }
+          
+          `);
           $("#luckysheet-formula-functionrange-select")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: left,
-              width: width,
-              top: top,
-              height: height,
-            })
+            .addClass(uuidInline + " layout")
             .show();
           $("#luckysheet-formula-help-c").hide();
           luckysheet_count_show(
@@ -1052,15 +1053,15 @@ export default function luckysheetHandler() {
         //选择单个单元格
         Store.luckysheet_select_status = false;
         formula.rangestart = false;
-
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${col_pre}px;
+            width:${col - col_pre - 1}px;
+            top: ${row_pre}px;
+            height: ${row - row_pre - 1}px;
+          }`);
         $("#luckysheet-formula-functionrange-select")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: col_pre,
-            width: col - col_pre - 1,
-            top: row_pre,
-            height: row - row_pre - 1,
-          })
+          .addClass(uuidInline + " layout")
           .show();
         $("#luckysheet-formula-help-c").hide();
 
@@ -1093,15 +1094,15 @@ export default function luckysheetHandler() {
           column_focus: col_index,
         };
         formula.rangestart = true;
-
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${col_pre}px;
+            width:${col - col_pre - 1}px;
+            top: ${row_pre}px;
+            height: ${row - row_pre - 1}px;
+          }`);
         $("#luckysheet-formula-functionrange-select")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: col_pre,
-            width: col - col_pre - 1,
-            top: row_pre,
-            height: row - row_pre - 1,
-          })
+          .addClass(uuidInline + " layout")
           .show();
         $("#luckysheet-formula-help-c").hide();
 
@@ -1748,13 +1749,7 @@ export default function luckysheetHandler() {
         return;
       }
 
-      if (
-        parseInt(
-          $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css("top")
-        ) > 0
-      ) {
+      if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
         return;
       }
 
@@ -2113,17 +2108,20 @@ export default function luckysheetHandler() {
         }
         mpx = winh;
       }
-
+  const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          height:${Store.calculatebarHeight - 2}px;
+          }
+          &. layoutOne { 
+             background: #5e5e5e,
+          cursor: ns-resize,
+          }
+          `);
       Store.calculatebarHeight = mpx;
       $("#luckysheet-wa-calculate")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("height", Store.calculatebarHeight - 2);
+        .addClass(uuidInline + ' layout');
       $("#luckysheet-wa-calculate-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          background: "#5e5e5e",
-          cursor: "ns-resize",
-        });
+        .addClass(uuidInline + ' layoutOne');
 
       clearTimeout(formula.functionResizeTimeout);
       formula.functionResizeTimeout = setTimeout(function () {
@@ -2149,11 +2147,15 @@ export default function luckysheetHandler() {
       if (top > luckysheetFreezen.windowHeight - 4) {
         top = luckysheetFreezen.windowHeight - 4;
       }
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+        top: ${top}px;
+          }
 
+          `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ top: top });
+        .addClass(uuidInline + ' layout');
 
       if (
         top + scrollTop - Store.columnHeaderHeight >=
@@ -2178,10 +2180,15 @@ export default function luckysheetHandler() {
         ];
       }
 
+        const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+        top: ${top}px;
+          }
+
+          `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-drop")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ top: top });
+          .addClass(uuidInlineOne + ' layout');
       luckysheetFreezen.saveFreezen(
         luckysheetFreezen.freezenhorizontaldata,
         top,
@@ -2210,10 +2217,14 @@ export default function luckysheetHandler() {
         left = luckysheetFreezen.windowWidth - 4;
       }
 
+          const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+      left: ${left}px; 
+          }
+          `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: left });
+        .addClass(uuidInlineOne + ' layout');
 
       if (
         left + scrollLeft - Store.rowHeaderWidth >=
@@ -2238,10 +2249,14 @@ export default function luckysheetHandler() {
         ];
       }
 
+        const uuidInlineTwo = getComputedInlineClassStyling(`
+          &.layout {
+      left: ${left}px; 
+          }
+          `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-drop")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: left });
+          .addClass(uuidInlineTwo + ' layout');
       luckysheetFreezen.saveFreezen(
         null,
         null,
@@ -2252,12 +2267,15 @@ export default function luckysheetHandler() {
     } else if (!!pivotTable && pivotTable.movestate) {
       let x = event.pageX,
         y = event.pageY;
+
+           const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+      left: ${x - pivotTable.movesave.width / 2}px;
+          top: ${y - pivotTable.movesave.height}px;
+          }
+          `);
       $("#luckysheet-modal-dialog-slider-pivot-move")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({
-          left: x - pivotTable.movesave.width / 2,
-          top: y - pivotTable.movesave.height,
-        });
+       .addClass(uuidInline + ' layout');
     } else if (Store.luckysheet_sheet_move_status) {
       let scrollLeft = $("#luckysheet-sheet-container-c").scrollLeft();
       let x = event.pageX + scrollLeft;
@@ -2265,23 +2283,30 @@ export default function luckysheetHandler() {
       if (Math.abs(event.pageX - Store.luckysheet_sheet_move_data.pageX) < 3) {
         return;
       }
-
+    const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          left : ${left}px;
+          }
+          `);
       let winW = $("#luckysheet-sheet-container").width();
       let left =
         x -
         Store.luckysheet_sheet_move_data.curleft -
         $("#luckysheet-sheet-container").offset().left;
       Store.luckysheet_sheet_move_data.activeobject
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ left: left });
+        .addClass(uuidInline + ' layout');
 
       let row_index = luckysheet_searcharray(
         Store.luckysheet_sheet_move_data.widthlist,
         left + Store.luckysheet_sheet_move_data.curleft
       );
+       const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          cursor: move;
+          }
+          `);
       Store.luckysheet_sheet_move_data.cursorobject
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ cursor: "move" });
+        .addClass(uuidInlineOne + ' layout');
 
       if (left - scrollLeft <= 6) {
         $("#luckysheet-sheets-leftscroll").click();
@@ -2359,9 +2384,14 @@ export default function luckysheetHandler() {
         left = winW - myw - 86;
       }
 
+
+      const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+        top: ${top}px; left: ${left}px;
+          }
+          `);
       Store.luckysheet_model_move_obj
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ top: top, left: left });
+        .addClass(uuidInlineOne + ' layout');
       event.preventDefault();
     } else if (
       !!Store.luckysheet_scroll_status ||
@@ -3014,15 +3044,18 @@ export default function luckysheetHandler() {
           row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
           row = Store.visibledatarow[row_e];
 
+
+            const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+    left: ${col_pre}px;
+              width: ${col - col_pre - 2}px;
+              top: ${row_pre}px;
+              height: ${row - row_pre - 2}px;
+              display: block;
+          }
+          `);
           $("#luckysheet-cell-selected-move")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: col_pre,
-              width: col - col_pre - 2,
-              top: row_pre,
-              height: row - row_pre - 2,
-              display: "block",
-            });
+           .addClass(uuidInline + ' layout')
         } else if (Store.luckysheet_cell_selected_extend) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let scrollLeft = $("#luckysheet-cell-main").scrollLeft() - 5;
@@ -3130,16 +3163,17 @@ export default function luckysheetHandler() {
               }
             }
           }
-
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${left}px;
+              width: ${width}px;
+              top: ${top}px;
+              height: ${height}px;
+              display: block;
+          }
+          `);
           $("#luckysheet-cell-selected-extend")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: left,
-              width: width,
-              top: top,
-              height: height,
-              display: "block",
-            });
+         .addClass(uuidInline + ' layout');
         } else if (Store.luckysheet_cols_change_size) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
@@ -3158,12 +3192,20 @@ export default function luckysheetHandler() {
             x + 3 - Store.luckysheet_cols_change_size_start[0] > 30 &&
             x < winW + scrollLeft - 100
           ) {
+                  const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${x}px;
+           
+          }
+
+          &.layoutOne { 
+          left : ${x-2}px;
+          }
+          `);
             $("#luckysheet-change-size-line")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({ left: x });
+                    .addClass(uuidInline + ' layout');
             $("#luckysheet-cols-change-size")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({ left: x - 2 });
+                    .addClass(uuidInline + ' layoutOne');
           }
         } else if (Store.luckysheet_rows_change_size) {
           let mouse = mouseposition(event.pageX, event.pageY);
@@ -3180,12 +3222,16 @@ export default function luckysheetHandler() {
             y + 3 - Store.luckysheet_rows_change_size_start[0] > 19 &&
             y < winH + scrollTop - 200
           ) {
+                   const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            top: ${y}px;
+           
+          }
+          `);
             $("#luckysheet-change-size-line")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({ top: y });
+                    .addClass(uuidInline + ' layout');
             $("#luckysheet-rows-change-size")
-              .attr("nonce", luckysheetConfigsetting.cspNonce)
-              .css({ top: y });
+                    .addClass(uuidInline + ' layout');
           }
         }
         // chart move
@@ -3222,13 +3268,15 @@ export default function luckysheetHandler() {
             left =
               Store.chartparam.luckysheetCurrentChartMoveWinW - myw - 22 - 36;
           }
-
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+               top: ${top}px;
+              left: ${left}px;
+           
+          }
+          `);
           Store.chartparam.luckysheetCurrentChartMoveObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              top: top,
-              left: left,
-            });
+            .addClass(uuidInline + ' layout');
 
           if (
             luckysheetFreezen.freezenhorizontaldata != null ||
@@ -3391,9 +3439,15 @@ export default function luckysheetHandler() {
             height: height,
             width: width,
           };
+
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             ${resizedata}
+           
+          }
+          `);
           Store.chartparam.luckysheetCurrentChartResizeObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css(resizedata);
+            .addClass(uuidInline + ' layout');
           // resize chart
           Store.resizeChart(Store.chartparam.luckysheetCurrentChart);
         }
@@ -3450,12 +3504,15 @@ export default function luckysheetHandler() {
             left = maxLeft;
           }
 
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+              left: ${left}px;
+              top: ${top}px;
+           
+          }
+          `);
           $("#luckysheet-modal-dialog-activeImage")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              left: left,
-              top: top,
-            });
+              .addClass(uuidInline + ' layout');
         }
         //image resize
         else if (!!imageCtrl.resize) {
@@ -3896,15 +3953,17 @@ export default function luckysheetHandler() {
               }
             }
           }
-
+           const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             width: ${width}px;
+              height: ${height}px;
+              left: ${left}px;
+              top: ${top}px;
+           
+          }
+          `);
           $("#luckysheet-modal-dialog-activeImage")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              width: width,
-              height: height,
-              left: left,
-              top: top,
-            });
+          .addClass(uuidInline + ' layout');
 
           let scaleX = width / imgItem.crop.width;
           let scaleY = height / imgItem.crop.height;
@@ -3913,14 +3972,18 @@ export default function luckysheetHandler() {
           let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
           let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
 
+
+                const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+        background-size: ${defaultWidth}px ${defaultHeight} px;
+              background-position: ${-offsetLeft}px ${-offsetTop}px;
+           
+          }
+          `);
           $(
             "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content"
           )
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              "background-size": defaultWidth + "px " + defaultHeight + "px",
-              "background-position": -offsetLeft + "px " + -offsetTop + "px",
-            });
+            .addClass(uuidInlineOne + ' layout');
         }
         //image cropChange
         else if (!!imageCtrl.cropChange) {
@@ -4115,15 +4178,19 @@ export default function luckysheetHandler() {
             top = imgItem.fixedTop + offsetTop;
           }
 
+
+                  const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+              width: ${width}px;
+              height: ${height}px; 
+              left: ${left}px;
+              top: ${top}px;
+           
+          }
+          `);
           $("#luckysheet-modal-dialog-cropping")
             .show()
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              width: width,
-              height: height,
-              left: left,
-              top: top,
-            });
+                    .addClass(uuidInlineOne + ' layout');
 
           let imageUrlHandle =
             Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
@@ -4132,24 +4199,31 @@ export default function luckysheetHandler() {
               ? imageUrlHandle(imgItem.src)
               : imgItem.src;
 
-          $("#luckysheet-modal-dialog-cropping .cropping-mask")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              width: imgItem.default.width,
-              height: imgItem.default.height,
-              "background-image": "url(" + imgSrc + ")",
-              left: -offsetLeft,
-              top: -offsetTop,
-            });
 
+                   const uuidInlineTwo = getComputedInlineClassStyling(`
+          &.layout {
+               width: ${imgItem.default.width}px;
+              height: ${imgItem.default.height}px;
+              background-image: url("${imgSrc}");
+              left: ${-offsetLeft}px;
+              top: ${-offsetTop}px;
+           
+          }
+          `);
+          $("#luckysheet-modal-dialog-cropping .cropping-mask")
+                    .addClass(uuidInlineTwo + ' layout');
+
+
+                      const uuidInlineThree = getComputedInlineClassStyling(`
+          &.layout {
+              background-image: url("${imgSrc}");
+              background-size:${imgItem.default.width}px ${imgItem.default.height}px;
+              background-position: ${-offsetLeft}px ${-offsetTop}px;
+           
+          }
+          `);
           $("#luckysheet-modal-dialog-cropping .cropping-content")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              "background-image": "url(" + imgSrc + ")",
-              "background-size":
-                imgItem.default.width + "px " + imgItem.default.height + "px",
-              "background-position": -offsetLeft + "px " + -offsetTop + "px",
-            });
+                        .addClass(uuidInlineThree + ' layout');
 
           imageCtrl.cropChangeObj = {
             width: width,
@@ -4183,10 +4257,15 @@ export default function luckysheetHandler() {
           if (left + myw + 22 + 36 > luckysheetPostil.currentWinW) {
             left = luckysheetPostil.currentWinW - myw - 22 - 36;
           }
-
+const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+           left: ${left}px; 
+           top: ${top}px; 
+           
+          }
+          `);
           luckysheetPostil.currentObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({ left: left, top: top });
+           .addClass(uuidInline + ' layout');
         } else if (!!luckysheetPostil.resize) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
@@ -4262,14 +4341,17 @@ export default function luckysheetHandler() {
             }
           }
 
+
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+              width: ${width}px;
+              height: ${height}px;
+              left: ${left}px;
+              top: ${top}px;
+          }
+          `);
           luckysheetPostil.currentObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
-            .css({
-              width: width,
-              height: height,
-              left: left,
-              top: top,
-            });
+            .addClass(uuidInline+ ' layout');
         } else if (!!formula.rangeResize) {
           formula.rangeResizeDraging(
             event,
@@ -4412,19 +4494,28 @@ export default function luckysheetHandler() {
     window.cancelAnimationFrame(Store.jfautoscrollTimeout);
     Store.luckysheet_scroll_status = false;
 
+
+              const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : crosshair;
+          }
+            &.layoutOne {
+            cursor: move;
+          }
+            &.layoutTwo {
+            cursor:default;
+            }
+          `);
     $("#luckysheet-cell-selected")
       .find(".luckysheet-cs-fillhandle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "crosshair")
+      .addClass(uuidInline + ' layout')
       .end()
       .find(".luckysheet-cs-draghandle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "move");
+            .addClass(uuidInline + ' layoutOne');
     $(
       "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
     )
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "default");
+            .addClass(uuidInline + ' layoutTwo');
 
     //行标题窗格主体
     Store.luckysheet_rows_selected_status = false;
@@ -4444,10 +4535,15 @@ export default function luckysheetHandler() {
       $("#luckysheet-freezebar-horizontal").removeClass(
         "luckysheet-freezebar-active"
       );
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : -webkit-grab;
+          }
+
+          `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "-webkit-grab");
+            .addClass(uuidInline + ' layout');
       if (
         luckysheetFreezen.freezenhorizontaldata[4] <= Store.columnHeaderHeight
       ) {
@@ -4462,10 +4558,16 @@ export default function luckysheetHandler() {
       $("#luckysheet-freezebar-vertical").removeClass(
         "luckysheet-freezebar-active"
       );
+      
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : -webkit-grab;
+          }
+
+          `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "-webkit-grab");
+        .addClass(uuidInline + ' layout')
       if (luckysheetFreezen.freezenverticaldata[4] <= Store.rowHeaderWidth) {
         luckysheetFreezen.cancelFreezenVertical();
       }
@@ -4476,11 +4578,17 @@ export default function luckysheetHandler() {
     if (!!pivotTable && pivotTable.movestate) {
       $("#luckysheet-modal-dialog-slider-pivot-move").remove();
       pivotTable.movestate = false;
+
+       const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : default;
+          }
+
+          `);
       $(
         "#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value"
       )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+      .addClass(uuidInline + ' layout');
       if (
         pivotTable.movesave.containerid !=
         "luckysheet-modal-dialog-pivotTable-list"
@@ -4543,9 +4651,14 @@ export default function luckysheetHandler() {
       );
       Store.luckysheet_sheet_move_data.activeobject.removeAttr("style");
       $("#luckysheet-sheets-item-clone").remove();
+             const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : pointer;
+          }
+
+          `);
       Store.luckysheet_sheet_move_data.cursorobject
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css({ cursor: "pointer" });
+        .addClass(uuidInline + ' layout');
       Store.luckysheet_sheet_move_data = {};
       sheetmanage.reOrderAllSheet();
     }
@@ -4557,12 +4670,11 @@ export default function luckysheetHandler() {
     if (!!Store.chartparam.luckysheetCurrentChartMove) {
       Store.chartparam.luckysheetCurrentChartMove = false;
       if (Store.chartparam.luckysheetInsertChartTosheetChange) {
+        
         //myTop, myLeft: 本次的chart框位置，scrollLeft,scrollTop: 上一次的滚动条位置
         var myTop = Store.chartparam.luckysheetCurrentChartMoveObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
             .css("top"),
           myLeft = Store.chartparam.luckysheetCurrentChartMoveObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
             .css("left"),
           scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
           scrollTop = $("#luckysheet-cell-main").scrollTop();
@@ -4610,10 +4722,8 @@ export default function luckysheetHandler() {
           scrollTop = $("#luckysheet-cell-main").scrollTop();
 
         var myTop = Store.chartparam.luckysheetCurrentChartMoveObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
             .css("top"),
           myLeft = Store.chartparam.luckysheetCurrentChartMoveObj
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
             .css("left");
 
         var chart_id = Store.chartparam.luckysheetCurrentChartResizeObj
@@ -4763,14 +4873,20 @@ export default function luckysheetHandler() {
     //改变行高
     if (Store.luckysheet_rows_change_size) {
       Store.luckysheet_rows_change_size = false;
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             opacity : 0;
+          }
 
+          &.layoutOne {
+          cursor : default;
+          }
+          `);
       $("#luckysheet-change-size-line").hide();
       $("#luckysheet-rows-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0);
+          .addClass(uuidInline + ' layout');
       $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+                  .addClass(uuidInline + ' layoutOne');
 
       let mouse = mouseposition(event.pageX, event.pageY);
       let scrollTop = $("#luckysheet-rows-h").scrollTop();
@@ -4874,16 +4990,23 @@ export default function luckysheetHandler() {
 
     //改变列宽
     if (Store.luckysheet_cols_change_size) {
+              const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             opacity : 0;
+          }
+
+          &.layoutOne {
+          cursor : default;
+          }
+          `);
       Store.luckysheet_cols_change_size = false;
       $("#luckysheet-change-size-line").hide();
       $("#luckysheet-cols-change-size")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0);
+       .addClass(uuidInline + ' layout');
       $(
         "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas"
       )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+     .addClass(uuidInline + ' layoutOne');
 
       let mouse = mouseposition(event.pageX, event.pageY);
       let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
@@ -5333,9 +5456,13 @@ export default function luckysheetHandler() {
 
       selectHightlightShow();
 
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : default;
+          }
+          `);
       $("#luckysheet-sheettable")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+        .addClass(uuidInline + ' layout');
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -5582,10 +5709,14 @@ export default function luckysheetHandler() {
       luckysheetDropCell.createIcon();
 
       $("#luckysheet-cell-selected-move").hide();
-
+      
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : default;
+          }
+          `);
       $("#luckysheet-sheettable")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+        .addClass(uuidInline + ' layout');
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -5615,19 +5746,22 @@ export default function luckysheetHandler() {
       return;
     }
 
+
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+             cursor : move;
+          }
+          `);
     $("#luckysheet-cell-selected")
       .find(".luckysheet-cs-fillhandle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "move")
+      .addClass(uuidInline + ' layout')
       .end()
       .find(".luckysheet-cs-draghandle")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "move");
+           .addClass(uuidInline + ' layout');
     $(
       "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
     )
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css("cursor", "move");
+         .addClass(uuidInline + ' layout');
 
     Store.luckysheet_cell_selected_move = true;
     Store.luckysheet_scroll_status = true;
@@ -5646,16 +5780,17 @@ export default function luckysheetHandler() {
       col_index = col_location[2];
 
     Store.luckysheet_cell_selected_move_index = [row_index, col_index];
-
+    const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+           left: ${col_pre}px;
+        width: ${col - col_pre - 1}px;
+        top: ${row_pre}px;
+        height: ${row - row_pre - 1}px;
+        display: block;
+          }
+          `);
     $("#luckysheet-cell-selected-move")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: col_pre,
-        width: col - col_pre - 1,
-        top: row_pre,
-        height: row - row_pre - 1,
-        display: "block",
-      });
+      .addClass(uuidInlineOne + ' layout');
 
     event.stopPropagation();
   });
@@ -5667,20 +5802,23 @@ export default function luckysheetHandler() {
         //此模式下禁用选区下拉
         return;
       }
+      
+      const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          cursor : crosshair;
+          }
 
+          `);
       $("#luckysheet-cell-selected")
         .find(".luckysheet-cs-fillhandle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "crosshair")
+     .addClass(uuidInlineOne + ' layout')
         .end()
         .find(".luckysheet-cs-draghandle")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "crosshair");
+     .addClass(uuidInlineOne + ' layout')
       $(
         "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
       )
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "crosshair");
+     .addClass(uuidInlineOne + ' layout')
 
       Store.luckysheet_cell_selected_extend_time = setTimeout(function () {
         Store.luckysheet_cell_selected_extend = true;
@@ -5700,16 +5838,18 @@ export default function luckysheetHandler() {
           col_index = col_location[2];
 
         Store.luckysheet_cell_selected_extend_index = [row_index, col_index];
+   const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+            left: ${col_pre}px;
+            width: ${col - col_pre - 1}px;
+            top: ${row_pre}px;
+            height: ${row - row_pre - 1};
+            display: block;
+          }
 
+          `);
         $("#luckysheet-cell-selected-extend")
-          .attr("nonce", luckysheetConfigsetting.cspNonce)
-          .css({
-            left: col_pre,
-            width: col - col_pre - 1,
-            top: row_pre,
-            height: row - row_pre - 1,
-            display: "block",
-          });
+            .addClass(uuidInline + ' layout');
       }, 100);
 
       event.stopPropagation();
@@ -5837,10 +5977,14 @@ export default function luckysheetHandler() {
       luckysheetDropCell.createIcon();
 
       $("#luckysheet-cell-selected-move").hide();
+ const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          cursor : default;
+          }
 
+          `);
       $("#luckysheet-sheettable")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "default");
+        .addClass(uuidInline + ' layout');
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -6119,14 +6263,19 @@ export default function luckysheetHandler() {
       ch_width =
         Store.visibledatacolumn[ed_c] - Store.visibledatacolumn[st_c - 1];
     }
+const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+        width: ${ch_width}px;
+        height: ${rh_height}px;
+          }
 
+          `);
     let newCanvas = $("<canvas>")
       .attr({
         width: Math.ceil(ch_width * Store.devicePixelRatio),
         height: Math.ceil(rh_height * Store.devicePixelRatio),
       })
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({ width: ch_width, height: rh_height });
+      .addClass(uuidInline + ' layout');
 
     luckysheetDrawMain(
       scrollWidth,
@@ -6167,15 +6316,18 @@ export default function luckysheetHandler() {
     } else {
       image.style.height = "100%";
     }
+      
+    const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          height:${maxHeight}px;
+          overflow:auto;
+          }
 
+          `);
     let maxHeight = $(window).height() - 200;
     tooltip.screenshot(
       locale_screenshot.screenshotTipSuccess,
-      '<div id="luckysheet-confirm-screenshot-save" nonce="' +
-        luckysheetConfigsetting.cspNonce +
-        '" style="height:' +
-        maxHeight +
-        'px;overflow:auto;"></div>',
+      `<div id="luckysheet-confirm-screenshot-save" class="${uuidInlineOne} layout"></div>`,
       url
     );
     $("#luckysheet-confirm-screenshot-save").append(image);
@@ -6197,7 +6349,6 @@ export default function luckysheetHandler() {
     let blob = new Blob([arr]);
 
     let element = document.createElement("a");
-    element.setAttribute("nonce", luckysheetConfigsetting.cspNonce);
     element.setAttribute("href", URL.createObjectURL(blob));
     element.setAttribute(
       "download",
@@ -6446,7 +6597,6 @@ export default function luckysheetHandler() {
         $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
         parseInt(
           $("#luckysheet-input-box")
-            .attr("nonce", luckysheetConfigsetting.cspNonce)
             .css("top")
         ) > 0
       ) {
@@ -6985,7 +7135,7 @@ export default function luckysheetHandler() {
                 }
 
                 let bg = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
+      
                   .css("background-color");
                 if (bg == "rgba(0, 0, 0, 0)") {
                   bg = null;
@@ -6994,7 +7144,6 @@ export default function luckysheetHandler() {
                 cell.bg = bg;
 
                 let bl = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
                   .css("font-weight");
                 if (bl == 400 || bl == "normal") {
                   cell.bl = 0;
@@ -7004,14 +7153,14 @@ export default function luckysheetHandler() {
 
                 // 检测下划线
                 let un = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
+                
                   .css("text-decoration");
                 if (un.indexOf("underline") != -1) {
                   cell.un = 1;
                 }
 
                 let it = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
+   
                   .css("font-style");
                 if (it == "normal") {
                   cell.it = 0;
@@ -7020,7 +7169,7 @@ export default function luckysheetHandler() {
                 }
 
                 let ff = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
+                 
                   .css("font-family");
                 let ffs = ff.split(",");
                 for (let i = 0; i < ffs.length; i++) {
@@ -7036,7 +7185,6 @@ export default function luckysheetHandler() {
                 let fs = Math.round(
                   (parseInt(
                     $td
-                      .attr("nonce", luckysheetConfigsetting.cspNonce)
                       .css("font-size")
                   ) *
                     72) /
@@ -7045,13 +7193,11 @@ export default function luckysheetHandler() {
                 cell.fs = fs;
 
                 let fc = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
-                  .css("color");
+                   .css("color");
                 cell.fc = fc;
 
                 // 水平对齐属性
                 let ht = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
                   .css("text-align");
                 if (ht == "center") {
                   cell.ht = 0;
@@ -7063,7 +7209,6 @@ export default function luckysheetHandler() {
 
                 // 垂直对齐属性
                 let vt = $td
-                  .attr("nonce", luckysheetConfigsetting.cspNonce)
                   .css("vertical-align");
                 if (vt == "middle") {
                   cell.vt = 0;
@@ -7101,10 +7246,7 @@ export default function luckysheetHandler() {
                     for (let cp = 0; cp < colspan; cp++) {
                       if (rp == 0) {
                         let bt = $td
-                          .setAttribute(
-                            "nonce",
-                            luckysheetConfigsetting.cspNonce
-                          )
+                        
                           .css("border-top");
                         if (
                           bt != null &&
@@ -7112,22 +7254,13 @@ export default function luckysheetHandler() {
                           bt.substr(0, 3).toLowerCase() != "0px"
                         ) {
                           let width = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-top-width");
                           let type = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-top-style");
                           let color = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                         
                             .css("border-top-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
@@ -7148,10 +7281,7 @@ export default function luckysheetHandler() {
 
                       if (rp == rowspan - 1) {
                         let bb = $td
-                          .setAttribute(
-                            "nonce",
-                            luckysheetConfigsetting.cspNonce
-                          )
+                         
                           .css("border-bottom");
                         if (
                           bb != null &&
@@ -7159,22 +7289,13 @@ export default function luckysheetHandler() {
                           bb.substr(0, 3).toLowerCase() != "0px"
                         ) {
                           let width = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-bottom-width");
                           let type = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-bottom-style");
                           let color = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                           
                             .css("border-bottom-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
@@ -7195,10 +7316,7 @@ export default function luckysheetHandler() {
 
                       if (cp == 0) {
                         let bl = $td
-                          .setAttribute(
-                            "nonce",
-                            luckysheetConfigsetting.cspNonce
-                          )
+                         
                           .css("border-left");
                         if (
                           bl != null &&
@@ -7206,22 +7324,13 @@ export default function luckysheetHandler() {
                           bl.substr(0, 3).toLowerCase() != "0px"
                         ) {
                           let width = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-left-width");
                           let type = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-left-style");
                           let color = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                         
                             .css("border-left-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
@@ -7242,10 +7351,7 @@ export default function luckysheetHandler() {
 
                       if (cp == colspan - 1) {
                         let br = $td
-                          .setAttribute(
-                            "nonce",
-                            luckysheetConfigsetting.cspNonce
-                          )
+                         
                           .css("border-right");
                         if (
                           br != null &&
@@ -7253,22 +7359,13 @@ export default function luckysheetHandler() {
                           br.substr(0, 3).toLowerCase() != "0px"
                         ) {
                           let width = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                            
                             .css("border-right-width");
                           let type = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                            
                             .css("border-right-style");
                           let color = $td
-                            .setAttribute(
-                              "nonce",
-                              luckysheetConfigsetting.cspNonce
-                            )
+                          
                             .css("border-right-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
@@ -7434,4 +7531,4 @@ function hideUsername() {
       $$(".username", ele).style.display = "none";
     }
   });
-}
+

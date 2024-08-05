@@ -540,10 +540,16 @@ const ifFormulaGenerator = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+           min-width:590px;
+          }
+
+          `);
     let $t = $("#luckysheet-ifFormulaGenerator-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 590)
+        .addClass(uuidInline + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -551,12 +557,14 @@ const ifFormulaGenerator = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+         left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+        }`);
     $("#luckysheet-ifFormulaGenerator-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineOne + " layout")
       .show();
   },
   clearArr: function (arr) {
@@ -626,10 +634,13 @@ const ifFormulaGenerator = {
         style: "z-index:100003",
       })
     );
+    const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+        min-width:400px;
+        }`);
     let $t = $("#luckysheet-ifFormulaGenerator-singleRange-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 400)
+        .addClass(uuidInlineOne + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -637,12 +648,14 @@ const ifFormulaGenerator = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+        &.layout {
+        left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+        }`);
     $("#luckysheet-ifFormulaGenerator-singleRange-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addclass(uuidInlineTwo + " layout")
       .show();
   },
   multiRangeDialog: function () {
@@ -672,10 +685,15 @@ const ifFormulaGenerator = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInlineTwo = getComputedInlineClassStyling(`
+        &.layout {
+        min-width: 400px;
+
+        }`);
     let $t = $("#luckysheet-ifFormulaGenerator-multiRange-dialog")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 400)
+        .addClass(uuidInlineTwo + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -683,12 +701,15 @@ const ifFormulaGenerator = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineThree = getComputedInlineClassStyling(`
+        &.layout {
+         left:${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+
+        }`);
     $("#luckysheet-ifFormulaGenerator-multiRange-dialog")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addClass(uuidInlineThree + " layout")
       .show();
   },
   getIfList: function (
@@ -789,10 +810,14 @@ const ifFormulaGenerator = {
         style: "z-index:100003",
       })
     );
+
+    const uuidInlineFour = getComputedInlineClassStyling(`
+        &.layout {
+        min-width : 300px;
+        }`);
     let $t = $("#luckysheet-ifFormulaGenerator-info")
         .find(".luckysheet-modal-dialog-content")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("min-width", 300)
+        .addClass(uuidInlineFour + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -800,12 +825,14 @@ const ifFormulaGenerator = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+
+    const uuidInlineFive = getComputedInlineClassStyling(`
+        &.layout {
+        left: ${(winw + scrollLeft - myw) / 2}px;
+        top: ${(winh + scrollTop - myh) / 3}px;
+        }`);
     $("#luckysheet-ifFormulaGenerator-info")
-      .attr("nonce", luckysheetConfigsetting.cspNonce)
-      .css({
-        left: (winw + scrollLeft - myw) / 2,
-        top: (winh + scrollTop - myh) / 3,
-      })
+      .addclass(uuidInlineFive + " layout")
       .show();
   },
 };

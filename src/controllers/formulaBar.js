@@ -10,7 +10,9 @@ import formula from "../global/formula";
 import tooltip from "../global/tooltip";
 import locale from "../locale/locale";
 import Store from "../store";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "../controllers/luckysheetConfigsetting";
 
 export function formulaBarInitial() {
   //公式栏处理
@@ -52,12 +54,7 @@ export function formulaBarInitial() {
       let kcode = event.keyCode;
       let $inputbox = $("#luckysheet-input-box");
 
-      if (
-        kcode == keycode.ENTER &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
         if (
           $("#luckysheet-formula-search-c").is(":visible") &&
           formula.searchFunctionCell != null
@@ -91,31 +88,16 @@ export function formulaBarInitial() {
           $("#luckysheet-rich-text-editor").focus();
         }
         event.preventDefault();
-      } else if (
-        kcode == keycode.ESC &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.ESC && parseInt($inputbox.css("top")) > 0) {
         formula.dontupdate();
         luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
         //$("#luckysheet-functionbox-cell").blur();
         $("#luckysheet-rich-text-editor").focus();
         event.preventDefault();
-      } else if (
-        kcode == keycode.F4 &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
         formula.setfreezonFuc(event);
         event.preventDefault();
-      } else if (
-        kcode == keycode.UP &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.UP && parseInt($inputbox.css("top")) > 0) {
         if ($("#luckysheet-formula-search-c").is(":visible")) {
           let $up = $("#luckysheet-formula-search-c")
             .find(".luckysheet-formula-search-item-active")
@@ -131,12 +113,7 @@ export function formulaBarInitial() {
           $up.addClass("luckysheet-formula-search-item-active");
           event.preventDefault();
         }
-      } else if (
-        kcode == keycode.DOWN &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.DOWN && parseInt($inputbox.css("top")) > 0) {
         if ($("#luckysheet-formula-search-c").is(":visible")) {
           let $up = $("#luckysheet-formula-search-c")
             .find(".luckysheet-formula-search-item-active")
@@ -152,19 +129,9 @@ export function formulaBarInitial() {
           $up.addClass("luckysheet-formula-search-item-active");
           event.preventDefault();
         }
-      } else if (
-        kcode == keycode.LEFT &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.LEFT && parseInt($inputbox.css("top")) > 0) {
         formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
-      } else if (
-        kcode == keycode.RIGHT &&
-        parseInt(
-          $inputbox.attr("nonce", luckysheetConfigsetting.cspNonce).css("top")
-        ) > 0
-      ) {
+      } else if (kcode == keycode.RIGHT && parseInt($inputbox.css("top")) > 0) {
         formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
       } else if (
         !(
@@ -296,10 +263,14 @@ export function formulaBarInitial() {
       let mouse = mouseposition(event.pageX, event.pageY);
       let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
       let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+      const uuidInline = getComputedInlineClassStyling(`
+  &.layout {
+  opacity : 0.13;
+  }
+  `);
       $("#luckysheet-formula-functionrange-highlight-" + formula.rangeMoveIndex)
         .find(".luckysheet-selection-copy-hc")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0.13);
+        .addClass(uuidInline + " layout");
 
       let type = $(this).data("type");
       if (type == "top") {
@@ -314,11 +285,12 @@ export function formulaBarInitial() {
 
       let row_index = rowLocation(y)[2];
       let col_index = colLocation(x)[2];
-
+      const uuidInlineOne = getComputedInlineClassStyling(`
+  &.layout {
+  cursor: move;
+  }`);
       formula.rangeMovexy = [row_index, col_index];
-      $("#luckysheet-sheettable")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("cursor", "move");
+      $("#luckysheet-sheettable").addClass(uuidInlineOne + " layout");
       event.stopPropagation();
     }
   );
@@ -336,13 +308,17 @@ export function formulaBarInitial() {
       let x = mouse[0] + scrollLeft;
       let y = mouse[1] + scrollTop;
       formula.rangeResizeObj = $(this).parent();
+
+      const uuidInlineOne = getComputedInlineClassStyling(`
+        &.layout {
+        opacity: 0.13;
+        }`);
       $(
         "#luckysheet-formula-functionrange-highlight-" +
           formula.rangeResizeIndex
       )
         .find(".luckysheet-selection-copy-hc")
-        .attr("nonce", luckysheetConfigsetting.cspNonce)
-        .css("opacity", 0.13);
+        .addClass(uuidInlineOne + " layout");
 
       if (formula.rangeResize == "lt") {
         x += 3;
