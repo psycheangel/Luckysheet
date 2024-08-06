@@ -98,11 +98,7 @@ const luckysheetSearchReplace = {
 
              }
 
-          &.layoutOne {
-            left: ${(winw + scrollLeft - myw) / 2}px;
-        top:${(winh + scrollTop - myh) / 3}px;
-
-          }
+      
      
       `);
     let $t = $("#luckysheet-search-replace")
