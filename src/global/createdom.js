@@ -11,7 +11,9 @@ import {
   filtersubmenuHTML,
   sheetconfigHTML,
 } from "../controllers/constant";
-import luckysheetConfigsetting,{getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "../controllers/luckysheetConfigsetting";
 import luckysheetPostil from "../controllers/postil";
 import { datagridgrowth } from "./getdata";
 import editor from "./editor";
@@ -106,7 +108,7 @@ font-size: 14px;color: #f34141;
     pageInfo +
     '</span> <button id="luckysheet-bottom-page-next" class="btn btn-danger">下一页</button>';
   let pageControll2 =
-    ` <span id="luckysheet-bottom-page-info  ${uuidInlineOne} layoutTwo" >`+
+    ` <span id="luckysheet-bottom-page-info  ${uuidInlineOne} layoutTwo" >` +
     pageInfo +
     "</span>";
 
@@ -131,9 +133,14 @@ font-size: 14px;color: #f34141;
 height:${Store.rh_height}px;
 width:${Store.ch_width - 1}px;
 }
+&.layoutChange {
+height:${Store.rh_height}px;
+}
    `);
   let flowstr = replaceHtml(
-    '<div id="luckysheetcoltable_0" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheettable_0" class="luckysheet-cell-sheettable '+uuidInlineTwo+' layout"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> ' +
+    '<div id="luckysheetcoltable_0" class="luckysheet-cell-flow-col"> <div id ="luckysheet-sheettable_0" class="luckysheet-cell-sheettable ' +
+      uuidInlineTwo +
+      ' layout"></div><div id="luckysheet-bottom-controll-row" class="luckysheet-bottom-controll-row"> ' +
       bottomControll +
       " </div> </div>",
     { height: Store.rh_height, width: Store.ch_width - 1 }
@@ -153,10 +160,7 @@ width:${Store.ch_width - 1}px;
 
   gh = replaceHtml(gh, {
     flow: flowHTML,
-    rowHeader:
-      "<div style='height:" +
-      Store.rh_height +
-      "px' id='luckysheetrowHeader_0' class='luckysheetsheetchange'></div>",
+    rowHeader: `<div id='luckysheetrowHeader_0' class='luckysheetsheetchange ${uuidInlineTwo} layoutChange'></div>`,
     columnHeader: colsheader,
     functionButton: luckysheetConfigsetting.functionButton,
   }); //设置需要显示的菜单

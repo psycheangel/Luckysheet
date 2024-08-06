@@ -1363,13 +1363,17 @@ export default function luckysheetHandler() {
         $("#luckysheet-cols-rows-data").show();
         $("#luckysheet-cols-rows-handleincell").show();
         $("#luckysheet-cols-rows-add, #luckysheet-cols-rows-shift").hide();
-
-        $$(
-          "#luckysheet-cols-rows-data .luckysheet-menuseparator"
-        ).style.display = "block";
-        $$(
+        const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          display:block;
+          }
+          `);
+        $("#luckysheet-cols-rows-data .luckysheet-menuseparator").addClass(
+          uuidInline + " layout"
+        );
+        $(
           "#luckysheet-cols-rows-handleincell .luckysheet-menuseparator"
-        ).style.display = "block";
+        ).addClass(uuidInline + " layout");
 
         if (
           obj_s["row"] != null &&
@@ -1420,23 +1424,43 @@ export default function luckysheetHandler() {
           $("#luckysheet-cols-rows-handleincell").hide();
           Store.luckysheet_cols_menu_status = true;
 
-          $$(
-            "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-          ).style.display = "block";
-
+          const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          display:block;
+          }
+          `);
+          $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+            uuidInline + " layout"
+          );
+          const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          display:${cellRightClickConfig.insertColumn ? "block" : "none"};
+          }
+          &.layoutOne {
+          display:${cellRightClickConfig.deleteColumn ? "block" : "none"};
+          }
+          &.layoutTwo {
+          display:${cellRightClickConfig.hideColumn ? "block" : "none"};
+          }
+          &.layoutThree {
+          display:${cellRightClickConfig.columnWidth ? "block" : "none"};
+          }
+  
+          
+          `);
           // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
-          $$("#luckysheet-top-left-add-selected").style.display =
-            cellRightClickConfig.insertColumn ? "block" : "none";
-          $$("#luckysheet-bottom-right-add-selected").style.display =
-            cellRightClickConfig.insertColumn ? "block" : "none";
-          $$("#luckysheet-del-selected").style.display =
-            cellRightClickConfig.deleteColumn ? "block" : "none";
-          $$("#luckysheet-hide-selected").style.display =
-            cellRightClickConfig.hideColumn ? "block" : "none";
-          $$("#luckysheet-show-selected").style.display =
-            cellRightClickConfig.hideColumn ? "block" : "none";
-          $$("#luckysheet-column-row-width-selected").style.display =
-            cellRightClickConfig.columnWidth ? "block" : "none";
+          $("#luckysheet-top-left-add-selected").addClass(
+            uuidInlineOne + " layout"
+          );
+          $("#luckysheet-bottom-right-add-selected").addClass(
+            uuidInlineOne + " layout"
+          );
+          $("#luckysheet-del-selected").addClass(uuidInlineOne + " layoutOne");
+          $("#luckysheet-hide-selected").addClass(uuidInlineOne + " layoutTwo");
+          $("#luckysheet-show-selected").addClass(uuidInlineOne + " layoutTwo");
+          $("#luckysheet-column-row-width-selected").addClass(
+            uuidInlineOne + " layoutThree"
+          );
 
           // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
           if (
@@ -1444,9 +1468,17 @@ export default function luckysheetHandler() {
             !cellRightClickConfig.copyAs &&
             !cellRightClickConfig.paste
           ) {
-            $$(
-              "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-            ).style.display = "none";
+            const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          display:none;
+          }
+ 
+  
+          
+          `);
+            $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+              uuidInlineOne + " layout"
+            );
 
             if (
               !cellRightClickConfig.insertColumn &&
@@ -1454,9 +1486,9 @@ export default function luckysheetHandler() {
               !cellRightClickConfig.hideColumn &&
               !cellRightClickConfig.columnWidth
             ) {
-              $$(
+              $(
                 "#luckysheet-cols-rows-data .luckysheet-menuseparator"
-              ).style.display = "none";
+              ).addClass(uuidInlineOne + " layout");
             }
           }
 
@@ -1467,9 +1499,17 @@ export default function luckysheetHandler() {
             !cellRightClickConfig.hideColumn &&
             !cellRightClickConfig.columnWidth
           ) {
-            $$(
-              "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-            ).style.display = "none";
+            const uuidInlineTwo = getComputedInlineClassStyling(`
+          &.layout {
+          display:none;
+          }
+ 
+  
+          
+          `);
+            $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+              uuidInlineOne + " layout"
+            );
           }
 
           //列宽默认值
@@ -1558,34 +1598,63 @@ export default function luckysheetHandler() {
           $("#luckysheet-cols-rows-shift").hide();
           $("#luckysheet-cols-rows-handleincell").hide();
           Store.luckysheet_cols_menu_status = true;
+          const uuidInlineTwo = getComputedInlineClassStyling(`
+          &.layout {
+          display:block;
+          }
+ 
+  
+          
+          `);
+          $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+            uuidInlineTwo + " layout"
+          );
 
-          $$(
-            "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-          ).style.display = "block";
-
+          const uuidInlineOne = getComputedInlineClassStyling(`
+          &.layout {
+          display:${cellRightClickConfig.insertRow ? "block" : "none"};
+          }
+          &.layoutOne {
+          display:${cellRightClickConfig.deleteRow ? "block" : "none"};
+          }
+          &.layoutTwo {
+          display:${cellRightClickConfig.hideRow ? "block" : "none"};
+          }
+          &.layoutThree {
+          display:${cellRightClickConfig.rowHeight ? "block" : "none"};
+          }
+  
+          
+          `);
           // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
-          $$("#luckysheet-top-left-add-selected").style.display =
-            cellRightClickConfig.insertRow ? "block" : "none";
-          $$("#luckysheet-bottom-right-add-selected").style.display =
-            cellRightClickConfig.insertRow ? "block" : "none";
-          $$("#luckysheet-del-selected").style.display =
-            cellRightClickConfig.deleteRow ? "block" : "none";
-          $$("#luckysheet-hide-selected").style.display =
-            cellRightClickConfig.hideRow ? "block" : "none";
-          $$("#luckysheet-show-selected").style.display =
-            cellRightClickConfig.hideRow ? "block" : "none";
-          $$("#luckysheet-column-row-width-selected").style.display =
-            cellRightClickConfig.rowHeight ? "block" : "none";
-
+          $("#luckysheet-top-left-add-selected").addClass(
+            uuidInlineOne + " layout"
+          );
+          $("#luckysheet-bottom-right-add-selected").addClass(
+            uuidInlineOne + " layout"
+          );
+          $("#luckysheet-del-selected").addClass(uuidInlineOne + " layoutOne");
+          $("#luckysheet-hide-selected").addClass(uuidInlineOne + " layoutTwo");
+          $("#luckysheet-show-selected").addClass(uuidInlineOne + " layoutTwo");
+          $("#luckysheet-column-row-width-selected").addClass(
+            uuidInlineOne + " layoutThree"
+          );
+          const uuidInlineThree = getComputedInlineClassStyling(`
+         &.display-none {
+         display:none;
+         }
+  
+          
+          `);
           // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
           if (
             !cellRightClickConfig.copy &&
             !cellRightClickConfig.copyAs &&
             !cellRightClickConfig.paste
           ) {
-            $$(
-              "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-            ).style.display = "none";
+            $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+              uuidInlineThree + " display-none"
+            );
 
             if (
               !cellRightClickConfig.insertRow &&
@@ -1593,9 +1662,9 @@ export default function luckysheetHandler() {
               !cellRightClickConfig.hideRow &&
               !cellRightClickConfig.rowHeight
             ) {
-              $$(
+              $(
                 "#luckysheet-cols-rows-data .luckysheet-menuseparator"
-              ).style.display = "none";
+              ).addClass(uuidInlineThree + " display-none");
             }
           }
 
@@ -1606,9 +1675,9 @@ export default function luckysheetHandler() {
             !cellRightClickConfig.hideRow &&
             !cellRightClickConfig.rowHeight
           ) {
-            $$(
-              "#luckysheet-cols-rows-add .luckysheet-menuseparator"
-            ).style.display = "none";
+            $("#luckysheet-cols-rows-add .luckysheet-menuseparator").addClass(
+              uuidInlineThree + " display-none"
+            );
           }
 
           //行高默认值
@@ -1674,6 +1743,12 @@ export default function luckysheetHandler() {
           ) {
             return;
           }
+          const uuidInlineThree = getComputedInlineClassStyling(`
+         &.display-none {
+         display:none;
+         }
+  
+          `);
 
           // 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
           if (
@@ -1681,9 +1756,9 @@ export default function luckysheetHandler() {
             !cellRightClickConfig.copyAs &&
             !cellRightClickConfig.paste
           ) {
-            $$(
+            $(
               "#luckysheet-cols-rows-handleincell .luckysheet-menuseparator"
-            ).style.display = "none";
+            ).addClass(uuidInlineThree + " display-none");
 
             if (
               !cellRightClickConfig.insertRow &&
@@ -1692,9 +1767,9 @@ export default function luckysheetHandler() {
               !cellRightClickConfig.deleteColumn &&
               !cellRightClickConfig.deleteCell
             ) {
-              $$(
+              $(
                 "#luckysheet-cols-rows-data .luckysheet-menuseparator"
-              ).style.display = "none";
+              ).addClass(uuidInlineThree + " display-none");
             }
           }
 
@@ -1705,9 +1780,9 @@ export default function luckysheetHandler() {
             !cellRightClickConfig.deleteColumn &&
             !cellRightClickConfig.deleteCell
           ) {
-            $$(
+            $(
               "#luckysheet-cols-rows-handleincell .luckysheet-menuseparator"
-            ).style.display = "none";
+            ).addClass(uuidInlineThree + " display-none");
           }
         }
 
@@ -1724,9 +1799,9 @@ export default function luckysheetHandler() {
           !cellRightClickConfig.data &&
           !cellRightClickConfig.cellFormat
         ) {
-          $$(
-            "#luckysheet-cols-rows-data .luckysheet-menuseparator"
-          ).style.display = "none";
+          $("#luckysheet-cols-rows-data .luckysheet-menuseparator").addClass(
+            uuidInlineThree + " display-none"
+          );
         }
 
         showrightclickmenu($("#luckysheet-rightclick-menu"), x, y);
@@ -6293,11 +6368,19 @@ export default function luckysheetHandler() {
     let image = new Image();
     let url = newCanvas.get(0).toDataURL("image/png");
     image.src = url;
-
+    const uuidInlineThree = getComputedInlineClassStyling(`
+         &.display-width {
+         width:100%;
+         }
+         &.display-height{
+         height:100%;
+         }
+  
+          `);
     if (ch_width > rh_height) {
-      image.style.width = "100%";
+      $(image).addClass(uuidInlineThree + " display-width");
     } else {
-      image.style.height = "100%";
+      $(image).addClass(uuidInlineThree + " display-height");
     }
 
     const uuidInlineOne = getComputedInlineClassStyling(`
@@ -6337,8 +6420,14 @@ export default function luckysheetHandler() {
       "download",
       locale_screenshot.screenshotImageName + ".png"
     );
-
-    element.style.display = "none";
+    const uuidInlineThree = getComputedInlineClassStyling(`
+         &.display-none {
+         display:none;
+         }
+      
+  
+          `);
+    element.setAttribute("class", uuidInlineThree + " display-none");
     document.body.appendChild(element);
 
     element.click();
@@ -7457,7 +7546,14 @@ function hideUsername() {
     const id = ele.id.replace("luckysheet-multipleRange-show-", "");
 
     if (Store.cooperativeEdit.usernameTimeout["user" + id] === null) {
-      $$(".username", ele).style.display = "none";
+      const uuidInlineThree = getComputedInlineClassStyling(`
+         &.display-none {
+         display:none;
+         }
+      
+  
+          `);
+      $(".username", ele).addClass(uuidInlineThree + " display-none");
     }
   });
 }

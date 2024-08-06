@@ -27,7 +27,7 @@ import {
 import { isEditMode } from "../../global/validate";
 import luckysheetsizeauto from "../../controllers/resize";
 import Store from "../../store";
-import {getComputedInlineClassStyling} from "../../controllers/luckysheetConfigsetting";
+import { getComputedInlineClassStyling } from "../../controllers/luckysheetConfigsetting";
 
 let _rowLocation = rowLocation;
 let _colLocation = colLocation;
@@ -321,13 +321,19 @@ function renderCharts(chartLists, isDemo) {
     let height = chart.height;
     let left = chart.left;
     let top = chart.top;
-    container.style.width = width + "px";
-    container.style.height = height + "px";
-    container.style.position = "absolute";
-    container.style.background = "#fff";
-    container.style.left = left + "px";
-    container.style.top = top + "px";
-    container.style.zIndex = chartInfo.zIndex ? chartInfo.zIndex : 15;
+    const uuidInline = getComputedInlineClassStyling(`
+     &.layout  {
+        width : ${width}px;
+        height: ${height}px;
+        position : absolute;
+        background: #fff;
+        left: ${left}px;
+        top: ${top}px;
+        zIndex : ${chartInfo.zIndex ? chartInfo.zIndex : 15};
+     }
+        
+      `);
+    $(container).addClass(uuidInline + " layout");
     chartInfo.zIndex++;
   }
 }
@@ -1320,15 +1326,26 @@ function createLuckyChart(width, height, left, top) {
   height = height ? height : 250;
   left = left ? left : 0;
   top = top ? top : 0;
-  container.style.width = width + "px";
-  container.style.height = height + "px";
-  container.style.position = "absolute";
-  container.style.background = "#fff";
-  container.style.left = left + "px";
-  container.style.top = top + "px";
-  render.style.width = "100%";
-  render.style.height = "100%";
-  container.style.zIndex = chartInfo.zIndex ? chartInfo.zIndex : 15;
+
+  const uuidInline = getComputedInlineClassStyling(`
+     &.layout  {
+        width : ${width}px;
+        height: ${height}px;
+        position : absolute;
+        background: #fff;
+        left: ${left}px;
+        top: ${top}px;
+        zIndex : ${chartInfo.zIndex ? chartInfo.zIndex : 15};
+     }
+
+     &.render {
+     width: '100%';
+     height: '100%;
+     }
+        
+      `);
+  $(container).addClass(uuidInline + " layout");
+  $(render).addClass(uuidInline + " render");
   chartInfo.zIndex++;
 
   // insert chartinfo
