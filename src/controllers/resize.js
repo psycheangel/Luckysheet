@@ -77,18 +77,16 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
     formulaEle.style.display = "block";
     Store.calculatebarHeight = formulaEle.offsetHeight;
   }
-  const uuidInlineOne = getComputedInlineClassStyling(`
-            &.layout {
-            top: ${
-              Store.toolbarHeight +
-              Store.infobarHeight +
-              Store.calculatebarHeight
-            }px;
-            }
-          `);
+  const uuidInline = getComputedInlineClassStyling(`
+    &.layout {
+    top: ${
+      Store.toolbarHeight + Store.infobarHeight + Store.calculatebarHeight
+    }px;
+    }
+    `);
   $("#" + Store.container)
     .find(".luckysheet-grid-container")
-    .addClass(uuidInlineOne + " layout");
+    .addClass(uuidInline + " layout");
 
   gridW = $("#" + Store.container).width();
 
@@ -109,50 +107,32 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
       gridW -= $("#luckysheet-modal-dialog-slider-protection").outerWidth();
     }
   }
-  const uuidInline = getComputedInlineClassStyling(`
-        &.select-none {
-        overflow: hidden;
-        }
 
-        &.select-none-font {
-        user-select: none;
-        font-size:12px;
-        }
-        &.layout {
-        position:absolute;
-        top:${
-          Store.infobarHeight +
-          Store.toolbarHeight +
-          $("#" + Store.container).offset().top +
-          $("body").scrollTop()
-        }px;
-        right:0px;
-        z-index:1003;
-        padding:5.5px;
-        visibility:hidden;
-        height:auto;
-        white-space:initial;
-        }
-      `);
   const _locale = locale();
   const locale_toolbar = _locale.toolbar;
   let ismore = false,
     toolbarW = 0,
-    morebtn = `<div class="luckysheet-toolbar-button luckysheet-inline-block ${uuidInline} select-none" data-tips="${locale_toolbar.toolMoreTip}" id="luckysheet-icon-morebtn" role="button">
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block ${uuidInline} select-none">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block ${uuidInline} select-none">
+    morebtn = `<div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="${locale_toolbar.toolMoreTip}" id="luckysheet-icon-morebtn" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
 
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block ${uuidInline} select-none">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
                         ${locale_toolbar.toolMore}
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-xiayige ${uuidInline} select-none-font ">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-xiayige" style="user-select: none;font-size:12px;">
                     </div>
 
                 </div>
             </div>
          </div>`,
     // Add style left:$$('.luckysheet') left, when the worksheet does not fill the full screen
-    morediv = `<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor ${uuidInline} layout"></div>`;
+    morediv =
+      '<div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor" style="position:absolute;top:' +
+      (Store.infobarHeight +
+        Store.toolbarHeight +
+        $("#" + Store.container).offset().top +
+        $("body").scrollTop()) +
+      'px;right:0px;z-index:1003;padding:5.5px;visibility:hidden;height:auto;white-space:initial;"></div>';
 
   if ($("#luckysheet-icon-morebtn-div").length == 0) {
     $("body").append(morediv);
@@ -229,7 +209,7 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
         $("#luckysheet-icon-morebtn").width() +
         $("body").scrollLeft();
 
-      // $("#luckysheet-icon-morebtn-div").toggle().attr("nonce", luckysheetConfigsetting.cspNonce).css("right", right < 0 ? 0 : right);
+      // $("#luckysheet-icon-morebtn-div").toggle().css("right", right < 0 ? 0 : right);
 
       // use native js operation
       $$("#luckysheet-icon-morebtn-div").style.right =
@@ -244,22 +224,11 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
 
       let $txt = $(this).find(".luckysheet-toolbar-menu-button-caption");
       if ($txt.text().indexOf(locale_toolbar.toolMore) > -1) {
-        const uuidInline = getComputedInlineClassStyling(`
-        &.select-none {
-        overflow: hidden;
-        }
-
-        &.select-none-font {
-        user-select: none;
-        font-size:12px;
-        }
-     
-      `);
         const toolCloseHTML = `
-                <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block ${uuidInline} select-none">
+                <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
                     ${locale_toolbar.toolClose}
                 </div>
-                <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-shangyige ${uuidInline} select-none-font">
+                <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-shangyige" style="user-select: none;font-size:12px;">
                 </div>
                 `;
         $(this)
@@ -267,10 +236,10 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
           .html(toolCloseHTML);
       } else {
         const toolMoreHTML = `
-                <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block ${uuidInline} select-none">
+                <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
                     ${locale_toolbar.toolMore}
                 </div>
-                <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-xiayige ${uuidInline} select-none-font">
+                <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont-luckysheet luckysheet-iconfont-xiayige" style="user-select: none;font-size:12px;">
                 </div>
                 `;
 
@@ -279,8 +248,8 @@ export default function luckysheetsizeauto(isRefreshCanvas = true) {
     });
     //$("#luckysheet-wa-editor div").trigger("create");
 
-    // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-menu-button").attr("nonce", luckysheetConfigsetting.cspNonce).css("margin-right", -1);
-    // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left").attr("nonce", luckysheetConfigsetting.cspNonce).css("margin-right", -3);
+    // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-menu-button").css("margin-right", -1);
+    // $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left").css("margin-right", -3);
 
     // “更多”容器中，联动hover效果
     $("#luckysheet-icon-morebtn-div .luckysheet-toolbar-button-split-left")
@@ -412,14 +381,14 @@ export function changeSheetContainerSize(gridW, gridH) {
   $("#luckysheet-scrollbar-x").height(Store.cellMainSrollBarSize);
   $("#luckysheet-scrollbar-y").width(Store.cellMainSrollBarSize);
 
-  const uuidInlineBase = getComputedInlineClassStyling(`
-        &.layout {
-        left: ${Store.rowHeaderWidth - 2}px;
-        }
-      `);
+  const uuidInline = getComputedInlineClassStyling(`
+    &.layout{
+    left : ${Store.rowHeaderWidth - 2}px;
+    }
+    `);
   $("#luckysheet-scrollbar-x")
     .width(Store.cellmainWidth)
-    .addClass(uuidInlineBase + " layout");
+    .addClass(uuidInline + " layout");
 
   Store.luckysheetTableContentHW = [
     Store.cellmainWidth + Store.rowHeaderWidth - Store.cellMainSrollBarSize,
@@ -427,21 +396,13 @@ export function changeSheetContainerSize(gridW, gridH) {
       Store.columnHeaderHeight -
       Store.cellMainSrollBarSize,
   ];
-  const uuidInline = getComputedInlineClassStyling(`
-        &.layout {
-        left: ${Store.rowHeaderWidth - 2}px;
-        }
-    &.layoutOne { 
-     width: ${Store.luckysheetTableContentHW[0]}px;
+
+  const uuidInlineTwo = getComputedInlineClassStyling(`
+    &.layout{
+      width: ${Store.luckysheetTableContentHW[0]}px;
       height: ${Store.luckysheetTableContentHW[1]}px;
     }
- &.layoutTwo {
- bottom : ${Store.sheetBarHeight}px;
- }
-  &.layoutThree {
- bottom : ${Store.statisticBarHeight}px;
- }
-      `);
+    `);
 
   $("#luckysheetTableContent, #luckysheetTableContentF")
     .attr({
@@ -452,44 +413,47 @@ export function changeSheetContainerSize(gridW, gridH) {
         Store.luckysheetTableContentHW[1] * Store.devicePixelRatio
       ),
     })
-    .addClass(uuidInline + " layoutOne");
-
+    .addClass(uuidInlineTwo + " layout");
+  const uuidInlineThree = getComputedInlineClassStyling(`
+    &.layout{
+      bottom: ${Store.sheetBarHeight}px;
+    }
+      &.layoutOne {
+      bottom: ${Store.statisticBarHeight}px;
+      }
+    `);
   $("#" + Store.container)
     .find("#luckysheet-grid-window-1")
-    .addClass(uuidInline + " layoutTwo");
+    .addClass(uuidInlineThree + " layout");
   $("#" + Store.container)
     .find(".luckysheet-grid-window")
-    .addClass(uuidInline + " layoutThree");
+    .addClass(uuidInlineThree + " layoutOne");
 
   let gridwidth = $("#luckysheet-grid-window-1").width();
-  const uuidInlineOne = getComputedInlineClassStyling(`
-    
- &.layoutFour {
- width: ${gridwidth - 10}px;
- }
- 
-      `);
+  const uuidInlineFour = getComputedInlineClassStyling(`
+    &.layout{
+      width: ${gridwidth - 10}px;
+    }
+    `);
   $("#luckysheet-freezebar-horizontal")
     .find(".luckysheet-freezebar-horizontal-handle")
-    .addClass(uuidInlineOne + " layoutFour")
+    .addClass(uuidInlineFour + " layout")
     .end()
     .find(".luckysheet-freezebar-horizontal-drop")
-    .addClass(uuidInlineOne + " layoutFour");
+    .addClass(uuidInlineFour + " layout");
 
   let gridheight = $("#luckysheet-grid-window-1").height();
-  const uuidInlineTwo = getComputedInlineClassStyling(`
-    
- 
- &.layoutFive {
- height:${gridheight - 10}px;
- }
-      `);
+  const uuidInlineFive = getComputedInlineClassStyling(`
+    &.layout{
+      height: ${gridheight - 10}px;
+    }
+    `);
   $("#luckysheet-freezebar-vertical")
     .find(".luckysheet-freezebar-vertical-handle")
-    .addClass(uuidInlineTwo + " layoutFive")
+    .addClass(uuidInlineFive + " layout")
     .end()
     .find(".luckysheet-freezebar-vertical-drop")
-    .addClass(uuidInlineTwo + " layoutFive");
+    .addClass(uuidInlineFive + " layout");
 
   luckysheetFreezen.createAssistCanvas();
 }
