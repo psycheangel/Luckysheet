@@ -547,13 +547,14 @@ const imageCtrl = {
           );
           $("#luckysheet-modal-dialog-mask").hide();
           $parent.hide();
+
+          let currenColor = $parent.find(".currenColor span").attr("title");
           const uuidInline = getComputedInlineClassStyling(`
         &.layout {
       background-color : ${currenColor};
         }
         
         `);
-          let currenColor = $parent.find(".currenColor span").attr("title");
           $(
             "#luckysheet-modal-dialog-slider-imageCtrl #imgItemBorderColor span"
           )
@@ -824,7 +825,7 @@ const imageCtrl = {
         `);
         $("#luckysheet-modal-dialog-activeImage")
           .show()
-          .addClass(uuidInline + " layout");
+          .addClass(uuidInlineOne + " layout");
         break;
       case "border-width":
         const uuidInlineTwo = getComputedInlineClassStyling(`
@@ -840,7 +841,7 @@ const imageCtrl = {
         imgItem.border.width = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        ).addClass(uuidInline + " layout");
+        ).addClass(uuidInlineTwo + " layout");
         break;
       case "border-radius":
         const uuidInlineThree = getComputedInlineClassStyling(`
@@ -866,7 +867,7 @@ const imageCtrl = {
         imgItem.border.style = value;
         $(
           "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-border"
-        ).addClass(uuidInlineThree + " layout");
+        ).addClass(uuidInlineFour + " layout");
         break;
       case "border-color":
         const uuidInlineFive = getComputedInlineClassStyling(`

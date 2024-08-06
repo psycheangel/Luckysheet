@@ -27,7 +27,9 @@ import {
 } from "../utils/util";
 import { sheetHTML, luckysheetlodingHTML } from "./constant";
 import server from "./server";
-import luckysheetConfigsetting,{getComputedInlineClassStyling} from "./luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "./luckysheetConfigsetting";
 import pivotTable from "./pivotTable";
 import luckysheetsizeauto from "./resize";
 import luckysheetPostil from "./postil";
@@ -482,8 +484,7 @@ const sheetmanage = {
        background-color:${Store.luckysheetfile[i].color};
             }
          `);
-        colorset =
-          `<div class="luckysheet-sheets-item-color ${uuidInline} layout" ></div>`;
+        colorset = `<div class="luckysheet-sheets-item-color ${uuidInline} layout" ></div>`;
       }
 
       if (Store.currentSheetIndex == sheetIndex) {
@@ -569,8 +570,9 @@ const sheetmanage = {
        display: inline-block;
               }
            `);
-          $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-           .addClass(uuidInline + ' layout');
+          $("#luckysheet-sheet-area .luckysheet-sheets-scroll").addClass(
+            uuidInline + " layout"
+          );
           $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -578,8 +580,9 @@ const sheetmanage = {
        display: none;
               }
            `);
-          $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-          .addClass(uuidInline + ' layout');
+          $("#luckysheet-sheet-area .luckysheet-sheets-scroll").addClass(
+            uuidInline + " layout"
+          );
           $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
         }
       }
@@ -627,8 +630,7 @@ width: 100%;
    background-color: ${copyjson.color};
           }
        `);
-      colorset =
-        `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
+      colorset = `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
     }
 
     let copyobject = $("#luckysheet-sheets-item" + copyindex);
@@ -707,11 +709,10 @@ width: 100%;
  height: 3px;
   bottom: 0px;
    left: 0px; 
-   background-color: ${ data.color};
+   background-color: ${data.color};
           }
        `);
-      colorset =
-        `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
+      colorset = `<div class="luckysheet-sheets-item-color ${uuidInline} layout"></div>`;
     }
 
     $("#luckysheet-sheet-container-c").append(
@@ -1053,7 +1054,7 @@ width: 100%;
             Store.luckysheetTableContentHW[1] * Store.devicePixelRatio
           ),
         })
-     .addClass(uuidInline + ' layout')
+        .addClass(uuidInline + " layout")
         .get(0)
         .getContext("2d");
       let locale_info = locale().info;
@@ -1833,14 +1834,10 @@ width: ${Store.ch_width}px;
         }
      `);
     // changeSheetContainerSize();
-    $("#luckysheet-cell-flow_0")
-      .addClass(uuidInline + ' layout');
-    $("#luckysheet-sheettable_0")
-    .addClass(uuidInline + ' layoutOne');
-    $("#luckysheetrowHeader_0")
-    .addClass(uuidInline + ' layoutTwo');
-    $("#luckysheet-cols-h-cells_0")
-    .addClass(uuidInline + ' layoutThree');
+    $("#luckysheet-cell-flow_0").addClass(uuidInline + " layout");
+    $("#luckysheet-sheettable_0").addClass(uuidInline + " layoutOne");
+    $("#luckysheetrowHeader_0").addClass(uuidInline + " layoutTwo");
+    $("#luckysheet-cols-h-cells_0").addClass(uuidInline + " layoutThree");
 
     $("#luckysheet-scrollbar-x div").width(Store.ch_width);
     $("#luckysheet-scrollbar-y div").height(
@@ -1934,13 +1931,23 @@ width: ${Store.ch_width}px;
     display:none;
     }
          `);
-        $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-          .addClass(uuidInline + ' layout');
+        $("#luckysheet-sheet-area .luckysheet-sheets-scroll").addClass(
+          uuidInline + " layout"
+        );
         $("#luckysheet-sheet-container .docs-sheet-fade-left").show();
       }
     } else {
-      $("#luckysheet-sheet-area .luckysheet-sheets-scroll")
-      .addClass(uuidInline + ' layout')
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+    display:inline-block;
+            }
+    &.layoutOne {
+    display:none;
+    }
+         `);
+      $("#luckysheet-sheet-area .luckysheet-sheets-scroll").addClass(
+        uuidInline + " layoutOne"
+      );
       $("#luckysheet-sheet-container .docs-sheet-fade-left").hide();
     }
   },

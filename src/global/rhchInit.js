@@ -1,6 +1,8 @@
 import Store from "../store";
 import { computeRowlenByContent, computeColWidthByContent } from "./getRowlen";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
+import luckysheetConfigsetting, {
+  getComputedInlineClassStyling,
+} from "../controllers/luckysheetConfigsetting";
 
 export default function rhchInit(rowheight, colwidth) {
   zoomSetting(); //Zoom sheet on first load
@@ -117,6 +119,5 @@ width: ${Store.rowHeaderWidth - 1.5}px;
       height: ${Store.columnHeaderHeight - 1.5}px;
       }
    `);
-  $("#luckysheet-left-top")
-   .addClass(uuidInlineOne + ' layout');
+  $("#luckysheet-left-top").addClass(uuidInlineOne + " layout");
 }

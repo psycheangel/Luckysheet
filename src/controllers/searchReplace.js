@@ -14,7 +14,7 @@ import Store from "../store";
 import locale from "../locale/locale";
 import { checkProtectionLocked } from "./protection";
 import escapeHtml from "escape-html";
-import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
+import { getComputedInlineClassStyling } from "../controllers/luckysheetConfigsetting";
 
 //查找替换
 const luckysheetSearchReplace = {
@@ -115,8 +115,19 @@ const luckysheetSearchReplace = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
+    const uuidInlineOne = getComputedInlineClassStyling(`
+    
+    
+
+          &.layoutOne {
+            left: ${(winw + scrollLeft - myw) / 2}px;
+        top:${(winh + scrollTop - myh) / 3}px;
+
+          }
+     
+      `);
     $("#luckysheet-search-replace")
-      .addClass(uuidInline + " layoutOne")
+      .addClass(uuidInlineOne + " layoutOne")
       .show();
 
     if (source == "0" || source == "1") {

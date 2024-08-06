@@ -7,7 +7,7 @@ import browser from "./browser";
 import { replaceHtml } from "../utils/util";
 import locale from "../locale/locale";
 import server from "../controllers/server";
-import {getComputedInlineClassStyling} from "../controllers/luckysheetConfigsetting";
+import { getComputedInlineClassStyling } from "../controllers/luckysheetConfigsetting";
 
 const tooltip = {
   info: function (title, content) {
@@ -37,7 +37,7 @@ const tooltip = {
          `);
     let $t = $("#luckysheet-info")
         .find(".luckysheet-modal-dialog-content")
-        .addClass(uuidInlineOne + ' layout')
+        .addClass(uuidInlineOne + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -45,14 +45,14 @@ const tooltip = {
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-      const uuidInline = getComputedInlineClassStyling(`
+    const uuidInline = getComputedInlineClassStyling(`
         &.layout{
 left: ${(winw + scrollLeft - myw) / 2}px;
         top: ${(winh + scrollTop - myh) / 3}px;
             }
            `);
     $("#luckysheet-info")
-      .addClass(uuidInline + ' layout')
+      .addClass(uuidInline + " layout")
       .show();
   },
   confirm: function (title, content, func1, func2, name1, name2) {
@@ -91,7 +91,7 @@ min-width:300px;
          `);
     let $t = $("#luckysheet-confirm")
         .find(".luckysheet-modal-dialog-content")
-       .addClass(uuidInline + ' layout')
+        .addClass(uuidInline + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -99,14 +99,14 @@ min-width:300px;
       winh = $(window).height();
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
-      const uuidInlineTwo = getComputedInlineClassStyling(`
+    const uuidInlineTwo = getComputedInlineClassStyling(`
         &.layout{
 left: ${(winw + scrollLeft - myw) / 2}px;
         top: ${(winh + scrollTop - myh) / 3}px;
             }
            `);
     $("#luckysheet-confirm")
-      .addClass(uuidInlineTwo + ' layout')
+      .addClass(uuidInlineTwo + " layout")
       .show();
     $t.find(".luckysheet-model-conform-btn").click(function () {
       if (typeof func1 == "function") {
@@ -160,7 +160,7 @@ left: ${(winw + scrollLeft - myw) / 2}px;
          `);
     let $t = $("#luckysheet-confirm")
         .find(".luckysheet-modal-dialog-content")
-       .addClass(uuidInlineThree + ' layout')
+        .addClass(uuidInlineThree + " layout")
         .end(),
       myh = $t.outerHeight(),
       myw = $t.outerWidth();
@@ -169,7 +169,7 @@ left: ${(winw + scrollLeft - myw) / 2}px;
     let scrollLeft = $(document).scrollLeft(),
       scrollTop = $(document).scrollTop();
     $("#luckysheet-confirm")
-      .addClass(uuidInlineThree + ' layout')
+      .addClass(uuidInlineThree + " layout")
       .show();
     $t.find(".luckysheet-model-conform-btn").click(function () {
       if (browser.isIE() == "1") {
@@ -183,7 +183,9 @@ left: ${(winw + scrollLeft - myw) / 2}px;
                   }
                  `);
             $(
-              '<iframe class="'+uuidInlineThree+' layout" id="IframeReportImg" name="IframeReportImg" onload="downloadImg();" width="0" height="0" src="about:blank"></iframe>'
+              '<iframe class="' +
+                uuidInlineThree +
+                ' layout" id="IframeReportImg" name="IframeReportImg" onload="downloadImg();" width="0" height="0" src="about:blank"></iframe>'
             ).appendTo("body");
           }
           if ($("#IframeReportImg").attr("src") != imgurl) {
@@ -227,7 +229,7 @@ left: ${(winw + scrollLeft - myw) / 2}px;
     $("#luckysheet-modal-dialog-mask").show();
     let winw = $(window).width(),
       winh = $(window).height();
-      const uuidInlineThree = getComputedInlineClassStyling(`
+    const uuidInlineThree = getComputedInlineClassStyling(`
         &.layout{
             height:${winh - 160}px;
             }
@@ -240,9 +242,9 @@ left: ${(winw + scrollLeft - myw) / 2}px;
            `);
     $("#" + id)
       .find(".luckysheet-chart-point-config")
-      .addClass(uuidInlineThree + ' layout')
+      .addClass(uuidInlineThree + " layout");
     $("#" + id)
-    .addClass(uuidInlineThree + ' layoutOne')
+      .addClass(uuidInlineThree + " layoutOne")
       .show()
       .find(".luckysheet-model-save-btn")
       .click(function () {
@@ -306,27 +308,36 @@ left: ${(winw + scrollLeft - myw) / 2}px;
             &.layout{
                 left: ${toolwidth / 2}px;
                 }
+            
+               `);
+          $toolup
+            .find("div.jfk-tooltip-arrow")
+            .addClass(uuidInlineThree + " layout");
+
+          let toolleft = toffset.left + ($t.outerWidth() - toolwidth) / 2;
+          if (toolleft < 2) {
+            toolleft = 2;
+            const uuidInlineFour = getComputedInlineClassStyling(`
+        
                 &.layoutOne {
-                left: ${ $t.outerWidth() / 2}px;
+                left: ${$t.outerWidth() / 2}px;
                 }
+              
+               `);
+            $toolup
+              .find("div.jfk-tooltip-arrow")
+              .addClass(uuidInlineFour + " layoutOne");
+          }
+          const uuidInlineFive = getComputedInlineClassStyling(`
+        
+               
                 &.layoutTwo {
                  top: ${toffset.top + $t.outerHeight() + 1}px;
             left: ${toolleft}px;
                 }
                `);
-          $toolup
-            .find("div.jfk-tooltip-arrow")
-           .addClass(uuidInlineThree+ ' layout');
 
-          let toolleft = toffset.left + ($t.outerWidth() - toolwidth) / 2;
-          if (toolleft < 2) {
-            toolleft = 2;
-            $toolup
-              .find("div.jfk-tooltip-arrow")
-              .addClass(uuidInlineThree+ ' layoutOne');
-          }
-
-          $toolup.addClass(uuidInlineThree+ ' layoutTwo');
+          $toolup.addClass(uuidInlineFive + " layoutTwo");
         }, 300);
       })
       .on("mouseout", to, function (e) {
@@ -410,26 +421,30 @@ left: ${(winw + scrollLeft - myw) / 2}px;
         border: 1px solid #000;
             }
            `);
-      $("#luckysheetpopover .luckysheetpopover-btn")
-        .addClass(uuidInlineThree + ' layout');
+      $("#luckysheetpopover .luckysheetpopover-btn").addClass(
+        uuidInlineThree + " layout"
+      );
     }
-    const print = Object.keys(pcss).map((t)=>{
-      return `${t} : ${String(pcss[t]).replace('"','')}`
-    })
+    const print = Object.keys(pcss).map(t => {
+      return `${t} : ${String(pcss[t]).replace('"', "")}`;
+    });
     setTimeout(function () {
       const uuidInlineThree = getComputedInlineClassStyling(`
         &.layout{
-        margin-left: ${-$("#luckysheetpopover .luckysheetpopover-btn").outerWidth() / 2};
+        margin-left: ${
+          -$("#luckysheetpopover .luckysheetpopover-btn").outerWidth() / 2
+        };
             }
         &.layoutOne{
-        ${print.join(';')};
+        ${print.join(";")};
         }
            `);
-      $("#luckysheetpopover .luckysheetpopover-content")
-      .addClass(uuidInlineThree + ' layout');
+      $("#luckysheetpopover .luckysheetpopover-content").addClass(
+        uuidInlineThree + " layout"
+      );
     }, 1);
     $("#luckysheetpopover")
-      .addClass(uuidInlineThree + ' layoutOne')
+      .addClass(uuidInlineThree + " layoutOne")
       .fadeIn();
     $("#luckysheetpopover .luckysheetpopover-btn").click(function () {
       if (typeof exitsFuc == "function") {

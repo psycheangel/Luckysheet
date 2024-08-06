@@ -2108,7 +2108,9 @@ export default function luckysheetHandler() {
         }
         mpx = winh;
       }
-  const uuidInline = getComputedInlineClassStyling(`
+
+      Store.calculatebarHeight = mpx;
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
           height:${Store.calculatebarHeight - 2}px;
           }
@@ -2117,11 +2119,8 @@ export default function luckysheetHandler() {
           cursor: ns-resize,
           }
           `);
-      Store.calculatebarHeight = mpx;
-      $("#luckysheet-wa-calculate")
-        .addClass(uuidInline + ' layout');
-      $("#luckysheet-wa-calculate-size")
-        .addClass(uuidInline + ' layoutOne');
+      $("#luckysheet-wa-calculate").addClass(uuidInline + " layout");
+      $("#luckysheet-wa-calculate-size").addClass(uuidInline + " layoutOne");
 
       clearTimeout(formula.functionResizeTimeout);
       formula.functionResizeTimeout = setTimeout(function () {
@@ -2155,7 +2154,7 @@ export default function luckysheetHandler() {
           `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-        .addClass(uuidInline + ' layout');
+        .addClass(uuidInline + " layout");
 
       if (
         top + scrollTop - Store.columnHeaderHeight >=
@@ -2180,7 +2179,7 @@ export default function luckysheetHandler() {
         ];
       }
 
-        const uuidInlineOne = getComputedInlineClassStyling(`
+      const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
         top: ${top}px;
           }
@@ -2188,7 +2187,7 @@ export default function luckysheetHandler() {
           `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-drop")
-          .addClass(uuidInlineOne + ' layout');
+        .addClass(uuidInlineOne + " layout");
       luckysheetFreezen.saveFreezen(
         luckysheetFreezen.freezenhorizontaldata,
         top,
@@ -2217,14 +2216,14 @@ export default function luckysheetHandler() {
         left = luckysheetFreezen.windowWidth - 4;
       }
 
-          const uuidInlineOne = getComputedInlineClassStyling(`
+      const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
       left: ${left}px; 
           }
           `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .addClass(uuidInlineOne + ' layout');
+        .addClass(uuidInlineOne + " layout");
 
       if (
         left + scrollLeft - Store.rowHeaderWidth >=
@@ -2249,14 +2248,14 @@ export default function luckysheetHandler() {
         ];
       }
 
-        const uuidInlineTwo = getComputedInlineClassStyling(`
+      const uuidInlineTwo = getComputedInlineClassStyling(`
           &.layout {
       left: ${left}px; 
           }
           `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-drop")
-          .addClass(uuidInlineTwo + ' layout');
+        .addClass(uuidInlineTwo + " layout");
       luckysheetFreezen.saveFreezen(
         null,
         null,
@@ -2268,14 +2267,15 @@ export default function luckysheetHandler() {
       let x = event.pageX,
         y = event.pageY;
 
-           const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
       left: ${x - pivotTable.movesave.width / 2}px;
           top: ${y - pivotTable.movesave.height}px;
           }
           `);
-      $("#luckysheet-modal-dialog-slider-pivot-move")
-       .addClass(uuidInline + ' layout');
+      $("#luckysheet-modal-dialog-slider-pivot-move").addClass(
+        uuidInline + " layout"
+      );
     } else if (Store.luckysheet_sheet_move_status) {
       let scrollLeft = $("#luckysheet-sheet-container-c").scrollLeft();
       let x = event.pageX + scrollLeft;
@@ -2283,30 +2283,33 @@ export default function luckysheetHandler() {
       if (Math.abs(event.pageX - Store.luckysheet_sheet_move_data.pageX) < 3) {
         return;
       }
-    const uuidInline = getComputedInlineClassStyling(`
-          &.layout {
-          left : ${left}px;
-          }
-          `);
+
       let winW = $("#luckysheet-sheet-container").width();
       let left =
         x -
         Store.luckysheet_sheet_move_data.curleft -
         $("#luckysheet-sheet-container").offset().left;
-      Store.luckysheet_sheet_move_data.activeobject
-        .addClass(uuidInline + ' layout');
+      const uuidInline = getComputedInlineClassStyling(`
+          &.layout {
+          left : ${left}px;
+          }
+          `);
+      Store.luckysheet_sheet_move_data.activeobject.addClass(
+        uuidInline + " layout"
+      );
 
       let row_index = luckysheet_searcharray(
         Store.luckysheet_sheet_move_data.widthlist,
         left + Store.luckysheet_sheet_move_data.curleft
       );
-       const uuidInlineOne = getComputedInlineClassStyling(`
+      const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
           cursor: move;
           }
           `);
-      Store.luckysheet_sheet_move_data.cursorobject
-        .addClass(uuidInlineOne + ' layout');
+      Store.luckysheet_sheet_move_data.cursorobject.addClass(
+        uuidInlineOne + " layout"
+      );
 
       if (left - scrollLeft <= 6) {
         $("#luckysheet-sheets-leftscroll").click();
@@ -2384,14 +2387,12 @@ export default function luckysheetHandler() {
         left = winW - myw - 86;
       }
 
-
       const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
         top: ${top}px; left: ${left}px;
           }
           `);
-      Store.luckysheet_model_move_obj
-        .addClass(uuidInlineOne + ' layout');
+      Store.luckysheet_model_move_obj.addClass(uuidInlineOne + " layout");
       event.preventDefault();
     } else if (
       !!Store.luckysheet_scroll_status ||
@@ -3044,8 +3045,7 @@ export default function luckysheetHandler() {
           row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
           row = Store.visibledatarow[row_e];
 
-
-            const uuidInline = getComputedInlineClassStyling(`
+          const uuidInline = getComputedInlineClassStyling(`
           &.layout {
     left: ${col_pre}px;
               width: ${col - col_pre - 2}px;
@@ -3054,8 +3054,7 @@ export default function luckysheetHandler() {
               display: block;
           }
           `);
-          $("#luckysheet-cell-selected-move")
-           .addClass(uuidInline + ' layout')
+          $("#luckysheet-cell-selected-move").addClass(uuidInline + " layout");
         } else if (Store.luckysheet_cell_selected_extend) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let scrollLeft = $("#luckysheet-cell-main").scrollLeft() - 5;
@@ -3163,7 +3162,7 @@ export default function luckysheetHandler() {
               }
             }
           }
-      const uuidInline = getComputedInlineClassStyling(`
+          const uuidInline = getComputedInlineClassStyling(`
           &.layout {
             left: ${left}px;
               width: ${width}px;
@@ -3172,8 +3171,9 @@ export default function luckysheetHandler() {
               display: block;
           }
           `);
-          $("#luckysheet-cell-selected-extend")
-         .addClass(uuidInline + ' layout');
+          $("#luckysheet-cell-selected-extend").addClass(
+            uuidInline + " layout"
+          );
         } else if (Store.luckysheet_cols_change_size) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
@@ -3192,20 +3192,20 @@ export default function luckysheetHandler() {
             x + 3 - Store.luckysheet_cols_change_size_start[0] > 30 &&
             x < winW + scrollLeft - 100
           ) {
-                  const uuidInline = getComputedInlineClassStyling(`
+            const uuidInline = getComputedInlineClassStyling(`
           &.layout {
             left: ${x}px;
            
           }
 
           &.layoutOne { 
-          left : ${x-2}px;
+          left : ${x - 2}px;
           }
           `);
-            $("#luckysheet-change-size-line")
-                    .addClass(uuidInline + ' layout');
-            $("#luckysheet-cols-change-size")
-                    .addClass(uuidInline + ' layoutOne');
+            $("#luckysheet-change-size-line").addClass(uuidInline + " layout");
+            $("#luckysheet-cols-change-size").addClass(
+              uuidInline + " layoutOne"
+            );
           }
         } else if (Store.luckysheet_rows_change_size) {
           let mouse = mouseposition(event.pageX, event.pageY);
@@ -3222,16 +3222,14 @@ export default function luckysheetHandler() {
             y + 3 - Store.luckysheet_rows_change_size_start[0] > 19 &&
             y < winH + scrollTop - 200
           ) {
-                   const uuidInline = getComputedInlineClassStyling(`
+            const uuidInline = getComputedInlineClassStyling(`
           &.layout {
             top: ${y}px;
            
           }
           `);
-            $("#luckysheet-change-size-line")
-                    .addClass(uuidInline + ' layout');
-            $("#luckysheet-rows-change-size")
-                    .addClass(uuidInline + ' layout');
+            $("#luckysheet-change-size-line").addClass(uuidInline + " layout");
+            $("#luckysheet-rows-change-size").addClass(uuidInline + " layout");
           }
         }
         // chart move
@@ -3268,15 +3266,16 @@ export default function luckysheetHandler() {
             left =
               Store.chartparam.luckysheetCurrentChartMoveWinW - myw - 22 - 36;
           }
-      const uuidInline = getComputedInlineClassStyling(`
+          const uuidInline = getComputedInlineClassStyling(`
           &.layout {
                top: ${top}px;
               left: ${left}px;
            
           }
           `);
-          Store.chartparam.luckysheetCurrentChartMoveObj
-            .addClass(uuidInline + ' layout');
+          Store.chartparam.luckysheetCurrentChartMoveObj.addClass(
+            uuidInline + " layout"
+          );
 
           if (
             luckysheetFreezen.freezenhorizontaldata != null ||
@@ -3439,17 +3438,18 @@ export default function luckysheetHandler() {
             height: height,
             width: width,
           };
-          const print = Object.keys(resizedata).map((t)=>{
+          const print = Object.keys(resizedata).map(t => {
             return `${t} : ${resizedata[t]}px`;
           });
           const uuidInline = getComputedInlineClassStyling(`
           &.layout {
-             ${print.join(';')};
+             ${print.join(";")};
            
           }
           `);
-          Store.chartparam.luckysheetCurrentChartResizeObj
-            .addClass(uuidInline + ' layout');
+          Store.chartparam.luckysheetCurrentChartResizeObj.addClass(
+            uuidInline + " layout"
+          );
           // resize chart
           Store.resizeChart(Store.chartparam.luckysheetCurrentChart);
         }
@@ -3513,8 +3513,9 @@ export default function luckysheetHandler() {
            
           }
           `);
-          $("#luckysheet-modal-dialog-activeImage")
-              .addClass(uuidInline + ' layout');
+          $("#luckysheet-modal-dialog-activeImage").addClass(
+            uuidInline + " layout"
+          );
         }
         //image resize
         else if (!!imageCtrl.resize) {
@@ -3955,7 +3956,7 @@ export default function luckysheetHandler() {
               }
             }
           }
-           const uuidInline = getComputedInlineClassStyling(`
+          const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              width: ${width}px;
               height: ${height}px;
@@ -3964,8 +3965,9 @@ export default function luckysheetHandler() {
            
           }
           `);
-          $("#luckysheet-modal-dialog-activeImage")
-          .addClass(uuidInline + ' layout');
+          $("#luckysheet-modal-dialog-activeImage").addClass(
+            uuidInline + " layout"
+          );
 
           let scaleX = width / imgItem.crop.width;
           let scaleY = height / imgItem.crop.height;
@@ -3974,8 +3976,7 @@ export default function luckysheetHandler() {
           let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
           let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
 
-
-                const uuidInlineOne = getComputedInlineClassStyling(`
+          const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
         background-size: ${defaultWidth}px ${defaultHeight} px;
               background-position: ${-offsetLeft}px ${-offsetTop}px;
@@ -3984,8 +3985,7 @@ export default function luckysheetHandler() {
           `);
           $(
             "#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content"
-          )
-            .addClass(uuidInlineOne + ' layout');
+          ).addClass(uuidInlineOne + " layout");
         }
         //image cropChange
         else if (!!imageCtrl.cropChange) {
@@ -4180,8 +4180,7 @@ export default function luckysheetHandler() {
             top = imgItem.fixedTop + offsetTop;
           }
 
-
-                  const uuidInlineOne = getComputedInlineClassStyling(`
+          const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
               width: ${width}px;
               height: ${height}px; 
@@ -4192,7 +4191,7 @@ export default function luckysheetHandler() {
           `);
           $("#luckysheet-modal-dialog-cropping")
             .show()
-                    .addClass(uuidInlineOne + ' layout');
+            .addClass(uuidInlineOne + " layout");
 
           let imageUrlHandle =
             Store.toJsonOptions && Store.toJsonOptions["imageUrlHandle"];
@@ -4201,8 +4200,7 @@ export default function luckysheetHandler() {
               ? imageUrlHandle(imgItem.src)
               : imgItem.src;
 
-
-                   const uuidInlineTwo = getComputedInlineClassStyling(`
+          const uuidInlineTwo = getComputedInlineClassStyling(`
           &.layout {
                width: ${imgItem.default.width}px;
               height: ${imgItem.default.height}px;
@@ -4212,20 +4210,23 @@ export default function luckysheetHandler() {
            
           }
           `);
-          $("#luckysheet-modal-dialog-cropping .cropping-mask")
-                    .addClass(uuidInlineTwo + ' layout');
+          $("#luckysheet-modal-dialog-cropping .cropping-mask").addClass(
+            uuidInlineTwo + " layout"
+          );
 
-
-                      const uuidInlineThree = getComputedInlineClassStyling(`
+          const uuidInlineThree = getComputedInlineClassStyling(`
           &.layout {
               background-image: url("${imgSrc}");
-              background-size:${imgItem.default.width}px ${imgItem.default.height}px;
+              background-size:${imgItem.default.width}px ${
+            imgItem.default.height
+          }px;
               background-position: ${-offsetLeft}px ${-offsetTop}px;
            
           }
           `);
-          $("#luckysheet-modal-dialog-cropping .cropping-content")
-                        .addClass(uuidInlineThree + ' layout');
+          $("#luckysheet-modal-dialog-cropping .cropping-content").addClass(
+            uuidInlineThree + " layout"
+          );
 
           imageCtrl.cropChangeObj = {
             width: width,
@@ -4259,15 +4260,14 @@ export default function luckysheetHandler() {
           if (left + myw + 22 + 36 > luckysheetPostil.currentWinW) {
             left = luckysheetPostil.currentWinW - myw - 22 - 36;
           }
-const uuidInline = getComputedInlineClassStyling(`
+          const uuidInline = getComputedInlineClassStyling(`
           &.layout {
            left: ${left}px; 
            top: ${top}px; 
            
           }
           `);
-          luckysheetPostil.currentObj
-           .addClass(uuidInline + ' layout');
+          luckysheetPostil.currentObj.addClass(uuidInline + " layout");
         } else if (!!luckysheetPostil.resize) {
           let mouse = mouseposition(event.pageX, event.pageY);
           let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
@@ -4343,7 +4343,6 @@ const uuidInline = getComputedInlineClassStyling(`
             }
           }
 
-
           const uuidInline = getComputedInlineClassStyling(`
           &.layout {
               width: ${width}px;
@@ -4352,8 +4351,7 @@ const uuidInline = getComputedInlineClassStyling(`
               top: ${top}px;
           }
           `);
-          luckysheetPostil.currentObj
-            .addClass(uuidInline+ ' layout');
+          luckysheetPostil.currentObj.addClass(uuidInline + " layout");
         } else if (!!formula.rangeResize) {
           formula.rangeResizeDraging(
             event,
@@ -4496,8 +4494,7 @@ const uuidInline = getComputedInlineClassStyling(`
     window.cancelAnimationFrame(Store.jfautoscrollTimeout);
     Store.luckysheet_scroll_status = false;
 
-
-              const uuidInline = getComputedInlineClassStyling(`
+    const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : crosshair;
           }
@@ -4510,14 +4507,13 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
     $("#luckysheet-cell-selected")
       .find(".luckysheet-cs-fillhandle")
-      .addClass(uuidInline + ' layout')
+      .addClass(uuidInline + " layout")
       .end()
       .find(".luckysheet-cs-draghandle")
-            .addClass(uuidInline + ' layoutOne');
+      .addClass(uuidInline + " layoutOne");
     $(
       "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
-    )
-            .addClass(uuidInline + ' layoutTwo');
+    ).addClass(uuidInline + " layoutTwo");
 
     //行标题窗格主体
     Store.luckysheet_rows_selected_status = false;
@@ -4537,7 +4533,7 @@ const uuidInline = getComputedInlineClassStyling(`
       $("#luckysheet-freezebar-horizontal").removeClass(
         "luckysheet-freezebar-active"
       );
-          const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : -webkit-grab;
           }
@@ -4545,7 +4541,7 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-            .addClass(uuidInline + ' layout');
+        .addClass(uuidInline + " layout");
       if (
         luckysheetFreezen.freezenhorizontaldata[4] <= Store.columnHeaderHeight
       ) {
@@ -4560,8 +4556,8 @@ const uuidInline = getComputedInlineClassStyling(`
       $("#luckysheet-freezebar-vertical").removeClass(
         "luckysheet-freezebar-active"
       );
-      
-        const uuidInline = getComputedInlineClassStyling(`
+
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : -webkit-grab;
           }
@@ -4569,7 +4565,7 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .addClass(uuidInline + ' layout')
+        .addClass(uuidInline + " layout");
       if (luckysheetFreezen.freezenverticaldata[4] <= Store.rowHeaderWidth) {
         luckysheetFreezen.cancelFreezenVertical();
       }
@@ -4581,7 +4577,7 @@ const uuidInline = getComputedInlineClassStyling(`
       $("#luckysheet-modal-dialog-slider-pivot-move").remove();
       pivotTable.movestate = false;
 
-       const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : default;
           }
@@ -4589,8 +4585,7 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
       $(
         "#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value"
-      )
-      .addClass(uuidInline + ' layout');
+      ).addClass(uuidInline + " layout");
       if (
         pivotTable.movesave.containerid !=
         "luckysheet-modal-dialog-pivotTable-list"
@@ -4653,14 +4648,15 @@ const uuidInline = getComputedInlineClassStyling(`
       );
       Store.luckysheet_sheet_move_data.activeobject.removeAttr("style");
       $("#luckysheet-sheets-item-clone").remove();
-             const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : pointer;
           }
 
           `);
-      Store.luckysheet_sheet_move_data.cursorobject
-        .addClass(uuidInline + ' layout');
+      Store.luckysheet_sheet_move_data.cursorobject.addClass(
+        uuidInline + " layout"
+      );
       Store.luckysheet_sheet_move_data = {};
       sheetmanage.reOrderAllSheet();
     }
@@ -4672,12 +4668,9 @@ const uuidInline = getComputedInlineClassStyling(`
     if (!!Store.chartparam.luckysheetCurrentChartMove) {
       Store.chartparam.luckysheetCurrentChartMove = false;
       if (Store.chartparam.luckysheetInsertChartTosheetChange) {
-        
         //myTop, myLeft: 本次的chart框位置，scrollLeft,scrollTop: 上一次的滚动条位置
-        var myTop = Store.chartparam.luckysheetCurrentChartMoveObj
-            .css("top"),
-          myLeft = Store.chartparam.luckysheetCurrentChartMoveObj
-            .css("left"),
+        var myTop = Store.chartparam.luckysheetCurrentChartMoveObj.css("top"),
+          myLeft = Store.chartparam.luckysheetCurrentChartMoveObj.css("left"),
           scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
           scrollTop = $("#luckysheet-cell-main").scrollTop();
 
@@ -4723,10 +4716,8 @@ const uuidInline = getComputedInlineClassStyling(`
           scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
           scrollTop = $("#luckysheet-cell-main").scrollTop();
 
-        var myTop = Store.chartparam.luckysheetCurrentChartMoveObj
-            .css("top"),
-          myLeft = Store.chartparam.luckysheetCurrentChartMoveObj
-            .css("left");
+        var myTop = Store.chartparam.luckysheetCurrentChartMoveObj.css("top"),
+          myLeft = Store.chartparam.luckysheetCurrentChartMoveObj.css("left");
 
         var chart_id = Store.chartparam.luckysheetCurrentChartResizeObj
           .find(".luckysheet-modal-dialog-content")
@@ -4875,7 +4866,7 @@ const uuidInline = getComputedInlineClassStyling(`
     //改变行高
     if (Store.luckysheet_rows_change_size) {
       Store.luckysheet_rows_change_size = false;
-        const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              opacity : 0;
           }
@@ -4885,10 +4876,10 @@ const uuidInline = getComputedInlineClassStyling(`
           }
           `);
       $("#luckysheet-change-size-line").hide();
-      $("#luckysheet-rows-change-size")
-          .addClass(uuidInline + ' layout');
-      $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas")
-                  .addClass(uuidInline + ' layoutOne');
+      $("#luckysheet-rows-change-size").addClass(uuidInline + " layout");
+      $(
+        "#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas"
+      ).addClass(uuidInline + " layoutOne");
 
       let mouse = mouseposition(event.pageX, event.pageY);
       let scrollTop = $("#luckysheet-rows-h").scrollTop();
@@ -4992,7 +4983,7 @@ const uuidInline = getComputedInlineClassStyling(`
 
     //改变列宽
     if (Store.luckysheet_cols_change_size) {
-              const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              opacity : 0;
           }
@@ -5003,12 +4994,10 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
       Store.luckysheet_cols_change_size = false;
       $("#luckysheet-change-size-line").hide();
-      $("#luckysheet-cols-change-size")
-       .addClass(uuidInline + ' layout');
+      $("#luckysheet-cols-change-size").addClass(uuidInline + " layout");
       $(
         "#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas"
-      )
-     .addClass(uuidInline + ' layoutOne');
+      ).addClass(uuidInline + " layoutOne");
 
       let mouse = mouseposition(event.pageX, event.pageY);
       let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
@@ -5463,8 +5452,7 @@ const uuidInline = getComputedInlineClassStyling(`
              cursor : default;
           }
           `);
-      $("#luckysheet-sheettable")
-        .addClass(uuidInline + ' layout');
+      $("#luckysheet-sheettable").addClass(uuidInline + " layout");
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -5711,14 +5699,13 @@ const uuidInline = getComputedInlineClassStyling(`
       luckysheetDropCell.createIcon();
 
       $("#luckysheet-cell-selected-move").hide();
-      
+
       const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : default;
           }
           `);
-      $("#luckysheet-sheettable")
-        .addClass(uuidInline + ' layout');
+      $("#luckysheet-sheettable").addClass(uuidInline + " layout");
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -5748,22 +5735,20 @@ const uuidInline = getComputedInlineClassStyling(`
       return;
     }
 
-
-          const uuidInline = getComputedInlineClassStyling(`
+    const uuidInline = getComputedInlineClassStyling(`
           &.layout {
              cursor : move;
           }
           `);
     $("#luckysheet-cell-selected")
       .find(".luckysheet-cs-fillhandle")
-      .addClass(uuidInline + ' layout')
+      .addClass(uuidInline + " layout")
       .end()
       .find(".luckysheet-cs-draghandle")
-           .addClass(uuidInline + ' layout');
+      .addClass(uuidInline + " layout");
     $(
       "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
-    )
-         .addClass(uuidInline + ' layout');
+    ).addClass(uuidInline + " layout");
 
     Store.luckysheet_cell_selected_move = true;
     Store.luckysheet_scroll_status = true;
@@ -5791,8 +5776,7 @@ const uuidInline = getComputedInlineClassStyling(`
         display: block;
           }
           `);
-    $("#luckysheet-cell-selected-move")
-      .addClass(uuidInlineOne + ' layout');
+    $("#luckysheet-cell-selected-move").addClass(uuidInlineOne + " layout");
 
     event.stopPropagation();
   });
@@ -5804,7 +5788,7 @@ const uuidInline = getComputedInlineClassStyling(`
         //此模式下禁用选区下拉
         return;
       }
-      
+
       const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
           cursor : crosshair;
@@ -5813,14 +5797,13 @@ const uuidInline = getComputedInlineClassStyling(`
           `);
       $("#luckysheet-cell-selected")
         .find(".luckysheet-cs-fillhandle")
-     .addClass(uuidInlineOne + ' layout')
+        .addClass(uuidInlineOne + " layout")
         .end()
         .find(".luckysheet-cs-draghandle")
-     .addClass(uuidInlineOne + ' layout')
+        .addClass(uuidInlineOne + " layout");
       $(
         "#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0"
-      )
-     .addClass(uuidInlineOne + ' layout')
+      ).addClass(uuidInlineOne + " layout");
 
       Store.luckysheet_cell_selected_extend_time = setTimeout(function () {
         Store.luckysheet_cell_selected_extend = true;
@@ -5840,7 +5823,7 @@ const uuidInline = getComputedInlineClassStyling(`
           col_index = col_location[2];
 
         Store.luckysheet_cell_selected_extend_index = [row_index, col_index];
-   const uuidInline = getComputedInlineClassStyling(`
+        const uuidInline = getComputedInlineClassStyling(`
           &.layout {
             left: ${col_pre}px;
             width: ${col - col_pre - 1}px;
@@ -5850,8 +5833,7 @@ const uuidInline = getComputedInlineClassStyling(`
           }
 
           `);
-        $("#luckysheet-cell-selected-extend")
-            .addClass(uuidInline + ' layout');
+        $("#luckysheet-cell-selected-extend").addClass(uuidInline + " layout");
       }, 100);
 
       event.stopPropagation();
@@ -5979,14 +5961,13 @@ const uuidInline = getComputedInlineClassStyling(`
       luckysheetDropCell.createIcon();
 
       $("#luckysheet-cell-selected-move").hide();
- const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
           &.layout {
           cursor : default;
           }
 
           `);
-      $("#luckysheet-sheettable")
-        .addClass(uuidInline + ' layout');
+      $("#luckysheet-sheettable").addClass(uuidInline + " layout");
       clearTimeout(Store.countfuncTimeout);
       Store.countfuncTimeout = setTimeout(function () {
         countfunc();
@@ -6265,7 +6246,7 @@ const uuidInline = getComputedInlineClassStyling(`
       ch_width =
         Store.visibledatacolumn[ed_c] - Store.visibledatacolumn[st_c - 1];
     }
-const uuidInline = getComputedInlineClassStyling(`
+    const uuidInline = getComputedInlineClassStyling(`
           &.layout {
         width: ${ch_width}px;
         height: ${rh_height}px;
@@ -6277,7 +6258,7 @@ const uuidInline = getComputedInlineClassStyling(`
         width: Math.ceil(ch_width * Store.devicePixelRatio),
         height: Math.ceil(rh_height * Store.devicePixelRatio),
       })
-      .addClass(uuidInline + ' layout');
+      .addClass(uuidInline + " layout");
 
     luckysheetDrawMain(
       scrollWidth,
@@ -6318,7 +6299,7 @@ const uuidInline = getComputedInlineClassStyling(`
     } else {
       image.style.height = "100%";
     }
-      
+
     const uuidInlineOne = getComputedInlineClassStyling(`
           &.layout {
           height:${maxHeight}px;
@@ -6597,10 +6578,7 @@ const uuidInline = getComputedInlineClassStyling(`
       //点击功能栏时 如果是单元格编辑模式 则退出编辑模式
       if (
         $(event.target).closest("#luckysheet-wa-editor").length > 0 &&
-        parseInt(
-          $("#luckysheet-input-box")
-            .css("top")
-        ) > 0
+        parseInt($("#luckysheet-input-box").css("top")) > 0
       ) {
         formula.updatecell(
           Store.luckysheetCellUpdate[0],
@@ -7136,17 +7114,14 @@ const uuidInline = getComputedInlineClassStyling(`
                   cell.m = mask[0];
                 }
 
-                let bg = $td
-      
-                  .css("background-color");
+                let bg = $td.css("background-color");
                 if (bg == "rgba(0, 0, 0, 0)") {
                   bg = null;
                 }
 
                 cell.bg = bg;
 
-                let bl = $td
-                  .css("font-weight");
+                let bl = $td.css("font-weight");
                 if (bl == 400 || bl == "normal") {
                   cell.bl = 0;
                 } else {
@@ -7154,25 +7129,19 @@ const uuidInline = getComputedInlineClassStyling(`
                 }
 
                 // 检测下划线
-                let un = $td
-                
-                  .css("text-decoration");
+                let un = $td.css("text-decoration");
                 if (un.indexOf("underline") != -1) {
                   cell.un = 1;
                 }
 
-                let it = $td
-   
-                  .css("font-style");
+                let it = $td.css("font-style");
                 if (it == "normal") {
                   cell.it = 0;
                 } else {
                   cell.it = 1;
                 }
 
-                let ff = $td
-                 
-                  .css("font-family");
+                let ff = $td.css("font-family");
                 let ffs = ff.split(",");
                 for (let i = 0; i < ffs.length; i++) {
                   let fa = $.trim(ffs[i].toLowerCase());
@@ -7184,23 +7153,14 @@ const uuidInline = getComputedInlineClassStyling(`
                     break;
                   }
                 }
-                let fs = Math.round(
-                  (parseInt(
-                    $td
-                      .css("font-size")
-                  ) *
-                    72) /
-                    96
-                );
+                let fs = Math.round((parseInt($td.css("font-size")) * 72) / 96);
                 cell.fs = fs;
 
-                let fc = $td
-                   .css("color");
+                let fc = $td.css("color");
                 cell.fc = fc;
 
                 // 水平对齐属性
-                let ht = $td
-                  .css("text-align");
+                let ht = $td.css("text-align");
                 if (ht == "center") {
                   cell.ht = 0;
                 } else if (ht == "right") {
@@ -7210,8 +7170,7 @@ const uuidInline = getComputedInlineClassStyling(`
                 }
 
                 // 垂直对齐属性
-                let vt = $td
-                  .css("vertical-align");
+                let vt = $td.css("vertical-align");
                 if (vt == "middle") {
                   cell.vt = 0;
                 } else if (vt == "top" || vt == "text-top") {
@@ -7247,23 +7206,15 @@ const uuidInline = getComputedInlineClassStyling(`
                   for (let rp = 0; rp < rowspan; rp++) {
                     for (let cp = 0; cp < colspan; cp++) {
                       if (rp == 0) {
-                        let bt = $td
-                        
-                          .css("border-top");
+                        let bt = $td.css("border-top");
                         if (
                           bt != null &&
                           bt.length > 0 &&
                           bt.substr(0, 3).toLowerCase() != "0px"
                         ) {
-                          let width = $td
-                          
-                            .css("border-top-width");
-                          let type = $td
-                          
-                            .css("border-top-style");
-                          let color = $td
-                         
-                            .css("border-top-color");
+                          let width = $td.css("border-top-width");
+                          let type = $td.css("border-top-style");
+                          let color = $td.css("border-top-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
                             type,
@@ -7282,23 +7233,15 @@ const uuidInline = getComputedInlineClassStyling(`
                       }
 
                       if (rp == rowspan - 1) {
-                        let bb = $td
-                         
-                          .css("border-bottom");
+                        let bb = $td.css("border-bottom");
                         if (
                           bb != null &&
                           bb.length > 0 &&
                           bb.substr(0, 3).toLowerCase() != "0px"
                         ) {
-                          let width = $td
-                          
-                            .css("border-bottom-width");
-                          let type = $td
-                          
-                            .css("border-bottom-style");
-                          let color = $td
-                           
-                            .css("border-bottom-color");
+                          let width = $td.css("border-bottom-width");
+                          let type = $td.css("border-bottom-style");
+                          let color = $td.css("border-bottom-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
                             type,
@@ -7317,23 +7260,15 @@ const uuidInline = getComputedInlineClassStyling(`
                       }
 
                       if (cp == 0) {
-                        let bl = $td
-                         
-                          .css("border-left");
+                        let bl = $td.css("border-left");
                         if (
                           bl != null &&
                           bl.length > 0 &&
                           bl.substr(0, 3).toLowerCase() != "0px"
                         ) {
-                          let width = $td
-                          
-                            .css("border-left-width");
-                          let type = $td
-                          
-                            .css("border-left-style");
-                          let color = $td
-                         
-                            .css("border-left-color");
+                          let width = $td.css("border-left-width");
+                          let type = $td.css("border-left-style");
+                          let color = $td.css("border-left-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
                             type,
@@ -7352,23 +7287,15 @@ const uuidInline = getComputedInlineClassStyling(`
                       }
 
                       if (cp == colspan - 1) {
-                        let br = $td
-                         
-                          .css("border-right");
+                        let br = $td.css("border-right");
                         if (
                           br != null &&
                           br.length > 0 &&
                           br.substr(0, 3).toLowerCase() != "0px"
                         ) {
-                          let width = $td
-                            
-                            .css("border-right-width");
-                          let type = $td
-                            
-                            .css("border-right-style");
-                          let color = $td
-                          
-                            .css("border-right-color");
+                          let width = $td.css("border-right-width");
+                          let type = $td.css("border-right-style");
+                          let color = $td.css("border-right-color");
                           let borderconfig = menuButton.getQKBorder(
                             width,
                             type,

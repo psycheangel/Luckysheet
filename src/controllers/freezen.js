@@ -127,9 +127,11 @@ const luckysheetFreezen = {
           $(this).parent().addClass("luckysheet-freezebar-active");
           $("#luckysheet-freezebar-vertical")
             .find(".luckysheet-freezebar-vertical-handle")
-            .addClass(uuidInline + ' cursor');
+            .addClass(uuidInline + " cursor");
         });
-        const uuidInline = getComputedInlineClassStyling(`
+
+      let gridheight = $("#luckysheet-grid-window-1").height();
+      const uuidInline = getComputedInlineClassStyling(`
         &.layoutOne {
           height: ${gridheight - 10}px;
           width: 4px,
@@ -137,13 +139,12 @@ const luckysheetFreezen = {
           top: 0px,
         }
       `);
-      let gridheight = $("#luckysheet-grid-window-1").height();
       $("#luckysheet-freezebar-vertical")
         .find(".luckysheet-freezebar-vertical-handle")
-        .addClass(uuidInline + ' layoutOne')
+        .addClass(uuidInline + " layoutOne")
         .end()
         .find(".luckysheet-freezebar-vertical-drop")
-        .addClass(uuidInline + ' layoutOne');
+        .addClass(uuidInline + " layoutOne");
     }
 
     if (freezenverticaldata == null) {
@@ -215,10 +216,10 @@ const luckysheetFreezen = {
     $("#luckysheet-freezebar-vertical")
       .show()
       .find(".luckysheet-freezebar-vertical-handle")
-      .addClass(uuidInline + ' layout-position')
+      .addClass(uuidInline + " layout-position")
       .end()
       .find(".luckysheet-freezebar-vertical-drop")
-      .addClass(uuidInline + ' layout-position');
+      .addClass(uuidInline + " layout-position");
   },
   saveFreezen: function (
     freezenhorizontaldata,
@@ -480,9 +481,11 @@ const luckysheetFreezen = {
           $(this).parent().addClass("luckysheet-freezebar-active");
           $("#luckysheet-freezebar-horizontal")
             .find(".luckysheet-freezebar-horizontal-handle")
-            .addClass(uuidInline + ' cursor');
+            .addClass(uuidInline + " cursor");
         });
-        const uuidInline = getComputedInlineClassStyling(`
+
+      let gridwidth = $("#luckysheet-grid-window-1").width();
+      const uuidInline = getComputedInlineClassStyling(`
         &.cursorKit {
           width: ${gridwidth - 10}px;
           height: 4px;
@@ -491,13 +494,12 @@ const luckysheetFreezen = {
         }
     
       `);
-      let gridwidth = $("#luckysheet-grid-window-1").width();
       $("#luckysheet-freezebar-horizontal")
         .find(".luckysheet-freezebar-horizontal-handle")
-       .addClass(uuidInline + ' cursorKit')
+        .addClass(uuidInline + " cursorKit")
         .end()
         .find(".luckysheet-freezebar-horizontal-drop")
-        .addClass(uuidInline + ' cursorKit');
+        .addClass(uuidInline + " cursorKit");
     }
 
     if (freezenhorizontaldata == null) {
@@ -581,10 +583,10 @@ const luckysheetFreezen = {
     $("#luckysheet-freezebar-horizontal")
       .show()
       .find(".luckysheet-freezebar-horizontal-handle")
-      .addClass(uuidInlineOne + ' layoutPosition')
+      .addClass(uuidInlineOne + " layoutPosition")
       .end()
       .find(".luckysheet-freezebar-horizontal-drop")
-      .addClass(uuidInlineOne + ' layoutPosition');
+      .addClass(uuidInlineOne + " layoutPosition");
   },
   createAssistCanvas: function () {
     let _this = this;
@@ -699,7 +701,7 @@ const luckysheetFreezen = {
         width: Math.ceil(width * Store.devicePixelRatio),
         height: Math.ceil(height * Store.devicePixelRatio),
       })
-     .addClass(uuidInline + ' layout');
+      .addClass(uuidInline + " layout");
   },
   removeAssistCanvas: function () {
     const uuidInline = getComputedInlineClassStyling(`
@@ -711,8 +713,7 @@ const luckysheetFreezen = {
     $("#luckysheet-grid-window-1 > canvas")
       .not($("#luckysheetTableContent"))
       .remove();
-    $("#luckysheet-cell-selected")
-    .addClass(uuidInline + ' layout');
+    $("#luckysheet-cell-selected").addClass(uuidInline + " layout");
   },
   scrollAdapt: function () {
     let _this = this;
@@ -825,7 +826,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -837,7 +838,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else if (r2 >= freezen_rowindex) {
           //原选区有一部分在冻结区内
@@ -852,7 +853,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -864,7 +865,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else {
           //原选区在冻结区内
@@ -878,7 +879,7 @@ const luckysheetFreezen = {
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .addClass(uuidInline + ' layout');
+            .addClass(uuidInline + " layout");
         }
 
         let c1 = obj.column[0],
@@ -906,7 +907,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -919,7 +920,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else if (c2 >= freezen_colindex) {
           //原选区有一部分在冻结区内
@@ -935,12 +936,12 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-                .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
               left: ${left_move + offLeft}px;
-              width: ${ width_move - offLeft}px;
+              width: ${width_move - offLeft}px;
       
             }
           `);
@@ -948,7 +949,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -963,7 +964,7 @@ const luckysheetFreezen = {
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .addClass(uuidInline + ' layout');
+            .addClass(uuidInline + " layout");
         }
 
         if (!rangeshow) {
@@ -1011,7 +1012,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1021,7 +1022,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else if (top + height >= freezenTop) {
             if (top + height < freezenTop + offTop) {
@@ -1033,7 +1034,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-              .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1043,7 +1044,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else {
             const uuidInline = getComputedInlineClassStyling(`
@@ -1054,7 +1055,7 @@ const luckysheetFreezen = {
           `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
 
           if (left >= freezenLeft) {
@@ -1070,7 +1071,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1080,7 +1081,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else if (left + width >= freezenLeft) {
             if (left + width < freezenLeft + offLeft) {
@@ -1092,7 +1093,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1102,7 +1103,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else {
             const uuidInline = getComputedInlineClassStyling(`
@@ -1112,7 +1113,7 @@ const luckysheetFreezen = {
           `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
 
           if (!focuscell) {
@@ -1155,7 +1156,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -1167,7 +1168,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else if (r2 >= freezen_rowindex) {
           //原选区有一部分在冻结区内
@@ -1182,7 +1183,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -1194,7 +1195,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -1208,7 +1209,7 @@ const luckysheetFreezen = {
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .addClass(uuidInline + ' layout');
+            .addClass(uuidInline + " layout");
         }
 
         if (s == Store.luckysheet_select_save.length - 1) {
@@ -1239,7 +1240,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1249,7 +1250,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else if (top + height >= freezenTop) {
             if (top + height < freezenTop + offTop) {
@@ -1261,7 +1262,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1271,7 +1272,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else {
             const uuidInline = getComputedInlineClassStyling(`
@@ -1281,7 +1282,7 @@ const luckysheetFreezen = {
           `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         }
       }
@@ -1320,7 +1321,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -1332,7 +1333,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else if (c2 >= freezen_colindex) {
           //原选区有一部分在冻结区内
@@ -1347,7 +1348,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -1359,7 +1360,7 @@ const luckysheetFreezen = {
               .find(".luckysheet-cell-selected")
               .eq(s)
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -1373,7 +1374,7 @@ const luckysheetFreezen = {
             .find(".luckysheet-cell-selected")
             .eq(s)
             .show()
-            .addClass(uuidInline + ' layout');
+            .addClass(uuidInline + " layout");
         }
 
         if (s == Store.luckysheet_select_save.length - 1) {
@@ -1404,7 +1405,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1414,7 +1415,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else if (left + width >= freezenLeft) {
             if (left + width < freezenLeft + offLeft) {
@@ -1426,7 +1427,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1436,7 +1437,7 @@ const luckysheetFreezen = {
             `);
               $("#luckysheet-cell-selected-focus")
                 .show()
-                .addClass(uuidInline + ' layout');
+                .addClass(uuidInline + " layout");
             }
           } else {
             const uuidInline = getComputedInlineClassStyling(`
@@ -1447,7 +1448,7 @@ const luckysheetFreezen = {
           `);
             $("#luckysheet-cell-selected-focus")
               .show()
-              .addClass(uuidInline + ' layout');
+              .addClass(uuidInline + " layout");
           }
         }
       }
@@ -1497,8 +1498,7 @@ const luckysheetFreezen = {
           }
         `);
           //在界面上的位置已经进入冻结区里面了
-          dialogImage
-           .addClass(uuidInline+ ' layout');
+          dialogImage.addClass(uuidInline + " layout");
           isHidden = true;
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -1507,7 +1507,7 @@ const luckysheetFreezen = {
    
           }
         `);
-          dialogImage .addClass(uuidInline+ ' layout');
+          dialogImage.addClass(uuidInline + " layout");
         }
       } else {
         const uuidInline = getComputedInlineClassStyling(`
@@ -1518,7 +1518,7 @@ const luckysheetFreezen = {
         }
       `);
         //原图片在冻结区内
-        dialogImage.addClass(uuidInline+ ' layout');
+        dialogImage.addClass(uuidInline + " layout");
       }
 
       //列冻结
@@ -1533,8 +1533,7 @@ const luckysheetFreezen = {
             }
           `);
             //在界面上的位置已经进入冻结区里面了
-            dialogImage
-            .addClass(uuidInline+ ' layout');
+            dialogImage.addClass(uuidInline + " layout");
           } else {
             const uuidInline = getComputedInlineClassStyling(`
             &.layout {
@@ -1542,7 +1541,7 @@ const luckysheetFreezen = {
      
             }
           `);
-            dialogImage.addClass(uuidInline+ ' layout');
+            dialogImage.addClass(uuidInline + " layout");
           }
         } else {
           const uuidInline = getComputedInlineClassStyling(`
@@ -1553,7 +1552,7 @@ const luckysheetFreezen = {
           }
         `);
           //原图片在冻结区内
-          dialogImage.addClass(uuidInline+ ' layout');
+          dialogImage.addClass(uuidInline + " layout");
         }
       }
     });
@@ -1595,8 +1594,7 @@ const luckysheetFreezen = {
            
               }
             `);
-              $(e)
-               .addClass(uuidInline + ' layout');
+              $(e).addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1605,14 +1603,13 @@ const luckysheetFreezen = {
                 visibility: visible;
               }
               &.layout-position {
-                top: ${ -size}px;
+                top: ${-size}px;
               }
             `);
-              $(e)
-              .addClass(uuidInline + ' layout');
+              $(e).addClass(uuidInline + " layout");
               $(e)
                 .find("canvas")
-                .addClass(uuidInline + ' layout-position');
+                .addClass(uuidInline + " layout-position");
             }
           } else {
             const uuidInline = getComputedInlineClassStyling(`
@@ -1625,11 +1622,10 @@ const luckysheetFreezen = {
               top: 0px;
             }
           `);
-            $(e)
-           .addClass(uuidInline + ' layout');
+            $(e).addClass(uuidInline + " layout");
             $(e)
               .find("canvas")
-              .addClass(uuidInline + ' layout-position');
+              .addClass(uuidInline + " layout-position");
           }
 
           if (x.left - width_diff < freezenLeft) {
@@ -1642,8 +1638,7 @@ const luckysheetFreezen = {
                 visibility: hidden;
               }
             `);
-              $(e)
-                .addClass(uuidInline+ ' layout');
+              $(e).addClass(uuidInline + " layout");
             } else {
               const uuidInline = getComputedInlineClassStyling(`
               &.layout {
@@ -1652,9 +1647,8 @@ const luckysheetFreezen = {
                 visibility:visible;
               }
             `);
-              $(e)
-                .addClass(uuidInline + ' layout');
-                const uuidInlineOne = getComputedInlineClassStyling(`
+              $(e).addClass(uuidInline + " layout");
+              const uuidInlineOne = getComputedInlineClassStyling(`
                 &.layout {
                   left: ${-size}px;
                  
@@ -1662,12 +1656,12 @@ const luckysheetFreezen = {
               `);
               $(e)
                 .find("canvas")
-                .addClass(uuidInlineOne + ' layout');
+                .addClass(uuidInlineOne + " layout");
             }
           } else {
             const uuidInlineOne = getComputedInlineClassStyling(`
             &.layout {
-              left:${ x.left - width_diff + scrollLeft}px;
+              left:${x.left - width_diff + scrollLeft}px;
               width: ${$canvas_width};
               visibility: visible;
             }
@@ -1675,11 +1669,10 @@ const luckysheetFreezen = {
               left: 0px;
             }
           `);
-            $(e)
-              .addClass(uuidInlineOne + ' layout');
+            $(e).addClass(uuidInlineOne + " layout");
             $(e)
               .find("canvas")
-              .addClass(uuidInlineOne + ' layout-position');
+              .addClass(uuidInlineOne + " layout-position");
           }
         }
       );
@@ -1706,15 +1699,14 @@ const luckysheetFreezen = {
               }
               &.layout {
                 top: ${freezenTop + scrollTop}px;
-                height:${ $canvas_height - size}px;
+                height:${$canvas_height - size}px;
                 visibility: visible;
               }
               &.layout-position {
                 left: ${-size}px;
               }
             `);
-              $(e)
-               .addClass(uuidInlineOne + ' hidden');
+              $(e).addClass(uuidInlineOne + " hidden");
             } else {
               const uuidInlineOne = getComputedInlineClassStyling(`
               &.hidden {
@@ -1722,36 +1714,34 @@ const luckysheetFreezen = {
               }
               &.layout {
                 top: ${freezenTop + scrollTop}px;
-                height:${ $canvas_height - size}px;
+                height:${$canvas_height - size}px;
                 visibility: visible;
               }
               &.layout-position {
                 left: ${-size}px;
               }
             `);
-              $(e)
-              .addClass(uuidInlineOne + ' layout');
+              $(e).addClass(uuidInlineOne + " layout");
               $(e)
                 .find("canvas")
-                .addClass(uuidInlineOne + ' layout-position');
+                .addClass(uuidInlineOne + " layout-position");
             }
           } else {
             const uuidInlineOne = getComputedInlineClassStyling(`
       
             &.layout {
-              top: ${ x.top - height_diff + scrollTop}px;
-              height:${ $canvas_height}px;
+              top: ${x.top - height_diff + scrollTop}px;
+              height:${$canvas_height}px;
               visibility: visible;
             }
             &.layout-position {
               left: 0px;
             }
           `);
-            $(e)
-            .addClass(uuidInlineOne + ' layout');
+            $(e).addClass(uuidInlineOne + " layout");
             $(e)
               .find("canvas")
-              .addClass(uuidInlineOne + ' layout-position');
+              .addClass(uuidInlineOne + " layout-position");
           }
         }
       );
@@ -1785,8 +1775,7 @@ const luckysheetFreezen = {
                 left: ${-size}px;
               }
             `);
-              $(e)
-               .addClass(uuidInlineOne + ' hidden');
+              $(e).addClass(uuidInlineOne + " hidden");
             } else {
               const uuidInlineOne = getComputedInlineClassStyling(`
               &.hidden {
@@ -1801,11 +1790,10 @@ const luckysheetFreezen = {
                 left: ${-size}px;
               }
             `);
-              $(e)
-              .addClass(uuidInlineOne + ' layout');
+              $(e).addClass(uuidInlineOne + " layout");
               $(e)
                 .find("canvas")
-                .addClass(uuidInlineOne + ' layout-position');
+                .addClass(uuidInlineOne + " layout-position");
             }
           } else {
             const uuidInlineOne = getComputedInlineClassStyling(`
@@ -1819,11 +1807,10 @@ const luckysheetFreezen = {
               left: ${-size}px;
             }
           `);
-            $(e)
-              .addClass(uuidInlineOne + ' layout');
+            $(e).addClass(uuidInlineOne + " layout");
             $(e)
               .find("canvas")
-              .addClass(uuidInlineOne + ' layout-position');
+              .addClass(uuidInlineOne + " layout-position");
           }
         }
       );
@@ -1853,12 +1840,11 @@ const luckysheetFreezen = {
             left: 0px;
           }
         `);
-          $(e)
-            .addClass(uuidInlineOne + ' layout');
+          $(e).addClass(uuidInlineOne + " layout");
 
           $(e)
             .find("canvas")
-            .addClass(uuidInlineOne + ' layout-position');
+            .addClass(uuidInlineOne + " layout-position");
         }
       );
     }
@@ -1945,11 +1931,11 @@ const luckysheetFreezen = {
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .addClass(uuidInlineOne + ' layout-position')
+              .addClass(uuidInlineOne + " layout-position");
             $(e)
               .show()
               .find(".arrowCanvas")
-              .addClass(uuidInlineOne + ' layout-position-one')
+              .addClass(uuidInlineOne + " layout-position-one");
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
@@ -1959,7 +1945,9 @@ const luckysheetFreezen = {
 
                 &.layout-position {
                   top: ${freezenTop + offTop}px;
-                  height: ${postil_height - (freezenTop + offTop - postil_top)}px
+                  height: ${
+                    postil_height - (freezenTop + offTop - postil_top)
+                  }px
                 }
                 &.layout-position-one {
                   margin-top: ${-(freezenTop + offTop - postil_top)}px;
@@ -1968,11 +1956,11 @@ const luckysheetFreezen = {
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                 .addClass(uuidInlineOne+ ' layout-position');
+                  .addClass(uuidInlineOne + " layout-position");
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .addClass(uuidInlineOne+ ' layout-position-one');
+                  .addClass(uuidInlineOne + " layout-position-one");
                 $(e).show().find(".arrowCanvas").hide();
 
                 show2 = false;
@@ -1994,15 +1982,15 @@ const luckysheetFreezen = {
               $(e)
                 .show()
                 .find(".luckysheet-postil-show-main")
-                .addClass(uuidInline + ' layout-position');
+                .addClass(uuidInline + " layout-position");
               $(e)
                 .show()
                 .find(".formulaInputFocus")
-                .addClass(uuidInline + ' layout-position-one');
+                .addClass(uuidInline + " layout-position-one");
               $(e)
                 .show()
                 .find(".arrowCanvas")
-                .addClass(uuidInline + ' layout-position-two');
+                .addClass(uuidInline + " layout-position-two");
               // luckysheetPostil.buildPs(r, c, postil);
             }
           }
@@ -2020,11 +2008,11 @@ const luckysheetFreezen = {
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
           $(e)
             .show()
             .find(".arrowCanvas")
-            .addClass(uuidInline + ' layout-position-two');
+            .addClass(uuidInline + " layout-position-two");
         }
 
         if (c >= _this.freezenverticaldata[1]) {
@@ -2042,11 +2030,11 @@ const luckysheetFreezen = {
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .addClass(uuidInline + ' layout-position-one');
+              .addClass(uuidInline + " layout-position-one");
             $(e)
               .show()
               .find(".arrowCanvas")
-              .addClass(uuidInline + ' layout-position-two');
+              .addClass(uuidInline + " layout-position-two");
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
@@ -2057,7 +2045,9 @@ const luckysheetFreezen = {
            
                 &.layout-position-one {
                   left : ${freezenLeft + offLeft}px;
-                  width: ${postil_width - (freezenLeft + offLeft - postil_left)}px;
+                  width: ${
+                    postil_width - (freezenLeft + offLeft - postil_left)
+                  }px;
                 }
                 &.layout-position-two {
                   margin-left : ${-(freezenLeft + offLeft - postil_left)}px;
@@ -2066,11 +2056,11 @@ const luckysheetFreezen = {
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .addClass(uuidInline + ' layout-position-one');
+                  .addClass(uuidInline + " layout-position-one");
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .addClass(uuidInline + ' layout-position-two');
+                  .addClass(uuidInline + " layout-position-two");
                 $(e).show().find(".arrowCanvas").hide();
 
                 show2 = false;
@@ -2093,15 +2083,15 @@ const luckysheetFreezen = {
               $(e)
                 .show()
                 .find(".luckysheet-postil-show-main")
-                .addClass(uuidInline + ' layout-position-one');
+                .addClass(uuidInline + " layout-position-one");
               $(e)
                 .show()
                 .find(".formulaInputFocus")
-                .addClass(uuidInline + ' layout-position-two');
+                .addClass(uuidInline + " layout-position-two");
               $(e)
                 .show()
                 .find(".arrowCanvas")
-                .addClass(uuidInline + ' layout-position-three');
+                .addClass(uuidInline + " layout-position-three");
               // luckysheetPostil.buildPs(r, c, postil);
             }
           }
@@ -2119,11 +2109,11 @@ const luckysheetFreezen = {
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
           $(e)
             .show()
             .find(".arrowCanvas")
-            .addClass(uuidInline + ' layout-position-two');
+            .addClass(uuidInline + " layout-position-two");
         }
 
         if (!show) {
@@ -2190,7 +2180,6 @@ const luckysheetFreezen = {
 
         if (r >= _this.freezenhorizontaldata[1]) {
           if (postil_top + postil_height < freezenTop) {
-
             const uuidInline = getComputedInlineClassStyling(`
             &.layout-position-one {
               top: ${postil_top + offTop}px;
@@ -2202,11 +2191,11 @@ const luckysheetFreezen = {
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-        .addClass(uuidInline + ' layout-position-one');
+              .addClass(uuidInline + " layout-position-one");
             $(e)
               .show()
               .find(".arrowCanvas")
-              .addClass(uuidInline + ' layout-position-two');
+              .addClass(uuidInline + " layout-position-two");
           } else {
             if (postil_top < freezenTop + offTop) {
               if (postil_top + postil_height <= freezenTop + offTop) {
@@ -2224,11 +2213,11 @@ const luckysheetFreezen = {
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .addClass(uuidInline + ' layout-position-one');
+                  .addClass(uuidInline + " layout-position-one");
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .addClass(uuidInline + ' layout-position-two');
+                  .addClass(uuidInline + " layout-position-two");
                 $(e).show().find(".arrowCanvas").hide();
               }
             } else {
@@ -2248,11 +2237,11 @@ const luckysheetFreezen = {
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
           $(e)
             .show()
             .find(".arrowCanvas")
-            .addClass(uuidInline + ' layout-position-two');
+            .addClass(uuidInline + " layout-position-two");
         }
       });
     } else if (_this.freezenverticaldata != null) {
@@ -2323,11 +2312,11 @@ const luckysheetFreezen = {
             $(e)
               .show()
               .find(".luckysheet-postil-show-main")
-              .addClass(uuidInline + ' layout-position-one');
+              .addClass(uuidInline + " layout-position-one");
             $(e)
               .show()
               .find(".arrowCanvas")
-              .addClass(uuidInline + ' layout-position-two');
+              .addClass(uuidInline + " layout-position-two");
           } else {
             if (postil_left < freezenLeft + offLeft) {
               if (postil_left + postil_width <= freezenLeft + offLeft) {
@@ -2336,7 +2325,9 @@ const luckysheetFreezen = {
                 const uuidInline = getComputedInlineClassStyling(`
                 &.layout-position-one {
                   left: ${freezenLeft + offLeft}px;
-                  width: ${postil_width - (freezenLeft + offLeft - postil_left)}px;
+                  width: ${
+                    postil_width - (freezenLeft + offLeft - postil_left)
+                  }px;
           
                 }
                 &.layout-position-two {
@@ -2346,11 +2337,11 @@ const luckysheetFreezen = {
                 $(e)
                   .show()
                   .find(".luckysheet-postil-show-main")
-                  .addClass(uuidInline + ' layout-position-one');
+                  .addClass(uuidInline + " layout-position-one");
                 $(e)
                   .show()
                   .find(".formulaInputFocus")
-                  .addClass(uuidInline + ' layout-position-two');
+                  .addClass(uuidInline + " layout-position-two");
                 $(e).show().find(".arrowCanvas").hide();
               }
             } else {
@@ -2369,11 +2360,11 @@ const luckysheetFreezen = {
           $(e)
             .show()
             .find(".luckysheet-postil-show-main")
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
           $(e)
             .show()
             .find(".arrowCanvas")
-            .addClass(uuidInline + ' layout-position-two');
+            .addClass(uuidInline + " layout-position-two");
         }
       });
     } else {
@@ -2449,7 +2440,7 @@ const luckysheetFreezen = {
 
           $("#luckysheet-dropCell-icon")
             .show()
-            .addClass(uuidInline + ' layout-position-one')
+            .addClass(uuidInline + " layout-position-one");
         }
       } else if (col_index >= freezen_colindex) {
         if (col_index < freezen_colindex + offsetColumn - 1) {
@@ -2464,23 +2455,22 @@ const luckysheetFreezen = {
         `);
           $("#luckysheet-dropCell-icon")
             .show()
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
         }
       } else {
         let row = rowLocationByIndex(row_index + offsetRow)[1],
           col = colLocationByIndex(col_index + offsetColumn)[1];
 
-          const uuidInline = getComputedInlineClassStyling(`
+        const uuidInline = getComputedInlineClassStyling(`
           &.layout-position-one {
             left: ${col}px;
             top: ${row}px;
           }
         `);
 
-
         $("#luckysheet-dropCell-icon")
           .show()
-          .addClass(uuidInline + ' layout-position-one');
+          .addClass(uuidInline + " layout-position-one");
       }
     } else if (_this.freezenhorizontaldata != null) {
       let freezen_rowindex = _this.freezenhorizontaldata[1];
@@ -2504,7 +2494,7 @@ const luckysheetFreezen = {
         `);
         $("#luckysheet-dropCell-icon")
           .show()
-          .addClass(uuidInline + ' layout-position-one');
+          .addClass(uuidInline + " layout-position-one");
       }
     } else if (_this.freezenverticaldata != null) {
       let freezen_colindex = _this.freezenverticaldata[1];
@@ -2528,12 +2518,12 @@ const luckysheetFreezen = {
         `);
         $("#luckysheet-dropCell-icon")
           .show()
-          .addClass(uuidInline + ' layout-position-one');
+          .addClass(uuidInline + " layout-position-one");
       }
     } else {
       let row = rowLocationByIndex(row_index)[1],
         col = colLocationByIndex(col_index)[1];
-        const uuidInline = getComputedInlineClassStyling(`
+      const uuidInline = getComputedInlineClassStyling(`
         &.layout-position-one {
           left: ${col}px;
           top : ${row}px;
@@ -2541,7 +2531,7 @@ const luckysheetFreezen = {
         `);
       $("#luckysheet-dropCell-icon")
         .show()
-        .addClass(uuidInline + ' layout-position-one');
+        .addClass(uuidInline + " layout-position-one");
     }
   },
   scrollAdaptOffilteroptions: function () {
@@ -2593,7 +2583,7 @@ const luckysheetFreezen = {
             `);
             $(e)
               .show()
-              .addClass(uuidInline + ' layout-position-one');
+              .addClass(uuidInline + " layout-position-one");
           }
         } else if (col_index >= freezen_colindex) {
           if (col_index < freezen_colindex + offsetColumn) {
@@ -2607,8 +2597,7 @@ const luckysheetFreezen = {
             `);
             $(e)
               .show()
-              .addClass(uuidInline + ' layout-position-one');
-           
+              .addClass(uuidInline + " layout-position-one");
           }
         } else {
           let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
@@ -2621,7 +2610,7 @@ const luckysheetFreezen = {
           `);
           $(e)
             .show()
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
         }
       });
     } else if (_this.freezenhorizontaldata != null) {
@@ -2653,7 +2642,7 @@ const luckysheetFreezen = {
           `);
           $(e)
             .show()
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
         }
       });
     } else if (_this.freezenverticaldata != null) {
@@ -2687,7 +2676,7 @@ const luckysheetFreezen = {
           `);
           $(e)
             .show()
-            .addClass(uuidInline + ' layout-position-one');
+            .addClass(uuidInline + " layout-position-one");
         }
       });
     } else {
